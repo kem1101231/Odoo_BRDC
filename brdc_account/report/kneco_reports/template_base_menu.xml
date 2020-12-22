@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+
+        <record id="print_info_form_view" model="ir.ui.view">
+            <field name="name">Print Information</field>
+            <field name="model">report.account.commission</field>
+            <field name="arch" type="xml">
+                <form string="Release Commission">
+
+                        <group col-span="2">
+                        
+                           <field name="agent" domain="[('is_agent','=',True)]"/>
+                           <field name="for_release"/>
+                           <field name="date_from" invisible="1"/>
+                           <field name="date_to"/>
+                           <!-- <field name="file_name" invisible="1"/>
+                           <field name="document" filename="file_name"/> -->
+                           <field name="carrier_xlsx_document" widget="binary" filename="carrier_xlsx_document_name"  readonly="1"/><!-- attrs="{'invisible':[('state','=', 'draft')]}" -->
+                           <field name="carrier_xlsx_document_name" invisible="1"/>
+                        
+                        </group>
+                    <footer>
+                        <button string="Print" type="object" name="print_info" class="oe_highlight"/>
+                        <button string="Generate Excel" name="generate_excel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="print_info_action_form_view" model="ir.actions.act_window">
+            <field name="name">Print Information</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.account.commission</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="brdc_account.print_info_form_view"/>
+            <!-- <field name="context">{'default_account_agent_commission_id':active_id}</field> -->
+            <field name="target">new</field>
+        </record>
+
+
+<!-- 
+        <menuitem id="configuration_control_categ" name="Configuration" parent="BRDC_inventory_root" sequence="7"/>
+ -->
+<!--         <menuitem id="print_info_categ" name="Print Information" parent="brdc_inventory.report_control_categ" action="print_info_action_form_view" sequence="8" groups="brdc_account.group_module_brdc_account_cashier"/> -->
+	</data>
+</odoo>

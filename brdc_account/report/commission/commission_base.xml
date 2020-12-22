@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+            <report 
+            id="agent_nc_voucher_template"
+            model="report.brdc_account.agent_net_commission_voucher"
+            string="Agent Net Commission Voucher"
+            report_type="qweb-pdf"
+            name="brdc_account.agent_net_commission_voucher"
+            file="brdc_account.agent_net_commission_voucher_template"
+            />
+
+            <record id="paperformat_landscape" model="report.paperformat">
+                <field name="name">European Legal low margin</field>
+                <field name="default" eval="True" />
+                <field name="format">Legal</field>
+                <field name="page_height">0</field>
+                <field name="page_width">0</field>
+                <field name="orientation">Landscape</field>
+                <field name="margin_top">4</field>
+                <field name="margin_bottom">4</field>
+                <field name="margin_left">0</field>
+                <field name="margin_right">0</field>
+                <field name="header_line" eval="False" />
+                <field name="header_spacing">0</field>
+                <field name="dpi">90</field>
+            </record>
+
+            <record id="brdc_account.agent_nc_voucher_template" model="ir.actions.report.xml">
+                <field name="paperformat_id" ref="brdc_account.paperformat_landscape" />
+            </record>
+
+
+    </data>
+</odoo>

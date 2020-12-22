@@ -1,0 +1,64 @@
+<templates xml:space="preserve">
+    <t t-name="ShowIntermentSchedule">
+        <t t-if="has_schedule">
+            <div class="container-fluid">
+                    <div class="row">
+                            <div class="panel-group">
+                                <t t-foreach="content" t-as="docs">
+                                    <t t-if="docs.state == 'draft'">
+                                    <div class="col-md-3 panelspace" style="padding-bottom: 30px;">
+                                        <div class="panel panel-warning" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                            <div class="panel-heading">
+                                                <a role="button" tabindex="0" class="js_pop_information fa fa fa-info-circle text-warning" t-att-interment-id="docs.id" style="margin-right:5px;float: right;"></a>
+                                                <b>INFORMANT:</b> <t t-esc="docs.informant"/>
+                                            </div>
+                                            <div class="panel-body">
+                                                <b>Schedule: </b><t t-esc="docs.interment_sched"/> <br/>
+                                                <b>Area: </b><t t-esc="docs.area"/> <br/>
+                                                <b>Block: </b><t t-esc="docs.block"/> <b>Lot: </b><t t-esc="docs.lot"/> <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </t>
+                                    <t t-if="docs.state == 'confirmed'">
+                                    <div class="col-md-3 panelspace" style="padding-bottom: 30px;">
+                                        <div class="panel panel-info" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                            <div class="panel-heading">
+                                                <a role="button" tabindex="0" class="js_pop_information fa fa fa-info-circle text-info" t-att-interment-id="docs.id" style="margin-right:5px;float: right;"></a>
+                                                <b>INFORMANT:</b> <t t-esc="docs.informant"/>
+                                            </div>
+                                            <div class="panel-body">
+                                                <b>Schedule: </b><t t-esc="docs.interment_sched"/> <br/>
+                                                <b>Area: </b><t t-esc="docs.area"/> <br/>
+                                                <b>Block: </b><t t-esc="docs.block"/> <b>Lot: </b><t t-esc="docs.lot"/> <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </t>
+                                    <t t-if="docs.state == 'done'">
+                                    <div class="col-md-3 panelspace" style="padding-bottom: 30px;">
+                                        <div class="panel panel-success" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                            <div class="panel-heading">
+                                                <a role="button" tabindex="0" class="js_pop_information fa fa fa-info-circle text-success" t-att-interment-id="docs.id" style="margin-right:5px;float: right;"></a>
+                                                <b>INFORMANT:</b> <t t-esc="docs.informant"/>
+                                            </div>
+                                            <div class="panel-body">
+                                                <b>Schedule: </b><t t-esc="docs.interment_sched"/> <br/>
+                                                <b>Area: </b><t t-esc="docs.area"/> <br/>
+                                                <b>Block: </b><t t-esc="docs.block"/> <b>Lot: </b><t t-esc="docs.lot"/> <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </t>
+                                </t>
+                            </div>
+                    </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="IntermentPopOver">
+        <p><t t-esc="name"/></p>
+        <button class="btn btn-xs btn-primary open_information pull-right" t-att-interment-id="interment_id" style="margin-top:5px; margin-bottom:5px;">Show Information</button>
+    </t>
+</templates>

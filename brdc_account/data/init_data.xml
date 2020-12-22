@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--email-->
+        <record id="config_email_server_gmail_noreply" model="ir.mail_server">
+            <field name="name">No-Reply.MIS@MUTI Group Email Server</field>
+            <field name="sequence">1</field>
+            <field name="smtp_host">smtp.gmail.com</field>
+            <field name="smtp_port">587</field>
+            <field name="smtp_encryption">starttls</field>
+            <field name="smtp_user">noreply.muti.gc@gmail.com</field>
+            <field name="smtp_pass">MUT1Mi52018</field>
+        </record>
+
+        <!--<record id="config_email_server_gmail" model="ir.mail_server">-->
+            <!--<field name="name">MIS@MUTI Group Email Server</field>-->
+            <!--<field name="sequence">2</field>-->
+            <!--<field name="smtp_host">smtp.gmail.com</field>-->
+            <!--<field name="smtp_port">587</field>-->
+            <!--<field name="smtp_encryption">starttls</field>-->
+            <!--<field name="smtp_user">mutigroupsys@gmail.com</field>-->
+            <!--<field name="smtp_pass">MUT1Mi52018</field>-->
+        <!--</record>-->
+
+        <record id="base.PHP" model="res.currency">
+            <field name="active" eval="True"/>
+            <field name="symbol">₱</field>
+            <field name="position">before</field>
+        </record>
+
+        <record id="base.USD" model="res.currency">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="base.EUR" model="res.currency">
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="base.user_root" model="res.users">
+            <field name="in_group_5" eval="True"/>
+        </record>
+
+        <record id="base.default_user" model="res.users">
+            <field name="tz">Asia/Manila</field>
+        </record>
+        <delete id="hrms_base.main_company_brdc" model="res.company"/>
+        <delete id="hrms_base.main_partner_brdc" model="res.partner"/>
+        <record id="base.main_partner" model="res.partner">
+            <field name="name">BIOCIELO REALTY AND DEVELOPMENT CORP.</field>
+            <field name="email">info@mutigroup.com</field>
+            <field name="website">www.mutigroup.com</field>
+            <field name="image" type="base64" file="hrms_base/static/src/img/biocielo_logo.png"/>
+            <field name="is_company" eval="True"/>
+            <field name="owned_company" eval="True"/>
+            <field name="abbreviation">BRDC</field>
+        </record>
+        <!--<record id="base.main_partner" model="res.partner">-->
+            <!--<field name="name">MUTI Group of Companies</field>-->
+            <!--<field name="email">info@mutigroup.com</field>-->
+            <!--<field name="website">www.mutigroup.com</field>-->
+            <!--<field name="image" type="base64" file="mgc_base/static/src/img/mutigroup_logo.png"/>-->
+            <!--<field name="is_company" eval="True"/>-->
+            <!--<field name="owned_company" eval="True"/>-->
+        <!--</record>-->
+
+        <record id="base.partner_root" model="res.partner">
+            <field name="name">Systems Administrator</field>
+            <field name="email">admin@mutigroup.com</field>
+            <field name="image" type="base64" file="mgc_base/static/src/img/mutigroup_logo.png"/>
+            <field name="active" eval="False"/>
+            <field name="tz">Asia/Manila</field>
+        </record>
+
+        <!-- Basic Company  -->
+        <record id="base.main_company" model="res.company">
+            <field name="name">BIOCIELO REALTY AND DEVELOPMENT CORP.</field>
+            <field name="abbreviation">BRDC</field>
+            <field name="rml_header1">Service is our business.</field>
+            <field name="type">business_unit</field>
+            <field name="currency_id" ref="base.PHP"/>
+            <field name="logo" type="base64" file="hrms_base/static/src/img/biocielo_logo.png"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="brdc_collection_area_tree_view" model="ir.ui.view">
+            <field name="name">Collection Area</field>
+            <field name="model">brdc.collection.area</field>
+            <field name="arch" type="xml">
+   
+                <tree string="Collector Area" >
+                    <field name="name"/>
+                    <field name="province_id"/>
+                    <field name="municipality_id"/>
+                    <field name="barangay_ids"/>
+
+                    <!-- 
+                    <field name="primary_collector"/>
+                    <field name="secondary_collector"/> 
+                    -->
+                </tree>
+            </field>
+        </record>
+        <record id="brdc_collection_area_form_view" model="ir.ui.view">
+            <field name="name">Area</field>
+            <field name="model">brdc.collection.area</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="oe_title">
+                    	<label for="name"/>
+                    	<h3>
+                    		<field name="name"/>
+                    	</h3>
+                        
+ 					</div>
+    
+                    <group>
+                    <group>
+                        <separator colspan="2" style="font-size:18px; margin-bottom:10px;" string="Location Infomation"/> 
+                        <field name="province_id"/>
+                        <field name="municipality_id" domain="[('province_id','=',province_id)]"/>
+                        <field name="specify_brgy"/>
+                        <field name="barangay_ids" attrs="{'invisible':[('specify_brgy','=',False)]}" domain="[('municipality_id','=',municipality_id)]"  widget="many2many_tags" />
+                    </group>
+                    <group>
+                        <separator colspan="2" style="font-size:18px; margin-bottom:10px;" string="Collector"/> 
+                   		<!-- <field name="primary_collector" invisible="1"/> -->
+                        <field name="collector_id_list" widget="many2many_tags"/>
+                        <field name="collector_ids" widget="many2many_tags" invisible="1"/><!--  -->
+                    </group>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+<!--  =======================  Collector Pop  ========================================== -->
+
+        <record id="transfer_account_form_view" model="ir.ui.view">
+            <field name="name">Transfer Accounts</field>
+            <field name="model">brdc.invoice.transfer.collector</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Accounts">
+                    <header>
+                        <button type="object" string="Validate" name="validate_request" class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+      
+                    <group>
+                        <group>
+                            <field name="from_collector" option="{'no_create':True}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="collector_id_ref" invisible="1"/>
+                            <field name="transfer_type"/>
+                            <field name="pa_to_transfer"  widget="many2many_tags" attrs="{'invisible':[('transfer_type','=','area')]}" domain="[('pa_ref_collector','=',collector_id_ref)]" option="{'no_create':True}"/>
+                            <field name="area_to_tranfer"  widget="many2many_tags" attrs="{'invisible':[('transfer_type','=','bypa')]}" option="{'no_create':True}"/>
+                        </group>
+                        <group>
+                            <field name="to_collector" option="{'no_create':True}"/>
+                        </group>
+                    </group>
+                    <!-- <footer>
+                        <button string="Submit" type="object" name="cancel_terminate_invoice" class="oe_highlight" />
+                        <button string="Close" type="object" special="cancel" class="oe_link" invisible="0"/>
+                    </footer> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="transfer_account_action_form_view" model="ir.actions.act_window">
+            <field name="name">Transfer Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brdc.invoice.transfer.collector</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="transfer_account_form_view"/>
+            <field name="context">{'default_from_collector':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <record id="brdc_collection_collector_tree_view" model="ir.ui.view">
+            <field name="name">Collector</field>
+            <field name="model">brdc.collection.collector</field>
+            <field name="arch" type="xml">
+   
+                <tree string="Collectors" >
+                    <field name="name"/>
+                    <field name="area_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="brdc_collection_collector_form_view" model="ir.ui.view">
+            <field name="name">Release Commission</field>
+            <field name="model">brdc.collection.collector</field>
+            <field name="arch" type="xml">
+                <form>
+                	<header>
+                         <button name="%(transfer_account_action_form_view)d" type="action" string="Transfer Accounts" />
+                		<!-- <button type="object" string="Transfer Accounts" class="oe_highlight"/> -->
+                	</header>
+                        <div class="oe_title oe_read_only" style="margin-top:15px;">
+                    	<label for="name" class="oe_read_only"/>
+                    	<h3>
+                    		<field name="name" class="oe_read_only"/>
+                    	</h3>
+                        
+ 					</div>
+                    <group>
+                    <group>
+                        <field name="collector_id" class="oe_edit_only"/>
+                        <field name="area_id" widget="many2many_tags" />
+                    </group>
+                    <group><!-- 
+                        <separator colspan="2" style="font-size:18px; margin-bottom:10px;" string="Reference Details"/> 
+                        <field name="pa_number"  readonly="1"/>
+                        <field name="invoice_id"  readonly="1"/>
+                        <field name="invoice_number" invisible="1"/>
+                        <separator colspan="2" style="margin-bottom:15px;" string=""/> 
+                        <field name="payment_type" readonly="1"/>
+                        <field name="payment_term" readonly="1"/>
+                        <field name="ser_number" readonly="1"/> -->
+                    </group>
+                    </group>
+<!--                     <notebook>
+                      <page string="Invoice Line">
+                          <field name="invoice_line"  readsonly="1"/>
+                      </page>
+                      <page string="Journal Entries">
+                          <field name="journal_entry_line" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="name"/>
+                                <field name="journal_id"/>
+                                <field name="account_id"/>
+                                <field name="debit" sum="Total"/>
+                                <field name="credit" sum="Total"/>
+                            </tree>
+                          </field>
+                      </page>
+                    </notebook> -->
+                    <notebook>
+                        <page string="Assigned P.A. History">
+                            <field name="history_line" readonly="1">
+                                <tree>
+                                    <field name="invoice_id"/>
+                                    <field name="collector_id" invisible="1"/>
+                                    <field name="status"/>
+                                    <field name="date_assigned"/>
+                                    <field name="date_removal"/>
+
+                                </tree>
+
+                            </field>
+                        </page>
+                        <page string="Account Transfer Requests">
+                            <field name="transfer_request" readonly="1">
+                                <tree>
+                                    <field name="transfer_type"/>
+                                    <field name="from_collector"/>
+                                    <field name="to_collector"/>
+                                    <field name="state"/>
+
+                                </tree>
+                            </field>
+                        </page>
+<!-- 
+    name = fields.Char(string="Tranfer ID")
+     = fields.Selection(selection=[('draft','Draft'),('done','Validated'),('cancel','Canceled')], state="Status", default="draft")
+     = fields.Selection(selection=[('bypa','Transfer by P.A.'),('area','Tranfer by Area')], string="Type", default='bypa')
+
+     = fields.Many2one(comodel_name="brdc.collection.collector", string="From Collector")
+    collector_id_ref = fields.Many2one(comodel_name="res.users", string="Collector", related="from_collector.collector_id")
+     = fields.Many2one(comodel_name="brdc.collection.collector", string="To Collector")
+
+    area_to_tranfer = fields.Many2many(comodel_name="brdc.collection.area",string="Area to Transfer")
+    pa_to_transfer = fields.Many2many(comodel_name="account.invoice",string="P.A. to Transfer")
+                         -->
+                    </notebook>
+
+                </form>
+            </field>
+        </record>
+
+		<!-- widget="many2many_tags"  -->
+        
+
+        <record id="brdc_collector_update_form_view" model="ir.ui.view">
+            <field name="name">Update Colectors</field>
+            <field name="model">brdc.update.collectors</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="update_collectors" string="Update"/>
+                        <button type="object" name="update_collector_history" string="Update History"/>
+                        <button type="object" name="update_payments_post" string="Update Payments"/>
+                        <button type="object" name="update_collection" string="Update Collection"/>
+                        <button type="object" name="check_and_update_invoices" string="Update Invoice"/>
+                        <button type="object" name="update_payments_and_sched" string="Update Payment Scheds"/>
+                        <button type="object" name="delete_double_payment" string="Delete Duplicates"/>
+                        <button type="object" name="coll_with_draft_payment" string="Delete Drafts"/>
+                    </header>
+                    <group>
+                        <field name="file1" filename="file1_name"/>
+                        <field name="file1_name" invisible="1"/><!-- 
+                        <field name="file2" filename="file2_name"/>
+                        <field name="file2_name" invisible="1"/> -->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+    	<record model="ir.actions.act_window" id="brdc_collection_collector_action">
+            <field name="name">Collectors</field>
+            <field name="res_model">brdc.collection.collector</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record >
+        <record model="ir.actions.act_window" id="brdc_collection_area_action">
+            <field name="name">Area</field>
+            <field name="res_model">brdc.collection.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record >
+        <record model="ir.actions.act_window" id="brdc_update_collector_action">
+            <field name="name">Update</field>
+            <field name="res_model">brdc.update.collectors</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record >
+
+		<!-- 
+    	<menuitem id="brdc_transactions_menu" name="Transactions" parent="brdc_inventory.accounting_control_categ" action="brdc_transactions_action" sequence="1" />
+    	 -->
+		
+		<menuitem id="collectition_configuration_control_categ" name="Collection" parent="brdc_inventory.configuration_control_categ" groups="brdc_account.group_module_brdc_accounting"/>
+		<menuitem id="collector_config_categ" name="Collector" parent="collectition_configuration_control_categ" action="brdc_collection_collector_action" groups="brdc_account.group_module_brdc_accounting"/>
+        <menuitem id="collection_area_config_categ" name="Area" parent="collectition_configuration_control_categ" action="brdc_collection_area_action" groups="brdc_account.group_module_brdc_accounting"/>
+        <menuitem id="collection_update_collector_categ" name="Update Collector" parent="collectition_configuration_control_categ" action="brdc_update_collector_action" groups="brdc_account.group_module_brdc_accounting"/>
+    </data>
+
+</odoo>
+
+

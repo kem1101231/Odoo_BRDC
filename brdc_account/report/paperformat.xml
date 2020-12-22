@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="official_receipt_paperformat_custom" model="report.paperformat">
+            <field name="name">custom receipt</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">13</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">17</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">4</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="custom_legal_paperformat" model="report.paperformat">
+            <field name="name">legal custom</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">22</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="custom_letter_landscape_margin10_paperformat" model="report.paperformat">
+            <field name="name">short length - </field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Landscape</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="custom_letter_landscape_marginfit_paperformat" model="report.paperformat">
+            <field name="name">short length - </field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Landscape</field>
+            <field name="page_height">356</field>
+            <field name="page_width">216</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+        <record id="custom_legalfit_paperformat" model="report.paperformat">
+            <field name="name">legal custom</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">100</field>
+        </record>
+
+    </data>
+</odoo>

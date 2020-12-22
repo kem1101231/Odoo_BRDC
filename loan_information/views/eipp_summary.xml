@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="eipp_loan_line_form" model="ir.ui.view">
+            <field name="name">EIPP Loan Line Form</field>
+            <field name="model">eipp.loan.line</field>
+            <field name="arch" type="xml">
+                <form string="" create="false" delete="false" duplicate="false" >
+                    <header class="oe_edit_only">
+                        <button name="confirm_action" type="object" states="draft" string="Confirm"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="payment_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="paid_amount"/>
+                                <!--<field name="payment_id"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+
+                                <field name="date_for_payment"/>
+                                <field name="payment_term"/>
+                                <field name="customer_id"/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="eipp_loan_id"/>
+                                <field name="is_paid"/>
+                                <field name="amount_to_pay"/>
+                                <field name="payable_balance" readonly="1"/>
+                                <field name="balance"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="interment_loan_line" model="ir.ui.view">
+            <field name="name">EIPP Loan Line</field>
+            <field name="model">eipp.loan.line</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" import="false" delete="false">
+                    <field name="payment_id"/>
+                    <field name="eipp_loan_id"/>
+                    <field name="customer_id"/>
+                    <field name="amount_to_pay" sum="amount_to_pay"/>
+                    <field name="is_paid"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

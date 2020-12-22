@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="purchase_agreement"
+            model="account.invoice"
+            report_type="qweb-html"
+            string="Purchase Agreement"
+            name="brdc_account.purchase_agreement_template"
+            file="Purchase Agreement"
+            paperformat="custom_legal_paperformat"
+            menu="False"
+        />
+
+        <template id="brdc_account.purchase_agreement_template">
+            <t t-call="report.html_container">
+                <font t-foreach="docs" t-as="d" face="Arial, serif">
+                    <div class="page" style="font-size:120%; font-family: Arial; width:100%; height:100%;margin-top: 100px;">
+                        <style type="text/css">
+                            table.a {
+                                width: 100%;
+                            }
+                            table.b {
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+                            table.c {
+                                table-layout: fixed;
+                                width: 100%;
+                                text-align: center;
+                            }
+                            table.d {
+                                table-layout: fixed;
+                                width: 100%;
+                            }
+                            p.a {
+                                line-height: 1.3;
+                            }
+                            p.b {
+                                text-indent: 50px;
+                            }
+                            td.a {
+                                width: 140px;
+                                font-weight: bold;
+                            }
+                            td.b {
+                                width: 280px;
+                            }
+                            td.d {
+                                padding-top: 50px;
+                                border-bottom: 0.5px solid black;
+                            }
+                            td.c {
+                                width: 140px;
+                            }
+                            tr.a {
+                                border-top: 0.5px solid black;
+                            }
+                            th {
+                                text-align: center;
+                            }
+                            ol {
+                                display: block;
+                                margin-top: 0;
+                                margin-bottom: 0;
+                                margin-left: 0;
+                                margin-right: 0;
+                                padding-left: 40px;
+                            }
+                            div.a {
+                                padding-top: 80px;
+                            }
+                             div.b {
+                                padding-top: 80px;
+                            }
+                            tr.border_bottom td.border_bottom {
+                              border-bottom:1pt solid black;
+                            }
+                        </style>
+                        <!--<div class="a"/>-->
+                        <div class="header">
+
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="width: 20%;text-align: right;">
+                                                <img class="img img-responsive" src="/brdc_account/static/img/logo_1.png" style="max-height:65px;"/>
+                                            </td>
+                                            <td style="width: 60%;">
+                                                <center>
+                                                <p>
+                                                    <b>BIOCIELO REALTY AND DEVELOPMENT CORPORATION</b>
+                                                    <br/>
+                                                    <p style="font-size:90%;">3rd Floor, Vensu Building, National Highway, Gen. Santos City
+                                                    <br/>
+                                                    Tel No. (083) 554-3853; Mobile Phone No. 0922-821-5081
+                                                    <br/>
+                                                    email   safe_biocielo@yahoo.com
+                                                    </p>
+                                                </p>
+                                                </center>
+                                            </td>
+                                            <td style="width: 20%;">
+                                                <center>
+                                                    <img class="img img-responsive" src="/brdc_account/static/img/logo_2.png" style="max-height:65px;"/>
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+
+                                <hr/>
+                            </div>
+                        <br/>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 20%">REFERENCES</td>
+                                <td style="width: 50%">: <span t-field="d.number"/></td>
+                                <td style="width: 10%">No.</td>
+                                <td style="width: 20%">: <span t-field="d.pa_ref"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%">DATE</td>
+                                <td style="width: 50%">: <span t-field="d.date_invoice" t-field-options='{"format": "d MMMM y"}'/></td>
+                                <td/>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%">SALES AGENT</td>
+                                <td style="width: 50%">: <span t-field="d.agent_id.name"/></td>
+                                <td/>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%">AGENCY MANAGER</td>
+                                <td style="width: 50%">: <span t-field="d.agent_id.agent_manager_id.name"/></td>
+                                <td/>
+                                <td/>
+                            </tr>
+
+                        </table>
+                        <center>
+                            <h1>PURCHASE AGREEMENT</h1>
+                        </center>
+                        <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                            This AGREEMENT is made and executed in the Philippines on the date indicated above, by and between:
+                            <b>BIOCIELO REALTY &amp; DEVELOPMENT CORPORATION (BRDC),</b> a corporation duly organized and existing
+                            under the laws of the Republic of the Philippines and Owner / Developer of Monte Cielo Eternal Garden,
+                            with office address at 3rd Flr., Vensu Bldg., National highway, Gen. Santos City represented by its General
+                            Manager <u>PHM-MHA G. MANGURAMAS</u>, hereinafter referred to as the SELLER, and — <u> <span t-field="d.partner_id.name"/></u>,
+                            of legal age, single / married, Filipino and a resident of
+                            <u>
+                                <t t-foreach="d.partner_id" t-as="p_id">
+                                    <span t-field="p_id.province_id.name"/>,
+                                    <span t-field="p_id.municipality_id.name"/>,
+                                    <span t-field="p_id.barangay_id.name"/>,
+                                    <span t-field="p_id.street"/>
+                                </t>
+                            </u> hereinafter referred to as the BUYER.
+
+                        </p>
+                        <center>
+                            <h3>
+                                <u>W I T N E S S E T H:</u>
+                            </h3>
+                        </center>
+                        <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                                That BUYER is willing to purchase and SELLER agrees to sell to the said BUYER a certain piece of memorial
+                                lot / property which shall be used for interment purposes only and best described as follows:
+                        </p>
+                        <table class="c">
+                            <tr t-foreach="d.invoice_line_ids" t-as="line" class="border_bottom">
+                                <td t-if="line.product_id.categ_id.parent_id" style="width: 25%;" class="border_bottom"><span t-field="line.product_id.categ_id.parent_id.name"/></td>
+                                <td t-if="not line.product_id.categ_id.parent_id" style="width: 25%;" class="border_bottom"><span t-field="line.product_id.categ_id.name"/></td>
+                                <td style="width: 25%;" class="border_bottom"><span t-field="line.product_id.categ_id.name"/></td>
+                                <td style="width: 10%;" class="border_bottom"><span t-field="line.product_id.area_number.name"/></td>
+                                <!--<td style="width: 20%;"><p>Block <span t-field="line.lot_id.block_number"/> Lot <span t-field="line.lot_id.lot_number"/></p></td>-->
+                                <td style="width: 20%;" class="border_bottom">
+                                    <table class="c">
+                                        <tr>
+                                            <td>
+                                                <!--<span t-foreach="d.get_lots()" t-as="lots"/>-->
+                                                <span t-esc="d.get_lots()"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td t-if="line.product_id.level" style="width: 20%;"><span t-field="line.product_id.level" class="border_bottom"/></td>
+                                <td t-if="not line.product_id.level" style="width: 20%;" class="border_bottom"><p>N/A</p></td>
+                            </tr>
+                            <tr t-foreach="d.invoice_line_ids" t-as="line">
+                                <td>PRODUCT</td>
+                                <td>TYPE/CLASS</td>
+                                <td>AREA</td>
+                                <td>(Block &amp; Lot No.)</td>
+                                <td>Level/Unit Num</td>
+                            </tr>
+
+                        </table>
+                        <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                            NOW THEREFORE, for and in consideration of the above premises, the parties herein agree, as it is hereby
+                            agreed, to mutually enter into an agreement with the following terms and conditions, to wit:
+                        </p>
+                        <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;margin-left: 50px;">
+                            <ol>
+                                <li style="margin-top:20px;">
+                                    <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                                    BUYER agrees to pay SELLER, in Philippine Currency and without need of demand, the Contract
+                                Price stated hereunder inclusive of 12% value-added tax according to the schedule of payment
+                                stated herein. Upon receipt of SELLER of BUYER's first payment, BUYER is automatically covered
+                                with a free Mortgage Redemption Insurance (MRI) to a maximum amount of Php 100,000.00
+                                subject to the MRI's contestability clause, provided client is 18 to 60 years old. If delinquent,
+                                BUYER may still avail of MRI provided that the account is updated before interment. If BUYER is
+                                on default, his/her MRI is deemed terminated on the date of the default, pursuant to paragraph 3
+                                hereunder;
+                                    </p>
+                                </li>
+                                <li style="margin-top:20px;">
+                                    <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                                    The required down payment under this Purchase Agreement shall be paid in _____ equal split,
+                                    the first of which shall be paid by the BUYER upon signing of this agreement and the balance will
+                                    be paid during the next scheduled amortizations until fully paid.
+                                    </p>
+                                </li>
+                                <li style="margin-top:20px;">
+                                    <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                                    If BUYER fails to pay any amortization when due, unpaid balance shall be charged 14% interest per
+                                    annum until fully paid. BUYER shall be considered ON DEFAULT upon his/her/its failure to pay
+                                    three (3) monthly amortizations, in which case SELLER shall automatically terminate this Purchase
+                                    Agreement without need of written notice to BUYER. Thereafter, full control and ownership of the
+                                    subject memorial lot shall be restored to the SELLER, and BUYER shall be charge liquidated and
+                                    administrative costs computed based on existing policy or Two Thousand Pesos (Php 2,000.00),
+                                    whichever is higher.
+                                    </p>
+                                </li>
+                                <li style="margin-top:20px;">
+                                    <p style="text-align: justify; line-height: 1.3; letter-spacing: 2px;">
+                                    Parties herein mutually agree to the following terms and conditions in the purchase of the above-described property, to wit:
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 25%">Lot Price</td>
+                                            <td style="width: 25%">: N/A</td>
+                                            <td style="width: 25%">Down Payment</td>
+                                            <td style="width: 25%">: N/A</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 25%">VAT</td>
+                                            <td style="width: 25%">: N/A</td>
+                                            <td style="width: 25%">Balance Due</td>
+                                            <td style="width: 25%">: N/A</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 25%">Perpetual Care Fund</td>
+                                            <td style="width: 25%">: N/A</td>
+                                            <td style="width: 25%">Payment Term (month)</td>
+                                            <td style="width: 25%">: N/A</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 25%">Contract Price</td>
+                                            <td style="width: 25%">: <span t-field="d.amount_untaxed"/></td>
+                                            <td style="width: 25%">Amount Per Month</td>
+                                            <td style="width: 25%">: ₱ <span t-esc="d.get_monthly()"/></td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </li>
+
+                            </ol>
+
+                        </p>
+
+
+                        <!--<table class="a">-->
+                            <!--<tr>-->
+                                <!--<td>-->
+                                    <!--<table class="a">-->
+                                        <!--<tr>-->
+                                            <!--<td>REFERENCES</td>-->
+                                            <!--<td style="padding-left: 80px;">-->
+                                                <!--<span t-field="d.number"/>-->
+                                            <!--</td>-->
+                                            <!--<td>No. </td>-->
+                                            <!--<td style="padding-right: 40px;text-align: right;">-->
+                                                <!--<span t-field="d.pa_ref"/>-->
+                                            <!--</td>-->
+
+                                        <!--</tr>-->
+                                    <!--</table>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>DATE</td>-->
+                                <!--<td style="padding-top:5px; padding-left: 160px;">-->
+                                    <!--<span t-field="d.date_invoice" t-options ='{"format": "MM/dd/yyyy"}'/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>DATE</td>-->
+                                <!--<td style="padding-top:5px; padding-left: 160px;">-->
+                                    <!--<span t-field="d.partner_id.sales_agent_id.name"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>DATE</td>-->
+                                <!--<td style="padding-top:5px; padding-left: 160px;">-->
+                                    <!--<span t-field="d.partner_id.agent_manager_id.name"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding-top:203px;">-->
+                                    <!--<span t-field="d.partner_id.name"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding-top: 3px;">-->
+                                    <!--<t t-foreach="d.partner_id" t-as="p_id">-->
+                                        <!--<span t-field="p_id.province_id.name"/>,-->
+                                        <!--<span t-field="p_id.municipality_id.name"/>,-->
+                                        <!--<span t-field="p_id.barangay_id.name"/>,-->
+                                        <!--<span t-field="p_id.street"/>-->
+                                    <!--</t>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding-top: 80px;">-->
+                                    <!--<table class="c">-->
+                                        <!--<tr t-foreach="d.invoice_line_ids" t-as="line">-->
+                                            <!--<td t-if="line.product_id.categ_id.parent_id" style="text-align:left; width: 25%;"><span t-field="line.product_id.categ_id.parent_id.name"/></td>-->
+                                            <!--<td t-if="not line.product_id.categ_id.parent_id" style="text-align:left; width: 25%;"><span t-field="line.product_id.categ_id.name"/></td>-->
+                                            <!--<td style="text-align:left; width: 25%;"><span t-field="line.product_id.categ_id.name"/></td>-->
+                                            <!--<td style="text-align:left; width: 10%;"><span t-field="line.product_id.area_number.name"/></td>-->
+                                            <!--&lt;!&ndash;<td style="width: 20%;"><p>Block <span t-field="line.lot_id.block_number"/> Lot <span t-field="line.lot_id.lot_number"/></p></td>&ndash;&gt;-->
+                                            <!--<td style="width: 20%;">-->
+                                                <!--<table class="c">-->
+                                                    <!--<tr>-->
+                                                        <!--<td style="text-align:left;">-->
+                                                            <!--&lt;!&ndash;<span t-foreach="d.get_lots()" t-as="lots"/>&ndash;&gt;-->
+                                                            <!--<span t-esc="d.get_lots()"/>-->
+                                                        <!--</td>-->
+                                                    <!--</tr>-->
+                                                <!--</table>-->
+                                            <!--</td>-->
+                                            <!--<td t-if="line.product_id.level" style="width: 20%;"><span t-field="line.product_id.level"/></td>-->
+                                            <!--<td t-if="not line.product_id.level" style="width: 20%;"><p>N/A</p></td>-->
+                                            <!--&lt;!&ndash;<td t-if=""&ndash;&gt;-->
+                                        <!--</tr>-->
+                                    <!--</table>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding-top: 600px;">-->
+                                    <!--<table class="c">-->
+                                        <!--<tr>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px;">-->
+                                                <!--₱ <span t-esc="d.get_lot_price()"/>-->
+                                            <!--</td>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px;">-->
+                                                <!--₱ <span t-esc="d.get_downpayment()"/>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:6px;">-->
+                                                <!--₱ <span t-esc="d.get_vat()"/>-->
+                                            <!--</td>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:6px;">-->
+
+                                                <!--₱ <span t-esc="d.get_balance_due()"/>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:19px;">-->
+                                                <!--₱ <span t-esc="d.get_pcf()"/>-->
+                                            <!--</td>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:19px;">-->
+                                                <!--<span t-esc="d.get_term()"/>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:6px;">-->
+                                                <!--<span t-field="d.amount_untaxed"/>-->
+                                            <!--</td>-->
+                                            <!--<td style="text-align: left; width: 50%; padding-left: 200px; padding-top:6px;">-->
+                                                <!--₱ <span t-esc="d.get_monthly()"/>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+
+                                    <!--</table>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    </div>
+                </font>
+            </t>
+        </template>
+    </data>
+</odoo>

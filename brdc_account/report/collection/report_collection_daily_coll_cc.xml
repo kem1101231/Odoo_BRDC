@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="report_collection_col_daily_coll_cc_action"
+                   model="brdc.report.collect.main"
+                   report_type="qweb-html"
+                   string="Collection Report"
+                   name="brdc_account.report_collection_dcb_template"
+                   file="brdc_account.report_collection_col_daily_coll_cc"
+                   paperformat="brdc_account.custom_letter_landscape_marginfit_paperformat"
+                   menu="True"
+               />
+
+        <template id="report_collection_dcb_template">
+           <!--  <t t-call="brdc_account.custom_external_layout"> -->
+           <t t-call="report.html_container">
+                <t t-set="dcr" t-value="dataInput['dcr']"/>
+                <t t-foreach="dcr['lines']" t-as="lines">
+                  <div class="page" style="padding:0px; margin:0px; border: 1px solid #fff; background:blue;">
+                  <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                              <img style="padding:0px; border: 1px solid #fff" src="/brdc_account/static/img/logo_1.png"/>
+                                            </td>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">
+                                                Biocielo Reality and Development Corporation
+                                            </td>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                              <img style="width:80px; height: 80px;" src="/brdc_account/static/img/logo_2.png"/>
+                                            </td>  
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                3rd Floor Vensu Blg. National Highway, General Santos City 
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px; padding: 0px; border: 1px solid #fff">
+                                                Telefax No. (083) 554-3853
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                Mobile No. 0922-821-5081
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 20px;  border: 1px solid #fff">
+                                               <t t-if="dataInput['type'] != 'collect'">CONSOLIDATED</t> DAILY CASH COLLECTION REPORT <t t-if="dataInput['type'] == 'collect'">PER <t t-if="dataInput['col_type'] == 'collect'">COLLECTOR</t><t t-if="dataInput['col_type'] == 'cashier'">CASHIER</t> </t>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px;  padding:0px;  border: 1px solid #fff">
+                                                <span t-esc="dataInput['date_gen']" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <t t-if="dataInput['type'] == 'collect'">
+                                <table class="table table-hover" style="margin-top: 10px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" style=" border: 1px solid #000; padding:8px;"><span t-esc="dataInput['collector']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </t>
+<!--                                 <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">Marbel Universal Trading Inc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">MUTI Bldg., Osmeña St., Koronadal City</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">PURCHASE JOURNAL</td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table> -->
+                               <!--  <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Vendor:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;">Kawasaki Phili., Inc.</td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff"  class="text-right">Journal No.:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Address:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Contact:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right"></td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">T.I.N.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">VAT:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Receipt No.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table> -->
+                                <table class="table table-hover" style="margin-top: 8px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 650px; border: 1px solid #fff"  class="text-right">
+                                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+
+                                                    <thead  class="text-center">
+                                                        <tr>
+                                                            <th style="font-size: 12px; padding:0px;width: 70px; border: 1px solid #000" class="text-center" >NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 90px; border: 1px solid #000" class="text-center" >MODE OF PAYMENT</th>
+                                                            <th style="font-size: 12px;  padding:0px;width: 250px; border: 1px solid #000" class="text-center" >CUSTOMER NAME</th>
+                                                            <th style="font-size: 12px;  padding:0px;width: 100px; border: 1px solid #000" class="text-center" >PA #</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 200px; border: 1px solid #000" class="text-center" >PARTICULAR</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" >OR NO.</th>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <th style="font-size: 12px; padding:0px;width: 250px; border: 1px solid #000" class="text-center" >COLLECTED TROUGH</th>
+                                                            </t>
+                                                            <th style="font-size: 12px;  padding:0px;width: 100px; border: 1px solid #000" class="text-center" >AMOUNT</th>
+                                                        </tr>
+                                                        
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-set="page" t-value="lines['page']"/>
+                                                        <t t-foreach="page" t-as="line">
+                                                            <style>
+                                                                .cell_style
+                                                                {
+                                                                    padding:3px 5px 3px 5px;
+                                                                    border-left: 1px solid #000;
+                                                                    border-right: 1px solid #000;
+                                                                    font-size: 10px;   
+                                                                }
+                                                                .unbordered_cell
+                                                                {
+                                                                    border-bottom: 1px solid #fff;
+                                                                }
+                                                                .bordered_cell
+                                                                {
+                                                                    border:1px solid #000
+                                                                }
+
+                                                            </style>
+
+                                                       <tr>
+
+                                                            <td class="text-center cell_style unbordered_cell">
+                                                               <span t-esc="line['no']"/> 
+                                                            </td>
+                                                            <td  class="text-center cell_style unbordered_cell">
+                                                                <span t-esc="line['payment_type']" />
+                                                            </td>
+                                                            <td class="cell_style unbordered_cell">
+                                                                <span t-esc="line['client']" />
+                                                            </td>
+                                                            <td class="text-center cell_style unbordered_cell">
+                                                                <span t-esc="line['pa_number']" />
+                                                            </td>
+                                                            <td class="text-center cell_style unbordered_cell">
+                                                                <span t-esc="line['particular']" />
+                                                            </td>
+
+                                                            <td class="text-center cell_style unbordered_cell">
+                                                                <span t-esc="line['or']" />
+                                                            </td>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <td class="cell_style unbordered_cell">
+                                                                <span t-esc="line['collector']" />
+                                                            </td>
+                                                            </t>
+                                                            <td class="text-right cell_style unbordered_cell">
+                                                                <span t-esc="'{:,.2f}'.format(line['collected'])" />
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                         <!-- <tr>
+                                                            <td colspan="7" style="border: 1px solid #000; font-size: 10px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;"></td>
+                                                            
+                                                           
+                                                        </tr> -->
+                                                        <tr>
+                                                            <t t-if="dataInput['type']  != 'collect'">
+                                                               <td colspan="7" style="font-weight: bold; padding:0px; margin:0px;"  class="text-right cell_style bordered_cell">
+                                                                   
+                                                            </td> 
+                                                            </t>
+                                                            <t t-if="dataInput['type']  == 'collect'">
+                                                                <td colspan="6" style="font-weight: bold;padding:0px; margin:0px;"  class="text-right cell_style bordered_cell">
+                                                                
+                                                            </td>
+                                                            </t>
+                                                            <td style="border: 1px solid #000; margin:0px; padding:0px" class="text-right cell_style bordered_cell" ></td>
+                                                        </tr>
+
+                                                        <t t-set="total" t-value="lines['totals']"/>
+                                                        <tr>
+                                                            <t t-if="dataInput['type']  != 'collect'">
+                                                               <td colspan="7" style="font-weight: bold;"  class="text-right cell_style bordered_cell">
+                                                                    GRAND TOTAL
+                                                            </td> 
+                                                            </t>
+                                                            <t t-if="dataInput['type']  == 'collect'">
+                                                                <td colspan="6" style="font-weight: bold;"  class="text-right cell_style bordered_cell">
+                                                                    GRAND TOTAL
+                                                            </td>
+                                                            </t>
+                                                            
+                                                            <td class="text-right cell_style bordered_cell" ><span t-esc="'{:,.2f}'.format(total['collected'])"/></td>
+                                                        </tr>
+
+                                                      
+                                                    </tbody>
+                                                </table>
+
+
+
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                
+
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+               </div>
+               <div class="footer">
+                    <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+                        <div class="panel panel-default" style="border:0px solid #fff"> 
+                            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                   <table class="table table-hover" style="margin:0px;padding: 0px; border: 1px solid #fff">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th><span style="font-size:9px;">Printed: </span><span style="font-size: 11px; color:#b80e0b;" t-esc="dataInput['print_date']"/></th>
+                                                                            <!-- <th class="text-right"><span style="font-size:9px;">Page </span><span style="font-size: 11px;" t-esc="lines['page_number']"/></th> -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                 </table>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+               </div>
+                
+         
+           </t>
+                <t t-set="dcb" t-value="dataInput['dcb']"/>
+               <div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+                  <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                               <img style="padding:0px; border: 1px solid #fff" src="/brdc_account/static/img/logo_1.png"/>
+                                            </td>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">
+                                                Biocielo Reality and Development Corporation
+                                            </td>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                               <img style="width:80px; height: 80px;" src="/brdc_account/static/img/logo_2.png"/>
+                                            </td>  
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                3rd Floor Vensu Blg. National Highway, General Santos City 
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px; padding: 0px; border: 1px solid #fff">
+                                                Telefax No. (083) 554-3853
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                Mobile No. 0922-821-5081
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 20px;  border: 1px solid #fff">
+                                                 <t t-if="dataInput['type'] != 'collect'">CONSOLIDATED</t> RECONCILATION OF DAILY CASH BALANCES <t t-if="dataInput['type'] == 'collect'">PER <t t-if="dataInput['col_type'] == 'collect'">COLLECTOR</t><t t-if="dataInput['col_type'] == 'cashier'">CASHIER</t></t>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px;  padding:0px;  border: 1px solid #fff">
+                                                <span t-esc="dataInput['date_gen']" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <t t-set="type" t-value="dataInput['type']"/> -->
+                                <t t-if="dataInput['type'] == 'collect'">
+                                <table class="table table-hover" style="margin-top: 10px;padding-top: 0px; margin-bottom:10px;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" style=" border: 1px solid #000; padding:8px;"><span t-esc="dataInput['collector']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </t>
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" style="font-size: 14px; padding: 0px; font-weight: bold;  border: 1px solid #fff; text-indent: 15px;">
+                                                Cash Receipts
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Daily Cash Sales Report
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                <span t-esc="'{:,.2f}'.format(dcb['cash_collection'])" />
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Daily Account Collection Reports
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff" class="text-right">
+                                                <span t-esc="'{:,.2f}'.format(dcb['installment_collection'])" />
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Daily Other Collection Reports
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;">
+                                                <span t-esc="'{:,.2f}'.format(dcb['fees_collection'])" />
+                                                <p style="border-top: 1px solid #000; margin: 0 0 0 0 "></p>
+                                                 <p style="border-top: 1px solid #000; margin: 1px 0 0 0"></p>
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px; font-weight: bold;   border: 1px solid #fff; text-indent: 25px;">
+                                                Total Cash Receipts
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff;">
+                                               
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;border-bottom: 1px solid #000">
+                                                <span t-esc="'{:,.2f}'.format(dcb['total_conso_collection'])" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px; font-weight: bold;   border: 1px solid #fff; ">
+                                                CASH BALANCE ENDING
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;">
+                                                <span t-esc="'{:,.2f}'.format(dcb['total_conso_collection'])" /> 
+                                                <p style="border-top: 1px solid #000; margin: 0 0 0 0 "></p>
+                                                 <p style="border-top: 1px solid #000; margin: 1px 0 0 0"></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" style="font-size: 14px; padding: 0px; font-weight: bold;  border: 1px solid #fff;">
+                                                Cash Count
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 14px; padding: 0px; font-weight: bold;  border: 1px solid #fff; text-indent: 15px;">
+                                                Bills and Coins
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Denomination
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                No. of Pieces
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                Amount
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        
+                                        <t t-foreach="dcb['denomination']" t-as="line">
+                                        <tr>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                <span t-esc="line['deno']"/>
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                <span t-esc="line['billnum']"/>
+                                            </td>
+                                            <td  class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                               <span t-esc="'{:,.2f}'.format(line['amount'])"/>
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        </t>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Total Bills and Coins
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                              
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; padding: 0px 0px 0px 10px">
+                                                <p style="border-top: 1px solid #000"></p>
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                <span t-esc="'{:,.2f}'.format(dcb['denomination_total'])" />
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                 <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" style="font-size: 14px; padding: 0px; font-weight: bold;  border: 1px solid #fff;">
+                                                Checks
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                                Drawee
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                Check No. 
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                Amount
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;">
+                                               Bank Name and Location Data
+                                            </td>
+                                            <td class="text-center" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                              000-00-000-000
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                000,000
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                                
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px; font-weight: bold;  border: 1px solid #fff; text-indent: 25px;">
+                                                Total Checks
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                               
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                               
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff; border-bottom: 1px solid #000">
+                                               000,000
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px; font-weight: bold;  border: 1px solid #fff; padding: 10px 0px 0px 0px">
+                                                TOTAL CASH COUNT
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                               
+                                            </td>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff">
+                                               
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff; padding: 10px 0px 0px 0px">
+                                               000,000
+                                               <p style="border-top: 1px solid #000; margin: 0 0 0 0 "></p>
+                                                 <p style="border-top: 1px solid #000; margin: 1px 0 0 0"></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;border-top: 1px solid #000; border-left: 1px solid #000; padding:20px 0px 0px 30px;">
+                                                Cash Balance, End 
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;border-top: 1px solid #000; border-right: 1px solid #000; padding:20px 60px 0px 0px;">
+                                                000,000
+                                            </td>
+                                            
+                                        </tr>
+                                       <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px;border-left: 1px solid #000; padding:0px 0px 0px 30px">
+                                                Less: Total Cash Count
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;border-right: 1px solid #000; padding: 0px 60px 0px 0px;">
+                                                000,000
+                                                <p style="border-top: 1px solid #000; margin: 0 0 0 30%"></p>
+                                             </td>
+                                        </tr>
+                                          <tr>
+                                            <td style="font-size: 13px; padding: 0px;  border: 1px solid #fff; text-indent: 25px; border-bottom: 1px solid #000;border-left: 1px solid #000; padding: 0px 0px 20px 30px;">
+                                                Balance
+                                            </td>
+                                            <td class="text-right" style="font-size: 13px; padding: 0px;  border: 1px solid #fff;border-bottom: 1px solid #000;border-right: 1px solid #000; padding: 0px 60px 20px 0px">
+                                                -
+                                                 <p style="border-top: 1px solid #000; margin: 0 0 0 30% "></p>
+                                                 <p style="border-top: 1px solid #000; margin: 1px 0 0 30%"></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+
+          <!--  </t> -->
+            </t>
+
+        </template>
+    </data>
+</odoo>

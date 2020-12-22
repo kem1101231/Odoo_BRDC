@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_payment_custom_search" model="ir.ui.view">
+           <field name="name">account.payment.custom.search</field>
+           <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="or_reference"/>
+                    <field name="communication" string="Invoice Reference" />
+                    <field name="user_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter name="user_id" string="Responsible" context="{'group_by':'user_id'}"/>
+                        <filter name="journal_id" string="OR Number" context="{'group_by':'journal_id'}"/>
+                    </group>
+                </search>
+           </field>
+        </record>
+        <record id="account_payment_view_custom" model="ir.actions.act_window">
+            <field name="name">Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <!--<field name="context">{'search_default_account_invoice_id': active_id}</field>-->
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="account_invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.tree.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">true</attribute>
+                </xpath>
+
+                <!--<xpath expr="//kanban" position="attributes">-->
+                    <!--<attribute name="create">false</attribute>-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="pa_ref"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='number']" position="replace">
+                    <field name="display_name"/>
+                </xpath>
+
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="monthly_payment"/>
+
+                    <!--<field name="is_fp" invisible="1"/>-->
+                    <!--<field name="month_due"/>-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="add_reason_form_view" model="ir.ui.view">
+            <field name="name">Terminate Invoice</field>
+            <field name="model">accoount.invoice.terminate.reason</field>
+            <field name="arch" type="xml">
+                <form string="Terminate Invoice">
+
+      
+                        <group col-span="2">
+                            <separator colspan="2" string="Please indicate the reason to why this account should be terminated" style="font-size:14px; color:#757575; margin-bottom:20px;"/>
+                                <field name="invoice_id" invisible="1"/>
+                                <field name="reason"/>
+                        </group>
+                        <group col-span="2">
+
+                        </group>
+         
+                    <footer>
+                        <button string="Terminate" type="object" name="terminate_invoice" class="oe_highlight" />
+                        <button string="Close" type="object" special="cancel" class="oe_link" invisible="0"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="add_reason_action_form_view" model="ir.actions.act_window">
+            <field name="name">Terminate Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accoount.invoice.terminate.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="add_reason_form_view"/>
+            <field name="context">{'default_invoice_id':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="add_cancel_reason_form_view" model="ir.ui.view">
+            <field name="name">Cancel Terminate Invoice</field>
+            <field name="model">accoount.invoice.terminate.cancel.reason</field>
+            <field name="arch" type="xml">
+                <form string="Cancel Terminate Invoice">
+
+      
+                        <group col-span="2">
+                            <separator colspan="2" string="Please indicate the reason to why this account shouldn't be terminated" style="font-size:14px; color:#757575; margin-bottom:20px;"/>
+                                <field name="invoice_id" invisible="1"/>
+                                <field name="reason"/>
+                        </group>
+                        <group col-span="2">
+
+                        </group>
+         
+                    <footer>
+                        <button string="Submit" type="object" name="cancel_terminate_invoice" class="oe_highlight" />
+                        <button string="Close" type="object" special="cancel" class="oe_link" invisible="0"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="add_cancel_reason_action_form_view" model="ir.actions.act_window">
+            <field name="name">Cancel Terminate Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accoount.invoice.terminate.cancel.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="add_cancel_reason_form_view"/>
+            <field name="context">{'default_invoice_id':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <record id="reactivate_invoice_form_view" model="ir.ui.view">
+            <field name="name">Request to Reactiavte Invoice</field>
+            <field name="model">accoount.invoice.terminate.reactivate</field>
+            <field name="arch" type="xml">
+                <form string="Request to Reactiavte Invoice">
+                        <group>
+                            <group>
+
+                                        <field name="invoice_id" invisible="0"/>
+                                        <field name="currency_id"  invisible="1"/>
+                                        <field name="current_termination" invisible="0"/>
+                                        
+                                </group>
+                                <group>
+                                        <field name="balance"/>
+                                        <field name="surcharge_amount"/>
+                                        <field name="reactivation_fee" readonly="1"/>
+                                        <field name="total_amount"/>
+                                        <field name="term_of_payment"/>
+                                        <field name="amount_per_collection"/>
+                                        <field name="amount_validity"/>
+                                </group>
+                        </group>
+      
+                        
+         
+                    <footer>
+                        <button string="Submit" type="object" confirm="Requesting for Reactivation will allow cashiers to collect payment from the customer of this account in order to activate it. Would you like to continue?" name="request_for_reactivation" class="oe_highlight" />
+                        <button string="Close" type="object" special="cancel" class="oe_link" invisible="0"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="reactivate_invoice_action_form_view" model="ir.actions.act_window">
+            <field name="name">Request to Reactiavte Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accoount.invoice.terminate.reactivate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="reactivate_invoice_form_view"/>
+            <field name="context">{'default_invoice_id':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <!-- Inherit Form View to Modify it -->
+<!--                            <act_window name="Terminate Account"
+                        id="terminate_account"
+                        res_model="account.invoice"
+                        binding_model="account.invoice"
+                        binding_views="form"
+                        view_mode="form"
+                        target="new"
+
+                    /> -->
+        <record id="account_invoice_from_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <!--<attribute name="edit">false</attribute>-->
+                </xpath>
+
+                <!-- <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="brdc_account_move"/>
+                </xpath> -->
+
+                    <!--   states="open" groups="brdc_security.brdc_group_can_terminate" -->
+                <xpath expr="//header/button[5]" position="after">
+                    <field name="change_state" invisible="1"/>
+                    <field name="is_fp" invisible="1"/>
+                    <button name="action_request" type="object" string="Request to Change" attrs="{'invisible':['|',('change_state','!=','draft'),('state','=','draft')]}" groups="brdc_security.brdc_group_request"/>
+                    <button name="action_create" type="object" class="oe_highlight" string="Create Request to Change" attrs="{'invisible':[('change_state','!=','request')]}" groups="brdc_account.group_module_brdc_account_user"/>
+                    <button name="action_pop" type="object" class="oe_highlight" string="View Change Request" attrs="{'invisible':[('change_state','not in',('progress', 'sent', 'created'))]}" groups="brdc_account.group_module_brdc_account_user"/>
+
+                    <!-- ////////////////////////////////////// -->
+
+                    <!--<button name="action_validate" type="object" string="Validate Change Request" attrs="{'invisible':[('change_state','in',['draft','request'])]}"/>-->
+                    <!--attrs="{'invisible': [('change_state','not in','request')]}"/>-->
+
+                    <!-- ////////////////////////////////////// -->
+
+                    <button name="action_draft" type="object" string="Cancel Request" attrs="{'invisible':[('change_state','in',('draft', 'created'))]}" groups="brdc_account.group_module_brdc_account_user"/>
+                     
+
+
+                    <!-- ////////////////////////////////////// -->
+
+                    <!--<button name="write_move" type="object" string="print moves"/>-->
+                    <!--attrs="{'invisible': [('change_state','not in','request')]}"/>-->
+
+                    <!-- ///////////////////////////////////// -->
+                    
+                    <button name="restructure_account" type="object" string="Restructure Account" states="terminate" attrs="{'invisible': [('month_due', '!&gt;', 1)]}" confirm="Are you sure to continue restructuring this account?" groups="brdc_security.brdc_group_can_terminate"/>
+                    <button name="terminate_account" type="object" confirm="Once this account is terminated, it will not be abled to be canceled. Would you like to confirm this account's termination?" class="oe_highlight" string="Confirm Termination" states="pre_terminate" groups="brdc_security.brdc_group_can_terminate"/>
+                    <button name="terminate_account" type="object" string="Reactivate Account" groups="brdc_security.brdc_group_can_terminate" attrs="{'invisible':['|',('terminate_balance_cater','=',False),('state','not in',['pre_active'])]}"/>
+                    
+                    
+
+                    <button name="%(add_reason_action_form_view)d" type="action" string="Terminate Account" states="open" groups="brdc_security.brdc_group_can_terminate"/>
+                    <button name="%(add_cancel_reason_action_form_view)d" type="action" string="Cancel Termination" states="pre_terminate" groups="brdc_security.brdc_group_can_terminate"/>
+
+                    <button name="%(reactivate_invoice_action_form_view)d" type="action" string="Request Reactivation" states="terminate"/>
+                    <button name="cancel_reactivation" type="object" string="Cancel Reactivation" confirm="You are about to cancel this account's reactivation. Cancelation of reactivation will prevent any registration of payment from the user. Would you like to continue?" attrs="{'invisible':['|',('terminate_balance_cater','=',True),('state','not in',['pre_active'])]}"/>
+
+                    <!-- ////////////////////////////////////// -->
+                    <!-- <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid"/> -->
+                    <!-- ////////////////////////////////////// -->
+                </xpath>
+
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="surcharge_journal"/>
+                    <field name="has_terminated" invisible="1"/>
+                </xpath>
+
+                <!-- ==================== Zura Codes ======================= -->
+
+<!--            <xpath expr="//tree/field[@name='discount']" position="after">
+                    <field name="line_discount_value"/>
+                    <field name="line_vat_value"/>
+                    <field name="invoice_type" invisible="1"/>
+                    <field name="so_based_sub_total" invisible="0"/>
+                </xpath> -->
+
+                <xpath expr="//tree/field[@name='price_subtotal']" position="after">
+                    <field name="line_discount_value"/>
+                    <field name="line_vat_value"/>
+                    <field name="invoice_type" invisible="1"/>
+                    <field name="so_based_sub_total" invisible="0"/>
+                </xpath>
+
+                <xpath expr="//tree/field[@name='invoice_line_tax_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+<!--                 <xpath expr="//tree/field[@name='price_subtotal']" position="attributes"> 
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="replace">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+ -->
+                <!-- ==================== // Zura Codes ======================= -->
+
+
+                <xpath expr="//header/button[5]" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('has_request','=',True), ('state', 'not in', ['open','pre_active'])]}</attribute>
+                </xpath>
+
+           <!-- <xpath expr="//button[@name='action_invoice_cancel']" position="after">
+                </xpath> -->
+
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field string="Customer" name="partner_id"
+                        options='{"always_reload": True}'
+                        domain="[('customer', '=', True)]"/>
+
+                </xpath>
+
+                <xpath expr="//sheet/label[1]" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_payment" type="object" class="oe_inline oe_stat_button" string="Payments" icon="fa-money"/>
+                        <!--<button name="%(account_payment_view_custom)d" type="action" class="oe_inline oe_stat_button" string="Payments" icon="fa-money"/>-->
+                        <button name="print_purchase_order"
+                            string="Purchase Agreement"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-text"/>
+                            <!--attrs="{'invisible':[('state','in',['open', 'paid'])]}"/>-->
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="product_type" attrs="{'readonly': [('state','!=','draft')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='product_type']" position="after">
+                    <field name="purchase_term" attrs="{'readonly': [('state','!=','draft')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='purchase_term']" position="after">
+                    <field name="new_payment_term_id"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           attrs="{'readonly': [('state','!=','draft')],'invisible':['|',('purchase_term','=','cash')]}"/>
+                            
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="pa_ref"/>
+                    <field name="pa_ref_collector" invisible="0"/>
+                </xpath>
+
+                <!--<xpath expr="//field[@name='new_payment_term_id']" position="after">-->
+                    <!--<field name="eipp_payment_term_id"-->
+                           <!--attrs="{'readonly': [('state','not in',['draft'])],'invisible':['|',('purchase_term','=','cash'),('product_type','=','product')]}"-->
+                    <!--/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='team_id']" position="after">-->
+                    <!--<field name="is_split"/>-->
+                <!--</xpath>-->
+
+                <xpath expr="//notebook" position="before">
+                    <group col="4">
+                        <group>
+                            <field name="is_split" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="is_paidup" attrs="{'readonly':[('state','!=','draft')],'invisible':[('purchase_term','=','cash')]}"/>
+                        </group>
+
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='other_info']/field[@name='tax_line_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                
+
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page string="Collector History">
+                        <field name="collector_history" eval="False" readonly="1">
+                            <tree>
+                                 <field name="invoice_id" invisible="1"/>
+                                    <field name="collector_id" />
+                                    <field name="status"/>
+                                    <field name="date_assigned"/>
+                                    <field name="date_removal"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                     <page string="Termination Information" attrs="{'invisible':[('has_terminated','=',False)]}"> <!-- states="terminate,pre_active,pre_terminate" -->
+                                    <group>
+                                        <group>
+                                            <field name="curr_termination_id" string="Latest Termination" readonly="1" options="{'no_create':True}"/>
+                                            <field name="curr_termination_id_total_pay"  widget="monetary" readonly="1" attrs="{'invisible':[('state','not in',['pre_active'])]}"/> 
+                                            <field name="curr_termination_state" string="Status" readonly="1" options="{'no_create':True}"/>
+                                            
+                                            <field name="terminate_balance_cater" string="Balances Catered" readonly="1" invisible="1" attrs="{'invisible':[('state','not in',['pre_active'])]}"/>
+                                            
+
+                                            <div colspan="2" style="margin-top:20px;">
+                                                <p><button name="print_remind_letter" string="Print Reminder Letter" type="object" class="oe_highlight" attrs="{'invisible':[('curr_termination_state','!=','draft')]}"/></p>
+                                                <p><button name="print_terminate" string="Print Notice of Termination" type="object" class="oe_highlight" attrs="{'invisible':[('curr_termination_state','!=','terminate')]}"/></p>
+                                                <p><button name="print_reactive" string="Print Notice of Reactivation" type="object" class="oe_highlight" attrs="{'invisible':[('curr_termination_state','not in',['reactive','bypass'])]}"/></p>
+                                                <p><button name="print_final_demand" string="Print Final Demand Letter" type="object" class="oe_highlight" attrs="{'invisible':[('curr_termination_state','!=','draft')]}"/> </p>
+                                            </div>
+                                              
+
+                                            
+                                        </group>
+                                        
+                                        <group>
+                                            <notebook>
+                                                <page string="Termination History">
+                                                    <field name="termination_info_line" readonly="1">
+                                                <tree>
+                                                    <field name="name"/>
+                                                    <field name="reason"/>
+                                                    <field name="date_terminated"/>
+                                                    <field name="trans_state"/>
+                                                </tree>
+                                            </field>
+                                                </page>
+                                            </notebook>
+                                           
+                                        </group>
+                                    </group>
+ 
+                                </page>
+                </xpath>
+
+                <xpath expr="//notebook/page[1]/group[1]" position="replace">
+                    <field name="is_10y" invisible="1"/>
+                    <field name="has_down_" invisible="1"/>
+                    <!--<group col="5">-->
+                        <!--<group colspan="1"><button name="print_receipt" type="object" string="Print Receipt" class="oe_highlight"/></group>-->
+                    <!--</group>-->
+                    <group col="5">
+                        <!--<group colspan="4" col="3">-->
+                            <!--&lt;!&ndash;<group>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;<field name="amortization"/>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="o_dp" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="spot_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',True)]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="s_dp" attrs="{'invisible':['|','|',('purchase_term','=','cash'),('is_split','=',True),('is_paidup', '=', False)]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="split_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',False)]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="st4_dp" attrs="{'invisible':['|','|',('purchase_term','=','cash'),('is_split','=',False),('is_paidup', '=', True)]}" readonly="1"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</group>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<group>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="balance_payment" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="balance_payment_wi" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<field name="monthly_payment" attrs="{'invisible':[('purchase_term','=','cash')]}" readonly="1"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</group>&ndash;&gt;-->
+
+                        <!--</group>-->
+
+                        <group colspan="4" attrs="{'invisible':[('type','=','in_invoice')]}">
+                            <notebook>
+                                <page string="Plan Information">
+                                   <group colspan="4" col="3">
+                                        <group>
+                                                <!--<field name="amortization"/>-->
+                                                <field name="o_dp" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>
+                                                <field name="spot_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',True)]}" readonly="1"/>
+                                                <field name="s_dp" attrs="{'invisible':['|','|',('purchase_term','=','cash'),('is_split','=',True),('is_paidup', '=', False)]}" readonly="1"/> <!--  -->
+                                                <field name="split_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',False)]}" readonly="1"/>
+                                                <field name="st4_dp" attrs="{'invisible':['|','|',('purchase_term','=','cash'),('is_split','=',False),('is_paidup', '=', True)]}" readonly="1"/>
+
+                                        </group>
+                                        <group>
+                                                <field name="balance_payment" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>
+                                                <field name="balance_payment_wi" attrs="{'invisible':['|',('purchase_term','=','cash')]}" readonly="1"/>
+                                                <field name="monthly_payment" attrs="{'invisible':[('purchase_term','=','cash')]}" readonly="1"/>
+                                        </group>
+
+                                    </group>
+                                </page>
+                                <page string="Installment Information">
+                                    <field name="InvoiceInstallmentLine_ids" readonly="1" nolabel="1" options="{'no_open': True}">
+                                        <tree limit="6">
+                                            <!--<field name="series_no"/>-->
+                                            <field name="name"/>
+                                            <field name="date_for_payment"/>
+                                            <field name="amount_to_pay"/>
+                                            <!--<field name="advance_payment"/>-->
+                                            <!--<field name="payable_balance"/>-->
+                                            <field name="type"/>
+                                            <field name="amount_due"/>
+                                            <field name="is_paid"/>
+                                            <field name="balance" string="Advances"/>
+                                            <field name="date_paid"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Payment Information">
+                                    <group>
+                                        <group>
+                                            <field name="payment_count"/>
+
+                                            <field name="monthly_due"/>
+                                            <field name="month_due"/>
+                                            <field name="surcharge"/>
+                                            <separator string="" colspan="2" style="border-top: 1px solid #ddd; padding:7px;" />
+                                            <field name="current_due" />
+                                            <field name="current_due_date" />
+                                        </group>
+                                        <group>
+                                            <field name="advances"/>
+                                            <field name="amount_to_pay"/>
+                                            <field name="month_to_pay"/>
+                                            <field name="last_payment"/>
+                                        </group>
+                                    </group>
+                                    <!--<group class="oe_subtotal_footer oe_right" colspan="1">-->
+                                        <!--<field name="payments_widget" colspan="2" nolabel="1" widget="one2many_list" class="oe_right"/>-->
+                                        <field name="payments_widget" colspan="2" nolabel="1" widget="payment" class="oe_right"/>
+                                    <!--</group>-->
+                                </page>
+                            </notebook>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="1">
+                               <!--attrs="{'invisible': [('state', '=', 'draft')]}">-->
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1 "/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1 "/>
+                            <field name="amot_total_wo_pcf_n_disc" invisible="1 "/>
+                            <field name="amount_total_wo_pcf" invisible="1 "/>
+                            <field name="lot_price_wo_disc" invisible="1 "/>
+                            <field name="cost_of_sales" invisible="1 " readonly="1"/>
+                            <field name="net_profit" invisible="1 "/>
+                            <field name="gross_profit_rate" invisible="1 "/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1 "/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1 "/> 
+                            
+                            <field name="lot_price" string="Lot Price" invisible="0"/>.
+                            <field name="pcf"/>
+                            <field name="vat" string="VAT"/>
+                            <field name="amount_tax"/>
+                            <field name="unit_price" string="Gross" class="oe_subtotal_footer_separator"/>
+                            <field name="inv_total_discount_amount" string="Total Discount"/>
+                            
+                            <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            <field name="total_paid" string="Paid Amount"/>
+                            <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                            <field name="reconciled" invisible="1"/>
+                            <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', '!=', 'open')]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="has_request" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="brdc_account_move"/>
+                    <field name="custom_account_id"/>
+                    <field name="cost_of_sale_id"/>
+                </xpath>
+                <!--<xpath expr="//field[@name='partner_id']" position="replace">-->
+                    <!--&lt;!&ndash;<field name="partner_id" />&ndash;&gt;-->
+                    <!--<field string="Customer"-->
+                           <!--name="partner_id"-->
+                           <!--domain="[('customer','=',True),('state','=','note')]"-->
+                           <!--options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                           <!--attrs="{'readonly': [('has_request','=',False)]}"-->
+                    <!--/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='account_id']" position="before">-->
+                    <!--<field name="has_account_id" invisible="1"/>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//field[@name='account_id']" position="attributes">-->
+                    <!--<attribute name="required">[('has_account_id', '=', True)]</attribute>-->
+                    <!--<attribute name="readonly">1</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record id="bypass_form_view" model="ir.ui.view">
+            <field name="name">Bypass Termination</field>
+            <field name="model">account.invoice.terminate.bypass</field>
+            <field name="arch" type="xml">
+                <form string="Request to Reactiavte Invoice">
+                        <header>
+                             <field name="bypass_state" widget="statusbar" statusbar_visible="draft,done"/>
+                        </header>
+                        <div class="oe_title">
+                                <label for="name" class="oe_read_only"/>
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                        <group>
+                            <group>
+                                        <!-- <field name="name" invisible="0"/> -->
+                                        <field name="termination_id" invisible="1"/>
+                                        <field name="invoice_id" invisible="1"/>
+                                        <!-- <field name="bypass_state" invisible="0"/> -->
+                                        <separator colspan="2" string=""/>
+                                        <field name="requesting_personel" invisible="0"/>
+                                        <field name="transaction_type" invisible="0"/>
+                                        
+                                        <separator colspan="2" string=""/>
+                                        <field name="month_extention" attrs="{'invisible':[('transaction_type','!=','extend')]}"/>
+                                        <separator colspan="2" string="Payment Information" style="font-size:13px;" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="include_payment" invisible="1"  attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="payment_to_include" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="include_surcharge" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="include_reactivation_fee" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <separator colspan="2" string="" style="font-size:13px; border-bottom: 1px solid #ddd; margin:8px;" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="total_amount_to_pay" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="installment_term" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <field name="compute_amount_divided" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>
+                                        <!--  <field name="" invisible="0" attrs="{'invisible':[('transaction_type','!=','payment')]}"/>  -->    
+                                </group>
+                                <group>
+                                </group>
+                        </group>
+                         <notebook> 
+                                    <page string="Payment Schedule" attrs="{'invisible':[('transaction_type','!=','payment')]}">
+                                        <field name="payment_sched">
+                                            <tree>
+                                                <field name="terminate_id" invisible="1"/>
+                                                <field name="schedule_date"/>
+                                                <field name="amount_due"/>
+                                                <field name="surcharge"/>
+                                                <field name="reactivate_fee"/>
+                                                <field name="amount_total"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+      
+                    <!-- <footer>
+                        <button string="Submit" type="object" confirm="Requesting for Reactivation will allow cashiers to collect payment from the customer of this account in order to activate it. Would you like to continue?" name="request_for_reactivation" class="oe_highlight" />
+                        <button string="Close" type="object" special="cancel" class="oe_link" invisible="0"/>
+                    </footer> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="bypass_action_form_view" model="ir.actions.act_window">
+            <field name="name">Bypass Termination</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.terminate.bypass</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bypass_form_view"/>
+            <field name="context">{'default_termination_id':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="ternaminate_information_form_view" model="ir.ui.view">
+            <field name="name">Termnation Information</field>
+            <field name="model">account.invoice.terminate.info</field>
+            <field name="arch" type="xml">
+                <form string="Termnation Information">
+                            <header>
+                                <button name="%(bypass_action_form_view)d" type="action" string="Bypasss Reactivation"/>
+
+                            </header>
+                        <group>
+                                                        <group>
+                                                             <field name="name" string="Termination ID" readonly="1" options="{'no_create':True}"/>
+                                                             <field name="trans_state" invisible="1"/>
+                                                             <field name="reason" readonly="1"/>
+                                                             <field name="cancel_reason" readonly="1" attrs="{'invisible':['|',('cancel_reason','=',False)]}"/>
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             
+                                                             <field name="reactivation_paid" readonly="1"/>
+                                                             <field name="surcharge_paid"  readonly="1"/>
+                                                             <field name="requested_to_bypass" invisible="1"/>
+
+                                                        </group>
+                                                        <group>
+                                                             <field name="balance" readonly="1"/>
+                                                             
+                                                             <field name="reactivation_fee" widget="monetary" readonly="1"/>
+                                                             <field name="surcharge"  widget="monetary" readonly="1"/>
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             <field name="total_to_pay"  widget="monetary" readonly="1"/> 
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             <field name="term_of_payment" readonly="1"/>
+                                                             <field name="amount_per_collection" readonly="1"/>
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             <separator colspan="2" string="" style="padding:7px; border-bottom:1px solid #ddd"/>
+                                                             <field name="remaining_balance" string="Remaining Balance" readonly="1" />
+                                                             <field name="total_paid_amount" invisible="1" string="No Movement For (Mon.)" readonly="1" attrs="{'invisible':[('trans_state','not in',['terminate', 'pre_active'])]}"/>
+                                                            
+                                                             <!-- <field name="" readonly="1" attrs="{'invisible':[('state','not in',['terminate', 'pre_active'])]}"/> -->
+                                                             <!-- <field name="" readonly="1" attrs="{'invisible':[('state','not in',['terminate', 'pre_active'])]}"/> -->
+                                                             <!-- <field name="" readonly="1" attrs="{'invisible':[('state','not in',['terminate', 'pre_active'])]}"/> -->
+                                                             <!-- <field name="" readonly="1" attrs="{'invisible':[('state','not in',['terminate', 'pre_active'])]}"/> -->
+                                                             <!-- <field name="" readonly="1" attrs="{'invisible':[('state','not in',['terminate', 'pre_active'])]}"/> -->
+                                                        </group>
+                                                    </group>
+                                                    <notebook>
+                                                        
+                                                            <page string="Payment Schedule">
+                                                                <field name="payment_sched" readonly="1">
+                                                                    <tree>
+                                                                        <field name="terminate_id" invisible="1"/>
+                                                                        <field name="schedule_date"/>
+                                                                        <field name="amount_due"/>
+                                                                        <field name="surcharge"/>
+                                                                        <field name="reactivate_fee"/>
+                                                                        <field name="amount_total"/>
+                                                                    </tree>
+                                                                </field>
+                                                            </page>
+                                                            <page string="Termination Payments">
+                                                            <field name="payment_line" readonly="1">
+                                                                <tree>
+                                                                    <field name="payment_id"/>
+                                                                    <field name="or_number" widget="char"/>
+                                                                    <field name="payment"/>
+                                                                    <field name="payment_date"/>
+                                                                </tree>
+                                                            </field>
+                                                        </page>
+                                                        <page string="Bypass History" attrs="{'invisible':[('requested_to_bypass','=', False)]}">
+                                                            <field name="bypass_history">
+                                                                <tree>
+                                                                    <field name="termination_id" invisible="1"/>
+                                                                    <field name="bypass_id"/>
+                                                                    <field name="requesting_personel"/>
+                                                                    <field name="bypass_type"/>
+                                                                    <field name="bypass_status"/>
+                                                                </tree>
+                                                            </field>
+                                                        </page>               
+                                                    </notebook>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="invoice_search_inherit_action" model="ir.ui.view">
+           <field name="name">invoice</field>
+           <field name="model">account.invoice</field>
+           <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                  <field name="pa_ref" string="Purchase Agreement"/>
+                </xpath>
+           </field>
+        </record>
+
+    </data>
+</odoo>

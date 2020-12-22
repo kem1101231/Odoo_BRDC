@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="distribute_agent_commission_form_inherit" model="ir.ui.view">
+            <field name="name">Distribute Agent Commission</field>
+            <field name="model">distribute.commission_line</field>
+            <field name="inherit_id" ref="brdc_agent_commission.distribute_agent_commission_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="request_through" type="object" string="Request from Fund" class="oe_highlight" states="confirmed"/>
+                </xpath>
+
+                <xpath expr="//field[@name='am_temp_commission_line']" position="after">
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_commission"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="sales_order_slip_report"
+                   model="account.invoice"
+                   report_type="qweb-pdf"
+                   string="Sales Order Slip"
+                   name="brdc_account.sales_order_slip_template"
+                   file="brdc_account.sales_order_slip_template"
+                   paperformat="brdc_account.custom_legal_paperformat"
+                   menu="True"
+               />
+        <template id="sales_order_slip_template">
+            <t t-call="report.html_container">
+<!--                <t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="doc">
+                <!-- <t t-call="report.external_layout"> -->
+                    <div class="page">
+                        <style>
+                            table{
+                            empty-cells:show;
+                            }
+                            tr{
+                            min-height:2em;
+                            }
+                            table, tr, td {
+                            border: 1px solid black;
+                            margin: 0 !important;
+                            padding: 2px 0px 2px !important;
+                            }
+                            input {
+                            margin: 0;
+                            margin-bottom: 5px !important;
+                            }
+                            .center{
+                            text-align: center;
+                            }
+                            .right{
+                            text-align: right;
+                            }
+                            .top{
+                            vertical-align: top;
+                            }
+                            .middle{
+                            vertical-align: middle;
+                            }
+                            .bottom{
+                            vertical-align: bottom;
+                            }
+                            .no-border{
+                            border: 0;
+                            border:1px solid #fff;
+                            }
+                            .strong{
+                            font-weight:bold;
+                            }
+                            .upcase{
+                            text-transform: uppercase;
+                            }
+                            td.left-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-left: 1px solid #4993c1;
+                            }
+                            td.top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.right-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            span.header{
+                            margin-top:1rem !important;
+                            margin-bottom:1rem !important;
+                            }
+                            .hltd_clmn{
+                            background-color: #82b5d4;
+                            }
+                        </style>
+                        <t t-set="discount" t-value="0"/>
+                        <t t-foreach="doc.invoice_line_ids" t-as="inv">
+                            <t t-if="inv.discount != 0">
+                                <t t-set="discount" t-value="0 + inv.discount"/>
+                            </t>
+                        </t>
+                        <table class="table table-condensed" colspan="7">
+                            <tr>
+                                <td class="no-border center" colspan="2" rowspan="4">
+                                    <img class="img" height="4%" src="/brdc_account/static/img/logo_2.png"/>
+                                </td>
+                                <td class="no-border upcase strong center" colspan="4">
+                                    <span>biocielo realty &amp; development corporation</span>
+                                </td>
+                                <td class="no-border center middle" colspan="1" rowspan="4">
+                                    <img class="img" width="80%" src="/brdc_account/static/img/logo_1.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>3rd Floor Vensu Building, National Highway, General Santos City</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Tel No.(083) 554-3853; Mobile Phone No. 0922-821-5081</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Email: safe_biocielo@yahoo.com</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="7" style="border-bottom: 5px solid black"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" style="padding:1rem 0rem !important;" colspan="6">
+                                    <span class="header">date order:</span>
+                                </td>
+                                <td class="no-border strong upcase center" style="padding:1rem 0rem !important;color:red;" colspan="6">
+                                    <span class="header">sales order slip</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="7" style="padding:1rem 0rem !important;"><span>customer info:</span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Customer Name:</span></td>
+                                <td class="no-border strong" colspan="5"><span t-field="doc.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Contact No:</span></td>
+                                <td class="no-border" colspan="5"><span t-field="doc.partner_id.mobile"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Home Address:</span></td>
+                                <td class="no-border" colspan="5"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Billing Address:</span></td>
+                                <td class="no-border" colspan="5"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="7" style="padding:1rem 0rem !important;"><span>payment scheme</span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Payment Type:</span></td>
+                                <td class="no-border" colspan="5"><span t-field="doc.purchase_term"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Payment Term:</span></td>
+                                <td class="no-border" colspan="5"><span t-field="doc.new_payment_term_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-left:15px !important;"><span>Monthly Amortization:</span></td>
+                                <td class="no-border" colspan="5"><span t-esc="'{0:,.2f}'.format(doc.monthly_payment)"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="7" style="padding:1rem 0rem !important;height:20px;"><span></span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="7" style="padding:1rem 0rem !important; border-bottom:1px solid #000;"><span>product included</span></td>
+                            </tr>
+                            <tr>
+                                <td class="center strong" colspan="3" style="padding:1rem !important;"><span class="header">Product Description</span></td>
+                                <td class="center strong" colspan="1" style="padding:1rem !important;"><span class="header">Qty</span></td>
+                                <td class="center strong" colspan="1" style="padding:1rem !important;"><span class="header">Contract Price</span></td>
+                                <td class="center strong" colspan="1" style="padding:1rem !important;"><span class="header">Discount</span></td>
+                                <td class="center strong" colspan="1" style="padding:1rem !important;"><span class="header">Net Contract Price</span></td>
+                            </tr>
+                            <tr t-foreach="doc.invoice_line_ids" t-as="inv">
+                                <td class="center" colspan="3"><span t-esc="inv.name"/></td>
+                                <td class="center" colspan="1"><span t-esc="'{0:,.2f}'.format(inv.quantity)"/></td>
+                                <td class="right" colspan="1" style="padding-right:10px !important;"><span t-esc="'{0:,.2f}'.format(inv.price_unit)"/></td>
+                                <td class="right" colspan="1" style="padding-right:10px !important;"><span t-esc="'{0:,.2f}'.format(inv.discount)"/></td>
+                                <td class="right" colspan="1" style="padding-right:10px !important;"><span t-esc="'{0:,.2f}'.format(inv.price_unit - ((inv.price_unit/100)*inv.discount))"/></td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="no-border" colspan="7"  style="padding:15px !important;"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>Lot Price:</span></td>
+                                <td class="no-border right" colspan="1"><span t-field="doc.unit_price"/></td>
+                                <td class="no-border" colspan="3"/>
+                                <td class="no-border" colspan="1"><span>Contract Price</span></td>
+                                <td class="no-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(doc.unit_price + doc.pcf + doc.o_dp)"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>PCF:</span></td>
+                                <td class="no-border right" colspan="1"><span t-field="doc.pcf"/></td>
+                                <td class="no-border" colspan="3"/>
+                                <td class="no-border" colspan="1"><span>Less: Discount</span></td>
+                                <td class="no-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(discount)"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>Down Payment:</span></td>
+                                <td class="no-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(doc.o_dp)"/></td>
+                                <td class="no-border" colspan="3"/>
+                                <td class="no-border" colspan="1"><span>Less: SC/PWD Discount</span></td>
+                                <td class="no-border right" colspan="1"><span> - </span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="5" style="padding-bottom:1rem !important;"/>
+                                <td class="no-border" colspan="1" style="padding-bottom:1rem !important;"><span>Net Contract Price: </span></td>
+                                <td class="no-border strong right" colspan="1" style="border-top:1px solid black;border-bottom:1px double black;padding-bottom:1rem !important;"><span t-field="doc.amount_total"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="5"/>
+                                <td class="no-border" colspan="1"><span>12% VAT</span></td>
+                                <td class="no-border right" colspan="1"><span t-field="doc.vat"/></td>
+                            </tr> -->
+                            <tr>
+                                <td class="no-border right strong upcase" colspan="7" style="padding-top:10rem !important;"><i><span style="margin-right:15px;">order no:</span><span style="color:red" t-field="doc.pa_ref"/></i></td>
+                            </tr>
+                        </table>
+                        <!--
+                        Build your report here!
+                        Do it in awesome way ;)
+                        -->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

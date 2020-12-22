@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="brdc_property_1" model="ir.property">
+            <field name="name">brdc_account_receivable_id</field>
+            <field name="fields_id" search="[('model','=','res.partner'),('name','=','property_account_receivable_id')]"/>
+            <field eval="'account.account,42'" name="value"/>
+            <field name="company_id" ref="hrms_base.main_company_bradc"/>
+        </record>
+        <record forcecreate="True" id="brdc_property_2" model="ir.property">
+            <field name="name">brdc_account_payable_id</field>
+            <field name="fields_id" search="[('model','=','res.partner'),('name','=','property_account_payable_id')]"/>
+            <field eval="'account.account,34'" name="value"/>
+            <field name="company_id" ref="hrms_base.main_company_bradc"/>
+        </record>
+
+    </data>
+</odoo>

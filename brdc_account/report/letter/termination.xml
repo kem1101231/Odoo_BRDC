@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_termination_letter"
+            model="brdc.letter.format"
+            report_type="qweb-pdf"
+            string="Termination Letter"
+            name="brdc_account.termination_letter"
+            file="brdc_account.termination_letter"
+            menu="False"
+        />
+
+        <template id="termination_letter">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="w">
+                    <t t-foreach="w.partner_line_ids" t-as="partner">
+                        <div style="height: 1447.30px;width: 816.40px;page-break-after: always;">
+                            <div class="header">
+
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="width: 20%;text-align: right;">
+                                                <img class="img img-responsive" src="/brdc_account/static/img/logo_1.png" style="max-height:65px;"/>
+                                            </td>
+                                            <td style="width: 60%;">
+                                                <center>
+                                                <p>
+                                                    <b>BIOCIELO REALTY AND DEVELOPMENT CORPORATION</b>
+                                                    <br/>
+                                                    3rd Floor, Vensu Building, National Highway, Gen. Santos City
+                                                    <br/>
+                                                    Tel No. (083) 554-3853; Mobile Phone No. 0922-821-5081
+                                                    <br/>
+                                                    email   safe_biocielo@yahoo.com
+                                                </p>
+                                                </center>
+                                            </td>
+                                            <td style="width: 20%;">
+                                                <center>
+                                                    <img class="img img-responsive" src="/brdc_account/static/img/logo_2.png" style="max-height:65px;"/>
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                <hr/>
+                            </div>
+
+                            <div class="page">
+                                <t t-set="values" t-value="dict([('remind','REMINDER LETTER'),('demand','FINAL DEMAND LETTER'),('terminate', 'NOTICE OF TERMINATION'),(False,False)])"/>
+                                <center><h2><t t-esc="values[w.type]"/></h2></center>
+
+                                <br/>
+                                <br/>
+                                <span t-field="w.date" t-field-options='{"format": "d MMMM y"}'/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <!--<span t-field="w.date" t-options="{'widget': 'date'}"/>-->
+                                <span t-esc="partner.partner_id.name"/><br/>
+                                <span t-esc="partner.partner_id.street"/>
+
+                                <t t-if="w.type == 'terminate'">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <center><p>Re: TERMINATION OF ACCOUNT WITH PA No.: <span t-esc="partner.invoice_id.pa_ref"/>; <span t-esc="partner.product_id.categ_id.parent_id.name"/>; <span t-esc="partner.product_id.categ_id.name"/>;
+                                        <span t-esc="partner.product_id.area_number.name"/>; Block <span t-esc="partner.lot_id.block_number"/>; Lot <span t-esc="partner.lot_id.lot_number"/>
+                                    </p></center>
+                                </t>
+                                <br/>
+                                <br/>
+                                <!--<br/>-->
+                                <p>
+                                    Dear SIR\MADAM:<br/>
+                                    <br/>
+                                    Greetings!<br/>
+                                    <br/>
+                                    <div style="text-align: justify; text-justify: inter-word;">
+                                        <t t-if="w.type == 'remind'">
+                                            Our records show that your account with the Company amounting to Zero <b>Php <span t-esc="partner.monthly_due"/></b> remains unsettled as of this date.
+                                            <br/>
+                                            <br/>
+                                            We wish to remind you of <b>Item # 4</b> in our Purchase Agreement which states that upon your failure to pay an aggregate of <u>three (3) monthly amortizations</u>, our purchase agreement will be automatically terminated without need of written notice, in which case, ownership of the subject lot shall be fully restored to the Company.
+                                            <br/>
+                                            <br/>
+                                            We understand how much you and your love ones value your memorial lot at the Monte Cielo Memorial Gardens, that is why we are offering you an opportunity to keep your memorial lot by updating your payments within seven <b>(7) days</b> from receipt of this letter.
+                                            <br/>
+                                            <br/>
+                                            We could help you best if you call us or visit us in our office anytime during office hours.
+                                            <br/>
+                                            <br/>
+                                            What a pleasure it has been to have you as a customer.
+
+                                        </t>
+                                        <t t-if="w.type == 'demand'">
+                                            In spite of our visits, calls and reminders for you to settle and update your account with the Company, you failed to call or visit us.  It saddens us that you may no longer be interested in the memorial lot you purchased.
+                                            <br/>
+                                            <br/>
+                                            In view of the above, please consider this our <b>FINAL DEMAND</b> for you to settle your indebtedness to the Company amounting to <b>Php <span t-esc="partner.monthly_due"/></b> within seven <b>(7) days</b> from receipt of this demand letter.
+                                            <br/>
+                                            <br/>
+                                            If you update your account within seven <b>(7) days</b>, the Company will condone all surcharges and we can arrange a mutually advantageous terms of payment for your arrears, just so you and your family can own the memorial lot.
+                                            <br/>
+                                            <br/>
+                                            However, your failure to settle your account within the period mentioned above will finally confirm your disinterest and intention to give up and waive all your rights to the memorial lot described herein. Thereafter, the Company will automatically forfeit the said memorial lot, and will credit all or part of your payments to accrued surcharges, legal and other administrative fees.
+                                            <br/>
+                                            <br/>
+                                            Thank you for the opportunity to be of service to you.
+                                        </t>
+                                        <t t-if="w.type == 'terminate'">
+                                            This is a <b>FORMAL NOTICE</b> that Biocielo Realty and Development Corporation (BRDC) hereby <b>TERMINATES</b> the above-memorial lot.
+                                            <br/>
+                                            <br/>
+
+                                            Your failure to act on several opportunities given to you to save your long-overdue account leaves us no option but to finally implement Item #4 of our Purchase Agreement. Ownership to the subject memorial lot is fully restored to the Company and we will credit all or part of your payments to accrued surcharges and other administrative fees.
+                                            <br/>
+                                            <br/>
+
+                                            Should you have any concern regarding this matter, please feel free to call us at 083-5543853 and 09228215081, or you may visit us at our office during office hours.
+                                            <br/>
+                                            <br/>
+
+                                            Thank you for the opportunity to be of service to you.
+                                        </t>
+                                    </div>
+                                    <div>
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td width="80%"></td>
+                                                <td width="20%">
+                                                    <t t-if="w.type == 'remind'">
+                                                        <p>
+                                                            Very truly yours,
+                                                        </p>
+                                                        <center>
+                                                            <br/>
+                                                            ___________________________
+                                                            <br/>
+                                                            Credit and Collection Department
+                                                        </center>
+                                                    </t>
+                                                    <t t-if="w.type == 'demand'">
+                                                        <p>
+                                                            Very truly yours,
+                                                        </p>
+                                                        <center>
+                                                            <br/>
+                                                            ___________________________
+                                                            <br/>
+                                                            Credit and Collection Department
+                                                        </center>
+                                                    </t>
+                                                    <t t-if="w.type == 'terminate'">
+                                                        <p>
+                                                            Very truly yours,
+                                                        </p>
+                                                        <center>
+                                                            <br/>
+                                                            ___________________________
+                                                            <br/>
+                                                            General Manager
+                                                        </center>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                    <div>
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td width="30%">
+                                                    PA No.:<br/>
+                                                    Memorial Lot:<br/>
+                                                    Date Due:<br/>
+                                                    Amount Due:<br/>
+                                                    Late Charges:<br/>
+                                                    <b>Total Amount Due:</b><br/>
+
+                                                    <br/>
+                                                    Received by:
+                                                    <br/>
+                                                    <br/><br/>
+                                                    Date &amp; Time Received:
+                                                </td>
+                                                <td width="70%">
+                                                    <span t-esc="partner.invoice_id.pa_ref"/><br/>
+                                                    <span t-esc="partner.product_id.categ_id.parent_id.name"/>; <span t-esc="partner.product_id.categ_id.name"/>; <span t-esc="partner.product_id.area_number.name"/>; Block <span t-esc="partner.lot_id.block_number"/>; Lot <span t-esc="partner.lot_id.lot_number"/><br/>
+                                                    <span t-field="partner.invoice_id.month_to_pay" t-field-options='{"format": "d MMMM y"}'/> <br/>
+                                                    ₱ <span t-esc="partner.monthly_due"/> <br/>
+                                                    ₱ <span t-esc="partner.surcharge"/> <br/>
+                                                    <b>₱ <span t-esc="partner.monthly_due + partner.surcharge"/></b> <br/>
+                                                    <br/>
+                                                    _______________________________________
+                                                    <br/><i>Printed Name over Signature</i>
+                                                    <br/><br/>
+                                                    _______________________________________
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </p>
+
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

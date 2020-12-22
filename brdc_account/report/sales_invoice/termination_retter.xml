@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="action_customers_ledger"
+                   model="account.invoice"
+                   report_type="qweb-pdf"
+                   string="Customer's Ledger"
+                   name="brdc_account.customers_ledger"
+                   file="brdc_account.customers_ledger"
+                   paperformat="brdc_account.custom_letter_landscape_margin10_paperformat"
+                   menu="True"
+               />
+        <template id="brdc_account.customers_ledger">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <style>
+                            table{
+                            empty-cells:show;
+                            }
+                            tr{
+                            min-height:2em;
+                            }
+                            table, tr, td {
+                            border: 1px solid black;
+                            margin: 0 !important;
+                            padding: 2px 0px 2px !important;
+                            }
+                            input {
+                            margin: 0;
+                            margin-bottom: 5px !important;
+                            }
+                            .center{
+                            text-align: center;
+                            }
+                            .right{
+                            text-align: right;
+                            }
+                            .top{
+                            vertical-align: top;
+                            }
+                            .middle{
+                            vertical-align: middle;
+                            }
+                            .bottom{
+                            vertical-align: bottom;
+                            }
+                            .no-border{
+                            border: 0;
+                            border:1px solid #fff;
+                            }
+                            .strong{
+                            font-weight:bold;
+                            }
+                            .upcase{
+                            text-transform: uppercase;
+                            }
+                            td.left-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-left: 1px solid #4993c1;
+                            }
+                            td.top-bottom-border{
+                            background: #b5e0fb;
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.right-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            span.header{
+                            margin-top:1rem !important;
+                            margin-bottom:1rem !important;
+                            }
+                            .hltd_clmn{
+                            background-color: #82b5d4;
+                            }
+                            
+                        </style>
+                        <t t-set="area_no" t-value="0"/>
+                        <t t-set="area_class" t-value="nan"/>
+                        <t t-set="block_no" t-value="0"/>
+                        <t t-foreach="doc.invoice_line_ids" t-as="inv">
+                            <t t-set="area_no" t-value="inv.product_id.area_number.name"/>
+                            <t t-set="area_class" t-value="inv.product_id.categ_id.name"/>
+<!--                            <t t-set="block_no" t-value="inv.product_id.block_number"/>-->
+                        </t>
+                        <table class="table table-condensed" colspan="8">
+                            <tr>
+                                <td class="no-border center" colspan="1" rowspan="4" style="max-width: 50px;">
+                                    <img class="img" height="3%" src="/brdc_account/static/img/logo_2.png"/>
+                                </td>
+                                <td class="no-border upcase strong center" colspan="5"  style="padding-right:10px;">
+                                    <span>biocielo realty &amp; development corporation</span>
+                                </td>
+                                <td class="no-border center middle" colspan="2" rowspan="4" style="max-width:120px">
+                                    <img class="img" width="80%" src="/brdc_account/static/img/logo_1.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="5" style="padding-right:10px;">
+                                    <span>3rd Floor Vensu Building, National Highway, General Santos City</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="5" style="padding-right:10px;">
+                                    <span>Tel No.(083) 554-3853; Mobile Phone No. 0922-821-5081</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="5" style="padding-right:10px;">
+                                    <span>Email: safe_biocielo@yahoo.com</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top:1rem !important;padding-bottom:3rem !important" colspan="8">
+                                    <span>customer's ledger</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><i>Area:</i></td>
+                                <td class="no-border center strong" colspan="1"><span t-esc="area_no"/></td>
+                                <td class="no-border strong right" colspan="1" style="color:red;"><i>PA No:</i></td>
+                                <td class="no-border" colspan="5" style="color:red;padding-let:10px !important;"><span t-field="doc.pa_ref"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1" style="word-wrap:break-word;max-width:50px;"><i>Area Classification:</i></td>
+                                <td class="no-border center strong" colspan="1"><span t-esc="area_class"/></td>
+                                <td class="no-border strong right" colspan="1"><i>Date Invoiced:</i></td>
+                                <td class="no-border" colspan="5" style="padding-left:10px !important;"><span t-field="doc.date_invoice" t-field-options='{"format": "MMMM dd, yyyy"}'/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><i>Terms (Months):</i></td>
+                                <td class="no-border center strong" colspan="1"><span t-field="doc.new_payment_term_id.name"/></td>
+                                <td class="no-border strong right" colspan="1"><i>Customer's Name:</i></td>
+                                <td class="no-border" colspan="5" style="padding-left:10px !important;"><span t-field="doc.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><i>Lot/Block No:</i></td>
+                                <td class="no-border center strong" colspan="1"><span t-esc="block_no"/></td>
+                                <td class="no-border strong right" colspan="1"><i>Contact No:</i></td>
+                                <td class="no-border" colspan="5" style="padding-left:10px !important;"><span t-field="doc.partner_id.mobile"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1" style="word-wrap:break-word;max-width:50px;"><i>Net Contract Price:</i></td>
+                                <td class="no-border right strong" colspan="1"><span t-esc="'{0:,.2f}'.format(doc.amount_total)"/></td>
+                                <td class="no-border strong right" colspan="1"><i>Address:</i></td>
+                                <td class="no-border" colspan="5" style="padding-left:10px !important;"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><i>Down Payment:</i></td>
+                                <td class="no-border right strong" colspan="1"><span t-esc="'{0:,.2f}'.format(doc.s_dp)"/></td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1" style="word-wrap:break-word;max-width:50px;"><i>Down Payment Split:</i></td>
+                                <td class="no-border right strong" colspan="1"/>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1" style="word-wrap:break-word;max-width:50px;"><i>Monthly Amortization:</i></td>
+                                <td class="no-border right strong" colspan="1"><span t-esc="'{0:,.2f}'.format(doc.monthly_payment)"/></td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><i>Date Invoiced:</i></td>
+                                <td class="no-border strong" colspan="1"><span t-field="doc.date_invoice" t-field-options='{"format": "EEEE, MMMM dd, yyyy"}'/></td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1" style="word-wrap:break-word;max-width:50px;"><i>Start Date of Payment:</i></td>
+                                <td class="no-border strong" colspan="1"><span t-field="doc.date_invoice" t-field-options='{"format": "EEEE, MMMM dd, yyyy"}'/></td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8" style="padding-bottom:1rem !important;"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;width: 50px;" colspan="1">No. <small style="color:red;">(a)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;width: 50px;" colspan="1">OR Date <small style="color:red;">(b)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;" colspan="1">OR Reference No. <small style="color:red;">(c)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;" colspan="1">OR Amount <small style="color:red;">(d)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;" colspan="1">Downpayment <small style="color:red;">(e)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;" colspan="1">Monthly Amortization <small style="color:red;">(f)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;word-wrap:break-word;max-width:60px;" colspan="1">Applied Due Date <small style="color:red;">(g)</small></td>
+                                <td class="no-border strong center" style="background:#02598F;padding:1rem 0rem !important;word-wrap:break-word;max-width:60px;" colspan="1">Balance <small style="color:red;">(h)</small></td>
+                            </tr>
+
+                            <t t-set="index" t-value="0"/>
+                            <tr t-foreach="doc.InvoiceInstallmentLine_ids" t-as="row">
+                                <t t-if="index == 0">
+                                    <td class="no-border top-bottom-border" colspan="7"/>
+                                    <td class="no-border top-bottom-border right strong"><span t-esc="'{0:,.2f}'.format(doc.amount_total)"/></td>
+                                    <t t-set="index" t-value="index + 1"/>
+                                </t>
+<!--                                 <t t-else="">
+                                    <td class="no-border top-bottom-border center" colspan="1"><span t-esc="index"/></td>
+                                    <td class="no-border top-bottom-border center" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right strong" colspan="1"></td>
+                                    <t t-set="index" t-value="index + 1"/>
+                                </t> -->
+                                <!-- <t t-else="">
+                                    <td class="no-border top-bottom-border center" colspan="1"><span t-esc="index"/></td>
+                                    <td class="no-border top-bottom-border center" colspan="1"></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"><span t-esc="row.series_no"/></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(row.amount_to_pay)"/></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(row.paid_amount)"/></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"><span t-esc="'{0:,.2f}'.format(row.payable_balance)"/></td>
+                                    <td class="no-border top-bottom-border right" colspan="1"><span t-esc="datetime.datetime.strptime(row.date_for_payment, '%Y-%m-%d').strftime('%m/ %d/%Y')" /></td>
+                                    <td class="no-border top-bottom-border right strong" colspan="1"><span t-esc="'{0:,.2f}'.format(row.balance)"/></td>
+                                    <t t-set="index" t-value="index + 1"/>
+                                </t> -->
+                            </tr><!-- <span t-esc="datetime.datetime.strptime(row.date_paid, '%Y-%m-%d').strftime('%m/ %d/%Y')" /> -->
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

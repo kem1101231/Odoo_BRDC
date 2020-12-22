@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="brdc_config_setting_form" model="ir.ui.view">
+            <field name="name">BRDC Settings</field>
+            <field name="model">brdc.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Accounting" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </header>
+                    <sheet>
+                        <!--<group col="2">-->
+                            <group colspan="1">
+                                <field name="company_id"/>
+                                <field name="currency_id"/>
+                                <!--<field name="agent_commission_fund"/>-->
+                            </group>
+
+                            <group string="Surcharge Settings">
+                                <field name="surcharge_active"/>
+                                <field name="surcharge_terminated"/>
+                                <field name="surcharge_journal"/>
+                            </group>
+
+                        <!--</group>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="brdc_config_settings_action_view" model="ir.actions.act_window">
+            <field name="name">BRDC Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brdc.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

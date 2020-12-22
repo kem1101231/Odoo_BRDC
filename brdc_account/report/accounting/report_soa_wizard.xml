@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="report_soa_details_form" model="ir.ui.view">
+            <field name="name">Printable</field>
+            <field name="model">report.soa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h1>
+                        <field name="type" readonly="1"/>
+                    </h1>
+                    <group>
+                        <field name="partner_id" options='{"no_open": 1, "no_create": 1, "no_create_edit": 1}'/>
+                        <field name="invoice_id" options='{"no_open": 1, "no_create": 1, "no_create_edit": 1}'/>
+                        <field name="pa_ref" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="amount_paid" readonly="1"/>
+                        <field name="due" readonly="1"/>
+                        <field name="surcharge" readonly="1"/>
+                        <field name="total_due" readonly="1"/>
+                    </group>
+                    <!--<field name="payment_ids"/>-->
+                    <button name="payments" type="object" string="get payments" invisible="1"/>
+                    <field name="soa_line" invisible="1">
+                        <tree>
+                            <field name="date"/>
+                            <field name="or_ref"/>
+                            <field name="description"/>
+                            <field name="amount"/>
+                            <field name="balance"/>
+                        </tree>
+                    </field>
+                    <footer>
+                      <button name="check_report" string="Print" type="object" class="btn-primary"/>
+                      <button string="Cancel" class="btn-default" special="cancel" />
+                  </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="report_soa_details_action_view" model="ir.actions.act_window">
+            <field name="name">Statement of Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.soa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="report_soa_details_form"/>
+            <field name="target">new</field>
+            <field name="context">{'default_type':'soa'}</field>
+        </record>
+
+        <record id="report_led_details_action_view" model="ir.actions.act_window">
+            <field name="name">Customer Ledger</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.soa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="report_soa_details_form"/>
+            <field name="target">new</field>
+            <field name="context">{'default_type':'led'}</field>
+        </record>
+
+    </data>
+</odoo>

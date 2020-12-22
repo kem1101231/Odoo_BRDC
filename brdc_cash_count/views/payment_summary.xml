@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--<record id="cash_count_pop_action_view" model="ir.actions.act_window">-->
+            <!--<field name="name">Cash Count Report</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">cash.count.config</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+			<!--&lt;!&ndash;<field name="target">new</field>&ndash;&gt;-->
+            <!--<field name="target">inline</field>-->
+                <!--&lt;!&ndash;<field name="help" type="html">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<p class="oe_view_nocontent_create">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash; Add Text Here &ndash;&gt;&ndash;&gt;-->
+                  <!--&lt;!&ndash;</p><p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;&ndash;&gt;-->
+                  <!--&lt;!&ndash;</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</field>&ndash;&gt;-->
+        <!--</record>-->
+
+        <record id="cash_count_report_form_views" model="ir.ui.view">
+            <field name="name">account.payment.summary.form</field>
+            <field name="model">account.payment.summary</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="create_cash_count_form" type="object" string="Create Cash Count" states="draft"/>
+                        <button name="action_draft" type="object" string="Set to Draft" states="create"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,create"/>
+                    </header>
+                    <sheet>
+                        <!--<field name="is_bank" invisible="1"/>-->
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="preview_report"
+                                    string="Print Summary" type="object"
+                                    icon="fa-bars"/>
+                            <button  class="oe_inline oe_stat_button"  name="action_view_cash_count"
+                                     type="object"
+                                     string="Cash Count"
+                                     icon="fa-money"
+                                     attrs="{'invisible': ['|',('state','!=','create'),('journal_type','=', 'cheque')]}"
+                            />
+                        </div>
+                        <group>
+                            <field name="responsible_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', '!=', 'draft' )]}"/>
+                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft' )]}"/>
+                            <field name="journal_type" attrs="{'readonly': [('state', '!=', 'draft' )]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Payments">
+                                <field name="payment_ids">
+                                    <tree create="false" delete="false" edit="false">
+                                        <field name="or_reference" widget="char"/>
+                                        <field name="payment_date"/>
+                                        <field name="journal_id"/>
+                                        <field name="check_number"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                   <field name="amount_total" widget='monetary'/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cash_count_report_tree_views" model="ir.ui.view">
+            <field name="name">account.payment.summary.tree</field>
+            <field name="model">account.payment.summary</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="responsible_id"/>
+                    <field name="amount_total"/>
+                </tree>
+            </field>
+        </record>
+        <record id="cash_count_report_view_actions" model="ir.actions.act_window">
+            <field name="name">Cash Count</field>
+            <field name="res_model">account.payment.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="cash_summary_menu_id" name="Daily Payment Summary" parent="account.menu_finance_legal_statement" action="cash_count_report_view_actions" sequence="100"-->
+                  <!--groups="brdc_account.group_module_brdc_account_cashier"-->
+        <!--/>-->
+
+    </data>
+</odoo>

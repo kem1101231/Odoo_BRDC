@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="report_collection_ccl_action"
+                   model="report.brdc_account.report_collection_ccl"
+                   report_type="qweb-pdf"
+                   string="Collection Report"
+                   name="brdc_account.report_collection_ccl_template"
+                   file="brdc_account.report_collection_ccl"
+                   paperformat="brdc_account.custom_letter_landscape_marginfit_paperformat"
+                   menu="True"
+               />
+
+        <template id="report_collection_ccl_template">
+            <t t-call="report.html_container">
+               <div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+                    <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                <img style="padding:0px; border: 1px solid #fff" src="/brdc_account/static/img/logo_1.png"/>
+                                            </td>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">
+                                                Biocielo Reality and Development Corporation <span t-esc="dataInput"/>
+                                            </td>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                <img style="width:80px; height: 80px;" src="/brdc_account/static/img/logo_2.png"/>
+                                            </td>  
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                3rd Floor Vensu Blg. National Highway, General Santos City 
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px; padding: 0px; border: 1px solid #fff">
+                                                Telefax No. (083) 554-3853
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                Mobile No. 0922-821-5081
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 20px;  border: 1px solid #fff">
+                                                COLLECTOR'S COLLECTIBILE LIST(CCL)
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px;  padding:0px;  border: 1px solid #fff">
+                                                for Month of January, 2020
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+<!--                                 <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">Marbel Universal Trading Inc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">MUTI Bldg., Osmeña St., Koronadal City</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">PURCHASE JOURNAL</td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table> -->
+                               <!--  <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Vendor:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;">Kawasaki Phili., Inc.</td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff"  class="text-right">Journal No.:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Address:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Contact:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right"></td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">T.I.N.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">VAT:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Receipt No.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table> -->
+                                <table class="table table-hover" style="margin-top: 8px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 650px; border: 1px solid #fff"  class="text-right">
+                                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+
+                                                    <thead  class="text-center">
+                                                        <tr>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">P.A. NO.</th>
+                                                            <th style="font-size: 12px;  padding:0px;width: 250px; border: 1px solid #000" class="text-center" rowspan="2">CLIENT NAME</th>
+                                                            <th style="font-size: 12px;  padding:0px;width: 250px; border: 1px solid #000" class="text-center" rowspan="2">ADDRESS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">CONTACT NUMBER</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">STATUS OF CONTRACT</th>
+                                                            <th style="font-size: 12px;  padding:0px;width: 250px; border: 1px solid #000" class="text-center" rowspan="2">COLLECTOR</th>
+                                                           <!--  <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">PRODUCT TYPE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">AREA CLASSIFICATION</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">AREA</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">BLOCK NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">LOT NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">TERM</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">NET CONTRACT PRICE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">DOWNPAYMENT</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">MONTHLY AMORTIZATION</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">DATE INVOICED</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">BALANCE CONTRACT PRICE</th> -->
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" rowspan="2">DUE DATE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" rowspan="2">TOTAL AMOUNT DUE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" rowspan="2">CURRENT DUE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" colspan="4">DAYS PAST DUE</th>
+                                                            <!-- <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center">OR NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center">OR DATE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center">CURRENT DUE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center">PAST DUE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center">TOTAL AMOUNT COLLECTED</th> -->
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">1-30 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">31-60 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">61-90 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">OVER 90 DAYS</th>
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                     <!--   <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                                Collector's Name
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                                Customer's Name
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;">
+                                                                Product Type
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                Status of Contract
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                00000
+                                                            </td>
+
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                00000
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                00/00/0000
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                200000
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                200000
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                200000
+                                                            </td>
+
+                                                        </tr> -->
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                        </tr>
+                                                       <!--  <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;">11411102926500 KOSTMCHome Office</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;" >25.0 Unit(s) - ABSORBER, ASSY RR SHOCK MUTI [MC] share</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">100000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;">11411102926500 KOSTMCHome Office</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;" >25.0 Unit(s) - ABSORBER, ASSY RR SHOCK MUTI [SP] share</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">100000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                         <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+
+
+
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                
+<!--                                 <table class="table table-hover" style="margin-top: 30px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff" class="text-right">Prepared by:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;" class="text-center">Monkey D. Luffy</td>
+
+                                            <td rowspan="2" style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff"  class="text-right">Validated by:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;" class="text-center">Vinsmoke Sanji</td>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <td class="text-center" style="font-size: 12px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;  padding-right: 10px; margin-right: 20px;">Disbursement Assistant</td>
+                                            
+                                            <td class="text-center" style="font-size: 12px; padding:0px;width: 200px;border: 1px solid #fff;">Disbursement Supervisor</td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                            
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+               </div>
+             <!--     <div class="footer">
+                    <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+                        <div class="panel panel-default" style="border:0px solid #fff"> 
+                            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                   <table class="table table-hover" style="margin:0px;padding: 0px; border: 1px solid #fff">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><span style="font-size:9px;">Printed: </span><span style="font-size: 11px;" t-esc="dataInput['print_date']"/></th>
+                                                            <th class="text-right"><span style="font-size:9px;">Page </span><span style="font-size: 11px;" t-esc="lines['page_number']"/></th>
+                                                        </tr>
+                                                    </thead>
+                                                 </table>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+               </div> -->
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

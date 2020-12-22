@@ -1,0 +1,136 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "BRDC Sales",
+
+    'summary': """
+        bokalin & ranzuy""",
+
+    'description': """
+        for BRDC
+    """,
+
+    'author': "MSG-MIS",
+    'website': "www.youtube.com",
+
+    # Categories can be used to filter modules in modules listing
+    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
+    # for the full list
+    'category': 'Uncategorized',
+    'version': '0.1',
+
+    # any module necessary for this one to work correctly
+    'depends': ['web','base','mail','account','loan_information'],
+
+    # always loaded
+    'data': [
+        # 'data/init_data.xml',
+        'settings/brdc_config_settings.xml',
+        
+        'views/resource.xml',
+        'security/brdc_security_access.xml',
+        'security/collection_security.xml',
+        'views/views.xml',
+        'views/templates.xml',
+        'views/brdc_loan_application.xml',
+        'views/or_series_config.xml',
+        # 'views/account_payment.xml',
+        'views/account_invoice.xml',
+        'views/account_payment.xml',
+        'views/sales.xml',
+        'views/brdc_collection.xml',
+        'views/brdc_res_partner.xml',
+        # 'views/account_payment_summary.xml',
+        'views/account_move.xml',
+        'wizard/application.xml',
+        'report/paperformat.xml',
+        'report/official_receipt.xml',
+        'report/purchase_order_lot.xml',
+        'report/eipp_agreement.xml',
+        'report/in_cash_pa.xml',
+        'report/paymen_schedule.xml',
+        'report/daily_collection.xml',
+        'report/provisional_receipt.xml',
+        'report/commission/agent_net_commission_voucher.xml',
+        'report/commission/commission_base.xml',
+        'report/sales_invoice/payment_schedule_template.xml',
+        'report/sales_invoice/sales_invoice_template.xml',
+        'report/sales_invoice/sales_order_slip_template.xml',
+        'report/sales_invoice/customers_ledger.xml',
+        'report/sales_invoice/schedule_of_account_per_customer.xml',
+        'report/termination/reminder_letter_template.xml',
+        'report/termination/notice_of_termination_template.xml',
+        'report/termination/notice_of_reactivation_template.xml',
+        'report/termination/final_demand_letter_template.xml',
+        'report/collection/report_collection_col_rep.xml',
+        'report/collection/report_collection_col_rep_abstract.xml',
+        'report/collection/report_collection_ccl.xml',
+        'report/collection/report_collection_ccl_per_coll.xml',
+        'report/collection/report_collection_ccl_abstract.xml',
+        'report/collection/collection_form.xml',
+        'report/collection/report_collection_daily_coll.xml',
+        'report/collection/report_collection_daily_coll_cc.xml',
+        # 'report/sample_report.xml',
+        # 'report/payment_summary.xml',
+        # 'report/daily_cash_count.xml',
+        # 'report/cash_count_view.xml',
+        # 'data/cash.count.config.line.csv',
+        # 'security/ir.model.access.csv',
+        'views/account_transfer.xml',
+        'views/brdc_transactions.xml',
+        'views/brdc_transactions_acct_conf.xml',
+        # 'views/product_transfer.xml',
+        # 'views/sale_advance_payment.xml',
+        'views/import_.xml',
+        'views/tax.xml',
+        'views/service_sales.xml',
+        'views/general_aging_list.xml',
+        'views/collection_efficiency.xml',
+        'views/account_journal.xml',
+        'views/agent_commission.xml',
+        'views/service_bundle.xml',
+        'views/interment_host.xml',
+        'views/pricelist.xml',
+        #'views/transactions.xml',
+        # 'views/res_partner.xml',
+        'report/letter/letter.xml',
+        'report/letter/termination.xml',
+        'report/letter/email_template.xml',
+        # 'report/letter/email_template.xml',
+        'report/accounting/report_soa_wizard.xml',
+        'report/accounting/report_soa_template.xml',
+        'report/accounting/individual_soa_ledger.xml',
+        'report/accounting/partner_soa_ledger_template.xml',
+        'report/accounting/accounting_sales_report.xml',
+        'report/aging/aging_wizard.xml',
+        'report/aging/aging_template.xml',
+        'report/collection/collection_efficiency.xml',
+        'report/tax/agent_withholding_tax_wizard.xml',
+        'report/tax/agent_withholding_tax_template.xml',
+        'report/commission/agent_commission_voucher.xml',
+        'report/accounts/account_invoie_status.xml',
+        'report/accounts/invoice_status_template.xml',
+        'cron/month_schedule.xml',
+        # 'static/xml/account_payment.xml',
+        # 'data/res_partner_data.xml',
+        'data/interment_host_channel.xml',
+        'report/kneco_reports/all_payments_template.xml',
+        'report/kneco_reports/template_base.xml',
+        'report/kneco_reports/template_base_menu.xml',
+        'security/ir.model.access.csv',
+    ],
+    # only loaded in demonstration mode
+    'demo': [
+        'demo/demo.xml',
+    ],
+    'qweb': [
+        "static/xml/account_payment.xml",
+        "static/xml/collection_template.xml",
+        "static/xml/interment_host_template.xml",
+        # "report/collection/collection_template.xml"
+    ],
+
+    'images': [
+        'static/img/logo_1.png',
+        'static/img/logo_2.png'
+    ],
+}

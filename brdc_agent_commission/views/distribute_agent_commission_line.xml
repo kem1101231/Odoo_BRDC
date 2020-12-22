@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+        <record id="distribute_agent_commission_tree" model="ir.ui.view">
+            <field name="name">Distribute Agent Commission</field>
+            <field name="model">distribute.commission_line</field>
+            <field name="arch" type="xml">
+                <tree string="Distribute Commission">
+                    <field name="name"/>
+                    <!--<field name="agent_id"/>-->
+                    <field name="position"/>
+                    <field name="date_distributed"/>
+                </tree>
+            </field>
+        </record>
+        <record id="distribute_agent_commission_form" model="ir.ui.view">
+            <field name="name">Distribute Agent Commission</field>
+            <field name="model">distribute.commission_line</field>
+            <field name="arch" type="xml">
+                <form string="Distribute Commission">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="confirmed"
+                                confirm="Are you sure you want to do this?"/>
+                        <!--usaba lang next time ang distributed-->
+                        <button name="action_confirm" type="object"
+                                string="Confirm" states="draft"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to do this?"/>
+                        <button name="action_distributed" type="object"
+                                string="Mark as Distributed" states="confirmed"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to do this?"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <sheet>
+                        <field name="name" attrs="{'readonly': True}"/>
+                        <group>
+                            <group>
+                                <!--<field name="name"/>-->
+                                <field name="agent_id" required="True"
+                                       options='{"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="position"
+                                       attrs="{'readonly': True}"/>
+                                <field name="is_am" attrs="{'invisible': True}"/>
+                                <field name="is_um" attrs="{'invisible': True}"/>
+                                <field name="is_sa" attrs="{'invisible': True}"/>
+                                <field name="is_co" attrs="{'invisible': True}"/>
+                            </group>
+                            <group>
+                                <field name="date_distributed"
+                                       attrs="{'readonly':True}"/>
+                            </group>
+                        </group>
+                        <field name="sa_temp_commission_line"
+                               attrs="{'invisible': [('is_sa','!=',True)],'readonly':[('state', '!=', 'draft')]}" create="false">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="pa_ref"/>
+                                <!--<field name="so_id"/>-->
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                                <field name="sa_percentage" sum="Total"/>
+                            </tree>
+                        </field>
+                        <field name="um_temp_commission_line"
+                               attrs="{'invisible': [('is_um','!=',True)],'readonly':[('state', '!=', 'draft')]}">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="pa_ref"/>
+                                <!--<field name="so_id"/>-->
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                                <field name="um_percentage" sum="Total"/>
+                            </tree>
+                        </field>
+                        <field name="am_temp_commission_line"
+                               attrs="{'invisible': [('is_am','!=',True)],'readonly':[('state', '!=', 'draft')]}">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="pa_ref"/>
+                                <!--<field name="so_id"/>-->
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                                <field name="am_percentage" sum="Total"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="distribute_agent_commission_action" model="ir.actions.act_window">
+            <field name="name">Distribute Agent Commission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">distribute.commission_line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

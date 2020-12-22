@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="daily_collection_form_view" model="ir.ui.view">
+            <field name="name">Daily Collectibles</field>
+            <field name="model">daily.collection</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="collector"/>
+                            <field name="date"/>
+                            <field name="barangay_id"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="gen_rep" type="object" string="Print"/>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="daily_collection_action_view" model="ir.actions.act_window">
+            <field name="name">Daily Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.collection</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+        <report
+            id="daily_collection_report"
+            model="daily.collection"
+            report_type="qweb-pdf"
+            string="Daily Collectible"
+            name="brdc_account.daily_collection_report_template"
+            file="daily collectibles"
+           
+        />
+
+        <template id="brdc_account.daily_collection_report_template">
+            <t t-call="report.html_container">
+                <!-- <t t-call="report.external_layout"> -->
+                <font t-foreach="docs" t-as="d" face="Arial, serif">
+                    <div class="page">
+                        <h1>Daily Collectibles</h1>
+                        <h3>Collector: <span t-field="d.collector"/> </h3>
+                        <table style="width: 100%; table-layout: auto; font-size: 120%;">
+                            <tr t-foreach="d.collection_ids" t-as="b" style="border-bottom: 1px black solid; padding-top: 5px;">
+                                <td> <span t-field="b.number"/></td>
+                                <td> <span t-field="b.name"/></td>
+                                <td> <span t-field="b.date"/></td>
+                                <td> <b>Php <span t-field="b.amount"/></b></td>
+                            </tr>
+                        </table>
+                        <!--<span t-esc="d.get_payment_schedule()"/>-->
+                    </div>
+                </font>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

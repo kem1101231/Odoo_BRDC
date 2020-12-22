@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="account.account.type" id="data_account_type_brdc_cost_of_sale">
+          <field name="name">Cost of Sales</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_inventory">
+          <field name="name">Inventory</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_other_assets">
+          <field name="name">Other Assets</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_equity_does_not_close">
+          <field name="name">Equity - Does not close</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_equity_retain_earning">
+          <field name="name">Equity - Retain Earning</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_long_term_liabilities">
+          <field name="name">Long Term Liabilities</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_other_current_assets">
+          <field name="name">Other Current Assets</field>
+          <field name="type">other</field>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_brdc_other_current_liabilities">
+          <field name="name">Other Current Liabilities</field>
+          <field name="type">other</field>
+        </record>
+
+    </data>
+</odoo>

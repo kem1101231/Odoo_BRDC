@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<record id="brdc_account_coa_936" model="account.account.template">
+    <field name="code">15431001719100</field>
+    <field name="name">GSNMAccrued Salaries</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_937" model="account.account.template">
+    <field name="code">15431001719200</field>
+    <field name="name">GSNMAccrued Interest </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_938" model="account.account.template">
+    <field name="code">15431001719300</field>
+    <field name="name">GSNMAccrued Rent</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_939" model="account.account.template">
+    <field name="code">15431001719400</field>
+    <field name="name">GSNMAccrued Commission</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_940" model="account.account.template">
+    <field name="code">15431001719500</field>
+    <field name="name">GSNMAccrued Insurance</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_941" model="account.account.template">
+    <field name="code">15431001719600</field>
+    <field name="name">GSNMOther Accrued Expe</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_942" model="account.account.template">
+    <field name="code">15431001820100</field>
+    <field name="name">GSNMVAT Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_943" model="account.account.template">
+    <field name="code">15431001920200</field>
+    <field name="name">GSNMIncome Tax Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_944" model="account.account.template">
+    <field name="code">15431002021100</field>
+    <field name="name">GSNMAdvances from Offi</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_945" model="account.account.template">
+    <field name="code">15431002021200</field>
+    <field name="name">GSNMAdvances from Stoc</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_946" model="account.account.template">
+    <field name="code">15431002021300</field>
+    <field name="name">GSNMCommision Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_947" model="account.account.template">
+    <field name="code">15431002021400</field>
+    <field name="name">GSNMIncentives Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_948" model="account.account.template">
+    <field name="code">15431002021500</field>
+    <field name="name">GSNMInsurance Premium </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_949" model="account.account.template">
+    <field name="code">15431002021600</field>
+    <field name="name">GSNMWithholding Taxes </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_950" model="account.account.template">
+    <field name="code">15431002021700</field>
+    <field name="name">GSNMWithholding Taxes </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_951" model="account.account.template">
+    <field name="code">15431002021800</field>
+    <field name="name">GSNMAdvances from Cust</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_952" model="account.account.template">
+    <field name="code">15431002021900</field>
+    <field name="name">GSNMInsurance Premiums</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_953" model="account.account.template">
+    <field name="code">15431002022000</field>
+    <field name="name">GSNMSSS  Cont. Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_954" model="account.account.template">
+    <field name="code">15431002022100</field>
+    <field name="name">GSNMPag-Ibig Cont. Pay</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_955" model="account.account.template">
+    <field name="code">15431002022200</field>
+    <field name="name">GSNMPhilhealth Cont. P</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_956" model="account.account.template">
+    <field name="code">15431002022400</field>
+    <field name="name">GSNMDue to Regulatory </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_957" model="account.account.template">
+    <field name="code">15431002022500</field>
+    <field name="name">GSNMOther Payables</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_958" model="account.account.template">
+    <field name="code">15431002022600</field>
+    <field name="name">GSNMSSS Loan Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_959" model="account.account.template">
+    <field name="code">15431002022700</field>
+    <field name="name">GSNMPag-Ibig Loans Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_960" model="account.account.template">
+    <field name="code">15431002022800</field>
+    <field name="name">GSNMRBN Loan Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_961" model="account.account.template">
+    <field name="code">15431002022900</field>
+    <field name="name">GSNMHappy Living Loan Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_962" model="account.account.template">
+    <field name="code">15431002123100</field>
+    <field name="name">GSNMOther Current Liab</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_963" model="account.account.template">
+    <field name="code">154310024 25000</field>
+    <field name="name">GSNMDividend Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_964" model="account.account.template">
+    <field name="code">15431002926200</field>
+    <field name="name">GSNMOutput VAT</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_965" model="account.account.template">
+    <field name="code">15431002927100</field>
+    <field name="name">GSNMOther Payable - BU</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_966" model="account.account.template">
+    <field name="code">15971001719100</field>
+    <field name="name">MANMAccrued Salaries</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_967" model="account.account.template">
+    <field name="code">15971001719200</field>
+    <field name="name">MANMAccrued Interest </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_968" model="account.account.template">
+    <field name="code">15971001719300</field>
+    <field name="name">MANMAccrued Rent</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_969" model="account.account.template">
+    <field name="code">15971001719400</field>
+    <field name="name">MANMAccrued Commission</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_970" model="account.account.template">
+    <field name="code">15971001719500</field>
+    <field name="name">MANMAccrued Insurance</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_971" model="account.account.template">
+    <field name="code">15971001719600</field>
+    <field name="name">MANMOther Accrued Expe</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_972" model="account.account.template">
+    <field name="code">15971001820100</field>
+    <field name="name">MANMVAT Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_973" model="account.account.template">
+    <field name="code">15971001920200</field>
+    <field name="name">MANMIncome Tax Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_974" model="account.account.template">
+    <field name="code">15971002021100</field>
+    <field name="name">MANMAdvances from Offi</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_975" model="account.account.template">
+    <field name="code">15971002021200</field>
+    <field name="name">MANMAdvances from Stoc</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_976" model="account.account.template">
+    <field name="code">15971002021300</field>
+    <field name="name">MANMCommision Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_977" model="account.account.template">
+    <field name="code">15971002021400</field>
+    <field name="name">MANMIncentives Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_978" model="account.account.template">
+    <field name="code">15971002021500</field>
+    <field name="name">MANMInsurance Premium </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_979" model="account.account.template">
+    <field name="code">15971002021600</field>
+    <field name="name">MANMWithholding Taxes </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_980" model="account.account.template">
+    <field name="code">15971002021700</field>
+    <field name="name">MANMWithholding Taxes </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_981" model="account.account.template">
+    <field name="code">15971002021800</field>
+    <field name="name">MANMAdvances from Cust</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_982" model="account.account.template">
+    <field name="code">15971002021900</field>
+    <field name="name">MANMInsurance Premiums</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_983" model="account.account.template">
+    <field name="code">15971002022000</field>
+    <field name="name">MANMSSS  Cont. Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_984" model="account.account.template">
+    <field name="code">15971002022100</field>
+    <field name="name">MANMPag-Ibig Cont. Pay</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_985" model="account.account.template">
+    <field name="code">15971002022200</field>
+    <field name="name">MANMPhilhealth Cont. P</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_986" model="account.account.template">
+    <field name="code">15971002022400</field>
+    <field name="name">MANMDue to Regulatory </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_987" model="account.account.template">
+    <field name="code">15971002022500</field>
+    <field name="name">MANMOther Payables</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_988" model="account.account.template">
+    <field name="code">15971002022600</field>
+    <field name="name">MANMSSS Loan Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_989" model="account.account.template">
+    <field name="code">15971002022700</field>
+    <field name="name">MANMPag-Ibig Loans Pay</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_990" model="account.account.template">
+    <field name="code">15971002022800</field>
+    <field name="name">MANMRBN Loan Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_991" model="account.account.template">
+    <field name="code">15971002022900</field>
+    <field name="name">MANMHappy Living Loan </field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_992" model="account.account.template">
+    <field name="code">15971002123100</field>
+    <field name="name">MANMOther Current Liab</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_993" model="account.account.template">
+    <field name="code">159710024 25000</field>
+    <field name="name">MANMDividend Payable</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_994" model="account.account.template">
+    <field name="code">15971002926200</field>
+    <field name="name">MANMOutput VAT</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+<record id="brdc_account_coa_995" model="account.account.template">
+    <field name="code">15971002927100</field>
+    <field name="name">MANMOther Payable - BU</field>
+    <field name="user_type_id" ref="brdc_coa_data.data_account_type_brdc_other_current_liabilities"/>
+    <field name="chart_template_id" ref="brdc_coa_data.configurable_chart_template_brdc"/>
+</record>
+
+    </data>
+</odoo>

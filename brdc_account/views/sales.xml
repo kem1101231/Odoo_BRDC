@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="sale_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.view_order_form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                    <attribute name="domain">[('payment_config_id','=', product_type)]</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="editable">bottom</attribute>
+                </xpath>
+
+                <!--<xpath expr="//form" position="attributes">-->
+                    <!--<attribute name="edit">('state','=','draft')</attribute>-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="purchase_term" attrs="{'readonly': [('state','not in',['draft','sent'])]}"/>
+                </xpath>
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='purchase_term']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="product_type" attrs="{'readonly': [('state','not in',['draft','sent'])]}" widget="selection"/>
+                           <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>-->
+                    <field name="is_bundle" attrs="{'invisible': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" domain="[('customer','=',True),('state','=','note'),('is_agent','=', False)]" options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                </xpath>
+
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <!--<attribute name="default"></attribute>-->
+                </xpath>
+                <xpath expr="//field[@name='purchase_term']" position="after">
+                    <field name="new_payment_term_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           attrs="{'readonly': [('state','not in',['draft','sent'])],'invisible':[('purchase_term','=','cash')], 'required': [('purchase_term','=','install')]}" widget="selection"/>
+                </xpath>
+                <!--<xpath expr="//field[@name='new_payment_term_id']" position="after">-->
+                    <!--<field name="eipp_payment_term_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                           <!--attrs="{'readonly': [('state','not in',['draft','sent'])],'invisible':['|',('purchase_term','=','cash'),('product_type','=','product')]}"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='new_payment_term_id']" position="after">-->
+                    <!--<field name="is_split" attrs="{'readonly':[('state','!=','draft')]}"/>-->
+                <!--</xpath>-->
+<!--                 <xpath expr="//field[@name='purchase_term']" position="after">
+
+                    <field name="is_split" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="is_paidup" attrs="{'readonly':[('state','!=','draft')],'invisible':[('purchase_term','=','cash')]}" string="Full Payment/Downpayment"/>
+
+                </xpath> -->
+
+                <xpath expr="//field[@name='new_payment_term_id']" position="after">
+                    <field name="new_payment_term_with_dp" invisible="1"/>
+                    <field name="downpayment_type" attrs="{'invisible':['|',('purchase_term','=','cash'),('new_payment_term_with_dp','=', True)], 'readonly':[('state','!=', 'draft')]}" />
+                    <field name="is_split"  string="Split Cash" attrs="{'readonly':[('state','!=','draft')], 'invisible':[('purchase_term','=','install')]}"/>
+                    <field name="is_paidup" attrs="{'readonly':[('state','!=','draft')]}" string="Full Payment/Downpayment" invisible="1"/>
+                    <field name="collector_area" invisible="0"/>
+                    <field name="collector_list" attrs="{'invisible':[('state','in', ['sale', 'sent'])]}" class="oe_edit_only"/>
+                    <!-- <field name="collector_list_many2" widget="many2many_tags"/> -->
+                    
+                    <!-- <field name="collector_selection" option="{'no_create':True}"/> -->
+                    <field name="collector" option="{'no_create':True}" attrs="{'readonly':[('state','in', ['sale'])]}" class="oe_read_only"/>
+                    <!-- <field name="collector_from_many2"/>
+ -->
+                </xpath>
+                <xpath expr="//notebook/page[1]/group[1]" position="replace">
+                    <group col="4">
+                        <group>
+                            <field name="o_dp" attrs="{'invisible':['|',('purchase_term','=','cash')]}"/>
+                            <field name="balance_payment" attrs="{'invisible':['|',('purchase_term','=','cash')]}"/>
+                            <field name="spot_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="s_dp" attrs="{'invisible':['|',('purchase_term','=','cash')]}"/>
+                            <field name="balance_payment_wi" attrs="{'invisible':['|',('purchase_term','=','cash')]}"/>
+                            <field name="split_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="st4_dp" attrs="{'invisible':['|',('purchase_term','=','cash')]}"    />
+                            <field name="monthly_payment" attrs="{'invisible':[('purchase_term','=','cash')]}"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+
+                            <!--<field name="vat" widget='monetary' options="{'currency_field': 'currency_id'}"/>-->
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1"/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1"/>
+                            <field name="amot_total_wo_pcf_n_disc" invisible="1"/>
+                            <field name="amount_total_wo_pcf" invisible="1"/>
+                            <field name="lot_price_wo_disc" invisible="1"/>
+                            <field name="cost_of_sales" invisible="1" readonly="1"/>
+                            <field name="net_profit" invisible="1"/>
+                            <field name="gross_profit_rate" invisible="1"/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1"/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;" invisible="1"/>
+                            <field name="unit_price" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="0"/>
+                            <field name="pcf" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="0"/>
+                            <field name="amount_tax" widget='monetary' string="VAT" options="{'currency_field': 'currency_id'}" invisible="0"/>
+                            <separator string="" colspan="2" style="margin-top:4px; margin-bottom:4px; border-bottom: 1px solid #ddd;"/>
+                            <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" string="Gross" style="font-size:17px;"/>
+
+                            <field name="discount" readonly="1"/>
+                            <field name="pwd_sp_discount_value" readonly="1" invisible="1"/>
+            
+                            <field name="other_taxes" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="1"/>
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_total" string="Total(Advances Included) "/>
+                                <button name="button_dummy"
+                                    states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                            </div>
+
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <!--<xpath expr="//notebook/page[1]/group[1]" position="before">-->
+                    <!--<label for="o_dp" string="Downpayment:"/>-->
+                    <!--<field name="o_dp"/>-->
+                    <!--<label for="s_dp" string=" "/>-->
+                    <!--<label for="s_dp" string="Paid-up Downpayment:"/>-->
+                    <!--<field name="s_dp"/>-->
+                    <!--<label for="st4_dp" string=" "/>-->
+                    <!--<label for="st4_dp" string="Split Downpayment:"/>-->
+                    <!--<field name="st4_dp"/>-->
+                    <!--<br/>-->
+                    <!--<label for="balance_payment" string="Balance Payment:"/>-->
+                    <!--<field name="balance_payment"/>-->
+                    <!--<br/>-->
+                    <!--<label for="balance_payment_wi" string="Balance Payment with Interest:"/>-->
+                    <!--<field name="balance_payment_wi"/>-->
+                    <!--<br/>-->
+                    <!--<hr/>-->
+                    <!--<label for="spot_cash" string="Spot Cash:"/>-->
+                    <!--<field name="spot_cash"/>-->
+                    <!--<label for="split_cash" string=" "/>-->
+                    <!--<label for="split_cash" string="Split Cash:"/>-->
+                    <!--<field name="split_cash"/>-->
+                    <!--<br/>-->
+                    <!--<hr/>-->
+                <!--</xpath>-->
+                <!--ranzu-->
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="pa_required" invisible="1"/>
+                    <field name="pa_ref" placeholder="PA No." attrs="{'required':[('pa_required', '=', True)], 'readonly':[('state', '=', 'sale')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="before">
+                        <field name="name" attrs="{'readonly': True}"/>
+                </xpath>
+                
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="string">Contract Price</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="after">
+                    <field name="line_discount_value"/>
+                     <field name="bogo_field" invisible="1"/>
+                    <field name="price_unit_copy" invisible="1"/>
+                    <field name="pcf_inline_value" invisible="1"/>
+                    <field name="price_fixed" invisible="1"/>
+                    <field name="selling_price" invisible="1"/>
+                    <field name="pwd_discount_value" invisible="1"/>
+                    <field name="downpayment_value" invisible="1"/>
+                    <field name="lot_price" invisible="1"/>
+                    <field name="line_vat_value" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherited_sale_order_quotation_tree" model="ir.ui.view">
+            <field name="name">inherited sale order quotation tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="before">
+                    <!-- Add new fields here -->
+                    <field name="pa_ref" groups="brdc_account.module_brdc_account"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="pa_ref" string="P.A. No."/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="sale_order_quotation" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+        </record>
+
+        <record id="sale_order_sales_orders" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_order_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','sale')]</field>
+        </record>
+
+
+        <record id="brdc_sale_order_view_search_inherit_quotation" model="ir.ui.view">
+            <field name="name">brdc.sale.order.search.inherit.quotation</field>
+            <field name="model">sale.order</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="pa_ref" string="Purchase Agreement"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

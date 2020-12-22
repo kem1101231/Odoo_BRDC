@@ -1,0 +1,45 @@
+id,category,create_uid/id,create_date,bpt,is_parent,write_uid/id,write_date,name,no_months,parent_id/id,less_perc,bpt_wod,payment_type
+payment_config_1,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,service,0,,0,FALSE,install
+payment_config_2,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,product,0,,0,FALSE,install
+payment_config_3,product,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 0:57,Lot,0,,0,FALSE,install
+payment_config_4,service,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 6:52,Interment Service / EIPP,0,,0,FALSE,install
+payment_config_5,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,12 mos,12,payment_config_3,1.03,FALSE,install
+payment_config_6,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,24 mos,24,payment_config_3,1.05,FALSE,install
+payment_config_7,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,36 mos,36,payment_config_3,1.08,FALSE,install
+payment_config_8,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,48 mos,48,payment_config_3,1.1,FALSE,install
+payment_config_9,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,3-months deferred,0,payment_config_3,0.95,FALSE,cash
+payment_config_10,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,12 mons,12,payment_config_4,1,FALSE,install
+payment_config_11,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,24 mons,24,payment_config_4,1.1,FALSE,install
+payment_config_12,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,36 mons,36,payment_config_4,1.14,FALSE,install
+payment_config_13,service,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 6:53,MM bundle,0,,0,FALSE,install
+payment_config_14,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,4 mos split dp,0,payment_config_3,0.95,FALSE,install
+payment_config_15,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,60 mos,60,payment_config_3,1.2,FALSE,install
+payment_config_16,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,Balance,0,payment_config_3,0.8,FALSE,install
+payment_config_17,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,downpayment,0,payment_config_3,0.2,FALSE,install
+payment_config_18,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,paid up DP,0,payment_config_3,0.85,FALSE,install
+payment_config_19,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,spotcash,1,payment_config_3,0.85,FALSE,cash
+payment_config_20,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,weekend EIPP,0,,1.078947368,FALSE,install
+payment_config_21,service,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 6:53,Crematory Service,0,,0,FALSE,install
+payment_config_22,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,spotcash,1,payment_config_21,0.8,FALSE,cash
+payment_config_23,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:59,cash,1,payment_config_4,1,FALSE,cash
+payment_config_24,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,Balance,6,payment_config_21,0.7,FALSE,install
+payment_config_25,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,downpayment,0,payment_config_21,0.3,FALSE,install
+payment_config_26,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,6 mos,6,payment_config_21,1,FALSE,install
+payment_config_27,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,12 mos,12,payment_config_21,1,FALSE,install
+payment_config_28,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,straight 12 months,12,payment_config_21,1,TRUE,install
+payment_config_29,product,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 6:53,Columbary Vault,0,,0,FALSE,install
+payment_config_30,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,Balance,0,payment_config_29,0.7,FALSE,install
+payment_config_31,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,downpayment,0,payment_config_29,0.3,FALSE,install
+payment_config_32,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,6 mos,6,payment_config_29,1,FALSE,install
+payment_config_33,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,12 mos,12,payment_config_29,1,FALSE,install
+payment_config_34,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 0:57,straight 12 mos,12,payment_config_29,1,TRUE,install
+payment_config_35,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 2:17,spotcash,1,payment_config_29,0.85,FALSE,cash
+payment_config_36,product,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 0:57,Community Vault,0,,0,FALSE,install
+payment_config_37,,base.user_root,01/06/2018 0:57,TRUE,FALSE,base.user_root,01/06/2018 1:03,cash,1,payment_config_36,1,FALSE,cash
+payment_config_38,,base.user_root,01/06/2018 0:57,FALSE,FALSE,base.user_root,01/06/2018 0:57,3-months deferred,0,payment_config_36,1,FALSE,cash
+payment_config_39,,base.user_root,01/06/2018 0:58,TRUE,FALSE,base.user_root,01/06/2018 0:58,cash,1,payment_config_21,1,FALSE,cash
+payment_config_40,,base.user_root,01/06/2018 0:58,TRUE,FALSE,base.user_root,01/06/2018 0:58,cash,1,payment_config_29,1,FALSE,cash
+payment_config_41,,base.user_root,01/06/2018 1:00,TRUE,FALSE,base.user_root,01/06/2018 1:00,120 mons,120,payment_config_13,1,FALSE,install
+payment_config_42,,base.user_root,31/05/2018 11:37,TRUE,FALSE,base.user_root,31/05/2018 11:37,cash,1,payment_config_3,1,FALSE,cash
+payment_config_43,service,base.user_root,01/06/2018 0:57,FALSE,TRUE,base.user_root,01/06/2018 6:52,Special Service,0,,0,FALSE,install
+payment_config_44,,base.user_root,31/05/2018 11:37,TRUE,FALSE,base.user_root,31/05/2018 11:37,cash,1,payment_config_43,1,TRUE,cash

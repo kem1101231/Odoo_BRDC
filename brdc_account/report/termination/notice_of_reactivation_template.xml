@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="action_notice_of_reactivation"
+                    model="account.invoice"
+                    report_type="qweb-pdf"
+                    string="Notice of Reactivation"
+                    name="brdc_account.notice_of_reactivation_template"
+                    file="brdc_account.notice_of_reactivation_template"
+                    paperformat="brdc_account.custom_legal_paperformat"
+                    menu="False"
+                />
+        <template id="notice_of_reactivation_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                <!-- <t t-call="report.external_layout"> -->
+                    <div class="page">
+                        <style>
+                            table{
+                            empty-cells:show;
+                            }
+                            tr{
+                            min-height:2em;
+                            }
+                            table, tr, td {
+                            border: 1px solid black;
+                            margin: 0 !important;
+                            padding: 2px 0px 2px !important;
+                            }
+                            input {
+                            margin: 0;
+                            margin-bottom: 5px !important;
+                            }
+                            .center{
+                            text-align: center;
+                            }
+                            .right{
+                            text-align: right;
+                            }
+                            .top{
+                            vertical-align: top;
+                            }
+                            .middle{
+                            vertical-align: middle;
+                            }
+                            .bottom{
+                            vertical-align: bottom;
+                            }
+                            .no-border{
+                            border: 0;
+                            }
+                            .strong{
+                            font-weight:bold;
+                            }
+                            .upcase{
+                            text-transform: uppercase;
+                            }
+                            td.left-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-left: 1px solid #4993c1;
+                            }
+                            td.top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.right-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            td.top-border{
+                            border-top: 1px solid #4993c1;
+                            }
+                            td.bottom-border{
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.left-right-border{
+                            border-left: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            span.header{
+                            margin-top:1rem !important;
+                            margin-bottom:1rem !important;
+                            }
+                            .hltd_clmn{
+                            background-color: #82b5d4;
+                            }
+                        </style>
+                        <table class="table-condensed table">
+                            <tr>
+                                <td class="no-border center" colspan="2" rowspan="4" width="20%">
+                                    <img class="img" height="4%" src="/brdc_account/static/img/logo_2.png"/>
+                                </td>
+                                <td class="no-border upcase strong center" colspan="4" width="40%">
+                                    <span>biocielo realty &amp; development corporation</span>
+                                </td>
+                                <td class="no-border center middle" colspan="2" rowspan="4" width="20%">
+                                    <img class="img" width="70%" src="/brdc_account/static/img/logo_1.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>3rd Floor Vensu Building, National Highway, General Santos City</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Tel No.(083) 554-3853; Mobile Phone No. 0922-821-5081</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Email: safe_biocielo@yahoo.com</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8" style="border-bottom: 3px solid black;padding:1em 0 !important"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase center" colspan="8"><h4>notice of reactivation</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border right strong" colspan="8" style="color: red;">NUMBER</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong" colspan="8"  style="padding:2rem 0 !important">DATE</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border upcase" colspan="8"><span t-field="doc.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border upcase" colspan="8"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <t t-set="area_no" t-value="0"/>
+                            <t t-set="area_class" t-value="nan"/>
+                            <t t-set="block_no" t-value="0"/>
+                            <t t-foreach="doc.invoice_line_ids" t-as="inv">
+                                <t t-set="area_no" t-value="inv.product_id.area_number.name"/>
+                                <t t-set="area_class" t-value="inv.product_id.categ_id.name"/>
+    <!--                            <t t-set="block_no" t-value="inv.product_id.block_number"/>-->
+                            </t>
+                            <tr>
+                                <td class="no-border" colspan="8" style="padding-top:2em !important"><p>Sub: <span class="strong upcase">to reactivate the account</span><br/>
+                                    <span class="strong upcase" style="padding-left:3em !important;">pa no: </span><strong><u><span t-field="doc.pa_ref"/></u></strong><br/>
+                                <span class="strong upcase" style="padding-left:3em !important;">product: </span><strong><u><span t-field="doc.product_type"/>: <span t-esc="area_class"/>: Area - <span t-esc="area_no"/>: Blk. -  <span t-esc="block_no"/></u></strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8" style="padding: 2em 0 !important;"><p>
+                                    Dear SIR/MADAM: <br/><br/>
+                                    Greetings! <br/><br/>
+                                    We are glad to inform you that your account with Biocielo Realty and Development Corporation (BRDC), PA No. <span t-field="doc.pa_ref"/> is hereby <strong>REACTIVATED</strong>. <br/><br/>
+                                    Please comply the following conditions; all of these condition were based on the schedule below. <br/>
+                                    1. Full payment of Total Overdue <br/>
+                                    2. Payment of the Total Surcharges <br/>
+                                    3. Payment of Reactivation <br/>
+                                    4. Account must be updated based on the original Monthly Amortization <br/><br/>
+                                    Failure to make payments for all past due amounts and current monthly due will force us to terminate your account and therefore you cannot be able to reactivate again. <br/><br/>
+                                    If you have any questions or clarifications regarding this matter, please do not hesitate to contact us on 083-5543853 and 09228215081, or you may visit us at our office during the office hours.
+                                    Thank you for the opportunity to be of service to you.
+                                </p></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-bottom: 2em !important;"><p>Very truly yours,</p></td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border top-border" colspan="2" style="padding-bottom: 1em !important;">General Manager</td>
+                                <td class="no-border" colspan="6"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">PA NO:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.pa_ref"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Memorial Lot:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.product_type"/>: <span t-esc="area_class"/>: Area - <span t-esc="area_no"/>: Blk. -  <span t-esc="block_no"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Date Terminated:</td>
+                                <td class="no-border" colspan="4"></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Date of Reactivation:</td>
+                                <td class="no-border" colspan="4"></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase center" colspan="8"><h4>payment schedule of amortization, fees and charges</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="center strong" colspan="1">No.</td>
+                                <td class="center strong" colspan="1">Due Date</td>
+                                <td class="center strong" colspan="1">Amount Past Due</td>
+                                <td class="center strong" colspan="1">Current Due</td>
+                                <td class="center strong" colspan="1">Surcharge</td>
+                                <td class="center strong" colspan="1">Reactivation Fee</td>
+                                <td class="center strong" colspan="2">Total</td>
+                            </tr>
+<!--                            <tr t-foreach="" t-as="">-->
+<!--                                <td class="no-border left-right-border center strong" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border center" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border right" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border right" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border right" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border right" colspan="1"></td>-->
+<!--                                <td class="no-border left-right-border right" colspan="2"></td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td class="no-border top-border" colspan="6"/>
+                                <td class="no-border top-border strong right" colspan="2" style="border-bottom:3px double black">TOTAL</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-top:1em !important;">Received by:</td>
+                                <td class="no-border" colspan="6" style="padding-top:1em !important;"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2"/>
+                                <td class="no-border top-border" colspan="4"><i>Printed Name over Signature</i></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-top: 1em !important">Date &amp; Time Received:</td>
+                                <td class="no-border bottom-border" colspan="4" style="padding-top: 1em !important;"/>
+                                <td class="no-border" colspan="2" style="padding-top: 1em !important;"/>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

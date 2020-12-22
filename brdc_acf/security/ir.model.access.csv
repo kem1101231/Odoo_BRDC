@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_acf_res_user_base,agent.commission.fund.monitor,brdc_acf.model_agent_commission_fund_monitor,brdc_account.group_module_brdc_account_user,1,1,1,1

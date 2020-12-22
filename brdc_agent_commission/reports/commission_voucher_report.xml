@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="commission_voucher_report_paperformat_custom" model="report.paperformat">
+            <field name="name">commission voucher report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">300</field>
+        </record>
+
+        <report
+                id="commission_voucher_report"
+                model="brdc_account.released.commission"
+                report_type="qweb-html"
+                string="Commission Voucher"
+                name="brdc_agent_commission.commission_voucher_report_view"
+                file="brdc_agent_commission.commission_voucher_report_view"
+                paperformat="commission_voucher_report_paperformat_custom"
+                menu="True"
+        />
+
+        <template id="commission_voucher_report_view" >
+            <t t-call="report.html_container">
+                <!--<t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="d" >
+                    <div class="page">
+                        <style type="text/css">
+                            div {
+                            border:1px solid;
+                            }
+                            table {
+                            border:1px;
+                            page-break-inside:auto;
+                            font-size: 12px;
+                            }
+                            tr {
+                            border:1px;
+                            }
+                            .header {
+                            width: 100%;
+                            table-layout: fixed;
+                            }
+                            .info_1 {
+                            }
+                            .body {
+                            }
+                            .footer {
+                            }
+                            .bold_center {
+                            text-align:center;
+                            font-weight: bold;
+                            }
+
+                        </style>
+                        <div>
+                            <table class="table-condensed header">
+                                <tr >
+                                    <th >test</th>
+                                    <th class="bold_center">BIOCIELO REALTY <![CDATA[&amp;]]> DEVELOPMENT CORPORATION</th>
+                                    <th >test</th>
+                                </tr>
+                                <tr >
+                                    <th ></th>
+                                    <th class="bold_center">3rd Floor, Vensu Building, National Highway Gen. Santos City</th>
+                                    <th ></th>
+                                </tr>
+                                <tr >
+                                    <th > </th>
+                                    <th class="bold_center">NET COMMISSION VOUCHER</th>
+                                    <th ></th>
+                                </tr>
+                            </table>
+                            <table class="table-condensed">
+                                <tr >
+                                    <th >Agent Name:</th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr >
+                                    <th>Position:</th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                            <table class="table-condensed">
+                                <tr >
+                                    <th ></th>
+                                    <th >body</th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                            <table class="table-condensed">
+                                <tr >
+                                    <th ></th>
+                                    <th >footer</th>
+                                    <th ></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

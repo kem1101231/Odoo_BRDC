@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="aging_report_paperformat_custom" model="report.paperformat">
+            <field name="name">Aging</field>
+            <field name="default" eval="True"/>
+            <field name="format">Legal</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+            id="aging_report_report"
+            model="collector.aging"
+            report_type="qweb-pdf"
+            string="Aging"
+            name="brdc_account.aging_report_report_template"
+            file="Aging"
+            paperformat="brdc_account.custom_letter_landscape_marginfit_paperformat"
+            menu="False"
+        />
+
+        <template id="aging_report_report_template">
+            <t t-call="report.html_container">
+                    <t t-foreach="dataInput['lines']" t-as="lines">
+                    <div class="page">
+<!--                         <t t-if="o.type == 'general'">
+                            <h1>
+                             <center>Aging Report</center>
+                            </h1>
+                             <h4><center>As of <span t-field="o.date" t-field-options='{"format": "d MMMM y"}'/></center></h4>
+                             <br/>
+                            <table width="100%">
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Customer</th>
+                                    <th>Billing</th>
+                                    <th>Doc. Date</th>
+                                    <th>Contract</th>
+                                    <th>Accumulated</th>
+                                    <th>Balance</th>
+                                    <th>Due</th>
+                                    <th>Current</th>
+                                    <th>1-30D</th>
+                                    <th>31-60D</th>
+                                    <th>61-90D</th>
+                                    <th>91DO</th>
+                                </tr>
+                                <tr t-foreach="o.collection_line_ids" t-as="line">
+                                    <td>
+                                        <t t-set="pa_ref" t-value="line.invoice_id.display_name.split('[')"/>
+                                        <span t-esc="pa_ref[0]"/>
+                                    </td>
+                                    <td><span t-field="line.partner_id.name"/></td>
+                                    <td><span style="text-transform: uppercase;" t-field="line.address"/></td>
+                                    <td><span t-field="line.doc_date"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.amount_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.paid_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.balance)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_current)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_30)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_60)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_90)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_over_90)"/></td>
+                                </tr>
+                            </table>
+                         </t>
+
+                         <t t-if="o.type == 'collection'">
+                            <h1>
+                             <center>Collectors' Aging Report</center>
+                            </h1>
+                             <h4><center>As of <span t-field="o.date" t-field-options='{"format": "d MMMM y"}'/></center></h4>
+                            <br/>
+                            <h3>
+                                <span t-field="o.collector_id"/>
+                            </h3>
+                             <br/>
+                            <table width="100%">
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Customer</th>
+                                    <th>Billing</th>
+                                    <th>Doc. Date</th>
+                                    <th>Contract</th>
+                                    <th>Accumulated</th>
+                                    <th>Balance</th>
+                                    <th>Due</th>
+                                    <th>Current</th>
+                                    <th>1-30D</th>
+                                    <th>31-60D</th>
+                                    <th>61-90D</th>
+                                    <th>91DO</th>
+                                </tr>
+                                <tr t-foreach="o.collection_line_ids" t-as="line">
+                                    <td>
+                                        <t t-set="pa_ref" t-value="line.invoice_id.display_name.split('[')"/>
+                                        <span t-esc="pa_ref[0]"/>
+                                    </td>
+                                    <td><span t-field="line.partner_id.name"/></td>
+                                    <td><span style="text-transform: uppercase;" t-field="line.address"/></td>
+                                    <td><span t-field="line.doc_date"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.amount_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.paid_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.balance)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_current)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_30)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_60)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_90)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_over_90)"/></td>
+                                </tr>
+                            </table>
+                         </t>
+
+                         <t t-if="o.type == 'product'">
+                            <h1>
+                             <center>Products' Aging Report</center>
+                            </h1>
+                             <h4><center>As of <span t-field="o.date" t-field-options='{"format": "d MMMM y"}'/></center></h4>
+                             <br/>
+                             <h3>
+                                <span t-field="o.product_type"/>
+                             </h3>
+                             <br/>
+                            <table width="100%">
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Customer</th>
+                                    <th>Billing</th>
+                                    <th>Doc. Date</th>
+                                    <th>Contract</th>
+                                    <th>Accumulated</th>
+                                    <th>Balance</th>
+                                    <th>Due</th>
+                                    <th>Current</th>
+                                    <th>1-30D</th>z
+                                    <th>31-60D</th>
+                                    <th>61-90D</th>
+                                    <th>91DO</th>
+                                </tr>
+                                <tr t-foreach="o.collection_line_ids" t-as="line">
+                                    <td>
+                                        <t t-set="pa_ref" t-value="line.invoice_id.display_name.split('[')"/>
+                                        <span t-esc="pa_ref[0]"/>
+                                    </td>
+                                    <td><span t-field="line.partner_id.name"/></td>
+                                    <td><span style="text-transform: uppercase;" t-field="line.address"/></td>
+                                    <td><span t-field="line.doc_date"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.amount_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.paid_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.balance)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_total)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_current)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_30)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_60)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_90)"/></td>
+                                    <td><span t-esc="'{0:,.2f}'.format(line.due_over_90)"/></td>
+                                </tr>
+                            </table>
+                         </t> -->
+                             <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style="border: 1px solid #fff; margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                <img style="padding:0px; border: 1px solid #fff" src="/brdc_account/static/img/logo_1.png"/>
+                                            </td>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">
+                                                Biocielo Reality and Development Corporation
+                                            </td>
+                                            <td rowspan="6" style="width: 200px; font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                <img style="width:80px; height: 80px;" src="/brdc_account/static/img/logo_2.png"/>
+                                            </td>  
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                3rd Floor Vensu Blg. National Highway, General Santos City 
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px; padding: 0px; border: 1px solid #fff">
+                                                Telefax No. (083) 554-3853
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">
+                                                Mobile No. 0922-821-5081
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 20px;  border: 1px solid #fff">
+                                                AGING RECEIVABLE REPORT
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td style="font-size: 11px;  padding:0px;  border: 1px solid #fff">
+                                                As of <span t-esc="dataInput['date_range']"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                 <t t-if="dataInput['type'] == 'collect'">
+                                <table class="table table-hover" style="margin-top: 10px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" style=" border: 1px solid #000; padding:8px;"><span t-esc="dataInput['collector']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </t>
+<!--                                 <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">Marbel Universal Trading Inc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">MUTI Bldg., Osmeña St., Koronadal City</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">PURCHASE JOURNAL</td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table> -->
+                               <!--  <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Vendor:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;">Kawasaki Phili., Inc.</td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff"  class="text-right">Journal No.:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Address:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Contact:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right"></td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">T.I.N.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">VAT:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff">Receipt No.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right">Date:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table> -->
+                                <table class="table table-hover" style="margin-top: 8px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px; font-weight: bold; padding:0px;width: 650px; border: 1px solid #fff"  class="text-right">
+                                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+
+                                                    <thead  class="text-center">
+                                                        <tr>
+                                                            <th style="font-size: 12px;  padding:0px;width: 50px; border: 1px solid #000" class="text-center" rowspan="2">NO.</th>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <th style="font-size: 12px;  padding:0px;min-width: 180px; border: 1px solid #000" class="text-center" rowspan="2">COLLECTOR</th>
+                                                            </t>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">P.A. NO.</th>
+                                                            <th style="font-size: 12px;  padding:0px;min-width: 180px; border: 1px solid #000" class="text-center" rowspan="2">CLIENT NAME</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">DATE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">PRODUCT TYPE</th>
+                                                            <!-- <th style="font-size: 12px; padding:0px;width: 150px; border: 1px solid #000" class="text-center" rowspan="2">PRODUCT DESCRIPTION</th> -->
+
+                                                            <th style="font-size: 12px; padding:0px;width: 150px; border: 1px solid #000" class="text-center" rowspan="2">AREA</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 150px; border: 1px solid #000" class="text-center" rowspan="2">CLASS</th>
+
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">LOT NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">BLOCK NO.</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">CONTRACT PRICE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">PAYMENT</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">BALANCE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000" class="text-center" rowspan="2">AMOUNT DUE</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" rowspan="2">CURRENT</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center" colspan="4">DAYS PAST DUE</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">1-30 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">31-60 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">61-90 DAYS</th>
+                                                            <th style="font-size: 12px; padding:0px;width: 100px; border: 1px solid #000; background:#ddd;" class="text-center">OVER 90 DAYS</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="lines['page']" t-as="line">
+                                                       <tr>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                            <span t-esc="line['no']"/>
+                                                            </td>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                                <span t-esc="line['collector']"/>
+                                                            </td>
+                                                            </t>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                                <span t-esc="line['pa']"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;">
+                                                                <span t-esc="line['client']"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['date']"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['product']"/>
+                                                            </td>
+
+                                                            <!-- <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['product_des']"/>
+                                                            </td> -->
+
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['area']"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['area_class']"/>
+                                                            </td>
+
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['lot']"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 10px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center">
+                                                                <span t-esc="line['block']"/>
+                                                            </td>
+
+
+
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;"  class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['contract_price'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['payment'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['balance'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['total_due'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #ddd; padding-right: 8px;padding-top: 5px; background:#ddd;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['current_due'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #ddd; padding-right: 8px;padding-top: 5px; background:#ddd;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['30'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #ddd; padding-right: 8px;padding-top: 5px; background:#ddd;" class="text-right">
+                                                                <span t-esc="'{:,.2f}'.format(line['60'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #ddd; padding-right: 8px;padding-top: 5px; background:#ddd;" class="text-right">
+                                                               <span t-esc="'{:,.2f}'.format(line['90'])"/>
+                                                            </td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #ddd; padding-right: 8px;padding-top: 5px; background:#ddd;" class="text-right">
+                                                               <span t-esc="'{:,.2f}'.format(line['91'])"/><!-- '{:,.2f}'.format(intallment_line['total_lot'])" -->
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            </t>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"></td>
+                                                        </tr>
+                                                    <t t-set="total" t-value="lines['totals']"/>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <t t-if="dataInput['type'] != 'collect'">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            </t>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"><span t-esc="'{:,.2f}'.format(total['balance'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right"><span t-esc="'{:,.2f}'.format(total['total_due'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"><span t-esc="'{:,.2f}'.format(total['current_due'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"><span t-esc="'{:,.2f}'.format(total['30'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"><span t-esc="'{:,.2f}'.format(total['60'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"><span t-esc="'{:,.2f}'.format(total['90'])"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px; background:#ddd;" class="text-right"><span t-esc="'{:,.2f}'.format(total['91'])"/></td>
+                                                        </tr>
+
+                                                       <!--  <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;">11411102926500 KOSTMCHome Office</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;" >25.0 Unit(s) - ABSORBER, ASSY RR SHOCK MUTI [MC] share</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">100000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;">11411102926500 KOSTMCHome Office</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px;padding-top: 5px;" >25.0 Unit(s) - ABSORBER, ASSY RR SHOCK MUTI [SP] share</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">100000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                         <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-hover" style="margin:0px;padding: 0px; border: 1px solid #fff">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><span style="font-size:9px;">Printed: </span><span style="font-size: 11px;" t-esc="dataInput['print_date']"/></th>
+                                                            <th class="text-right"><span style="font-size:9px;">Page </span><span style="font-size: 11px;" t-esc="lines['page_num']"/></th>
+                                                        </tr>
+                                                    </thead>
+                                                 </table>
+
+
+
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                
+<!--                                 <table class="table table-hover" style="margin-top: 30px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff" class="text-right">Prepared by:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;" class="text-center">Monkey D. Luffy</td>
+
+                                            <td rowspan="2" style="font-size: 12px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff"  class="text-right">Validated by:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;border-bottom: 1px solid #000;  padding-right: 10px; margin-right: 20px;" class="text-center">Vinsmoke Sanji</td>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <td class="text-center" style="font-size: 12px;  padding:0px; width: 200px;  border: 1px solid #fff; padding-right: 10px;  padding-right: 10px; margin-right: 20px;">Disbursement Assistant</td>
+                                            
+                                            <td class="text-center" style="font-size: 12px; padding:0px;width: 200px;border: 1px solid #fff;">Disbursement Supervisor</td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                            
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

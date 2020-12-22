@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_transfer_form_view_1" model="ir.ui.view">
+            <field name="name">Change Request</field>
+            <field name="model">account.transfer.inv</field>
+            <field name="inherit_id" ref="account_transfer_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[1]" position="after">
+                    <page string="Other Info" invisible="1">
+                        <group>
+
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!--<xpath expr="//notepad/page/group/group[2]" position="after">-->
+                    <!---->
+                <!--</xpath>-->
+
+            </field>
+        </record>
+    </data>
+</odoo>

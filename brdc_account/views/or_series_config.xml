@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sequence_or_series" model="ir.sequence">
+            <field name="name">OR Series</field>
+            <field name="code">or.series.config</field>
+            <field name="prefix">OR/%(range_year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="or_series_config" model="ir.ui.view">
+            <field name="name">OR Series Config</field>
+            <field name="model">or.series.config</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_valid" type="object" string="Validate" class="oe_highlight" states="draft"/>
+                        <button name="create_or_line" type="object" string="Generate" states="valid" class="oe_highlight"/>
+                        <button name="action_confirm" type="object" string="Confirm" states="valid" confirm="Confirm?"/>
+                        <button name="action_draft" type="object" string="Set to Draft" confirm="Confirm?" groups="base.group_system"/>
+                        <button name="unlink_unused" states="confirm" string="Remove Unused O.R." type="object" confirm="Confirm?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="reference_id"/></h1>
+                        </div>
+                        <group>
+                            <field name="type" attrs="{'readonly':['|',('state','=','valid'),('state','=','confirm')]}"/>
+                            <field name="series_from" attrs="{'readonly':['|',('state','=','valid'),('state','=','confirm')]}"/>
+                            <field name="series_to" attrs="{'readonly':['|',('state','=','valid'),('state','=','confirm')]}"/>
+                            <field name="responsible" attrs="{'readonly':['|',('state','=','valid'),('state','=','confirm')]}"/>
+                        </group>
+                        <!--<button name="create_or_line" type="object" string="Generate"/>-->
+                        <group>
+                            <field name="or_series_line" nolabel="1">
+                                <tree string="OR Series Line" editable="bottom" create="false" limit="10">
+                                    <field name="name"/>
+                                    <!--<field name="or_series_id"/>-->
+                                    <field name="state"/>
+                                    <button name="action_reject"
+                                            type="object"
+                                            string="Cancel OR"
+                                            attrs="{'invisible': [('state','=','reject')]}"
+                                            confirm="Are you sure to discard O.R. No?"
+                                    />
+                                    <button name="action_reset"
+                                            type="object"
+                                            string="Keep OR"
+                                            attrs="{'invisible': [('state','!=','reject')]}"
+                                            confirm="Are you sure to keep O.R. No?"
+                                    />
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="or_series_config_tree" model="ir.ui.view">
+            <field name="name">OR Series Config Tree</field>
+            <field name="model">or.series.config</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="series_from"/>
+                    <field name="series_to"/>
+                    <field name="responsible"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="or_series_config_action" model="ir.actions.act_window">
+            <field name="name">OR Series Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">or.series.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="or_series_config_id" name="OR Series Config" parent="loan_application.Config_menu_parent" action="or_series_config_action" sequence=""/>-->
+    </data>
+</odoo>

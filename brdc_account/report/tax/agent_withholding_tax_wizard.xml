@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="agent_withholding_tax_form_view" model="ir.ui.view">
+            <field name="name">Agent Withholding Tax</field>
+            <field name="model">agent.withholding.tax</field>
+            <field name="arch" type="xml">
+                <form string="Agent Withholding Tax">
+                    <header>
+                        <button name="generate" type="object" string="Generate" class="btn-primary"/>
+                        <button name="print_" type="object" string="Print"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="current_month" attrs="{'invisible':[('type', '=', 'general')]}"/>
+                        </group>
+                    </group>
+                    <field name="released_commission_ids" readonly="1">
+                        <tree>
+                            <field name="account_agent_commission_id" string="_"/>
+                            <field name="date"/>
+                            <field name="gross"/>
+                            <field name="withholding_tax"/>
+                            <field name="net"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record id="agent_withholding_tax_action_view" model="ir.actions.act_window">
+            <field name="name">Agent Withholding Tax</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">agent.withholding.tax</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="agent_withholding_tax_form_view"/>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

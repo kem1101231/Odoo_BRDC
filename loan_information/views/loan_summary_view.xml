@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="interment_loan_line_form" model="ir.ui.view">
+            <field name="name">Interment Loan Line Form</field>
+            <field name="model">interment.loan.line</field>
+            <field name="arch" type="xml">
+                <form string="" create="false" delete="false" duplicate="false" >
+                    <header class="oe_edit_only">
+                        <button name="confirm_action" type="object" states="draft" string="Confirm"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="payment_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="paid_amount"/>
+                                <!--<field name="payment_id"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+
+                                <field name="date_for_payment"/>
+                                <field name="payment_term"/>
+                                <field name="customer_id"/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="loan_id"/>
+                                <field name="is_paid"/>
+                                <field name="amount_to_pay"/>
+                                <field name="payable_balance" readonly="1"/>
+                                <field name="balance"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="interment_loan_line_dp_form" model="ir.ui.view">
+            <field name="name">Interment Loan Line Form</field>
+            <field name="model">interment.loan.line.dp</field>
+            <field name="arch" type="xml">
+                <form string="" create="false" delete="false" duplicate="false" >
+                     <header class="oe_edit_only">
+                         <button name="confirm_action" type="object" states="draft" string="Confirm"/>
+                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                     </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="payment_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="paid_amount"/>
+                                <!--<field name="payment_id"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+
+                                <field name="date_for_payment"/>
+                                <field name="payment_term"/>
+                                <field name="customer_id"/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="loan_id"/>
+                                <field name="is_paid"/>
+                                <field name="amount_to_pay"/>
+                                <field name="balance"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="interment_loan_line" model="ir.ui.view">-->
+            <!--<field name="name">Interment Loan Line</field>-->
+            <!--<field name="model">interment.loan.line</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="" create="false" import="false" delete="false">-->
+                    <!--<field name="payment_id"/>-->
+                    <!--<field name="loan_id"/>-->
+                    <!--<field name="customer_id"/>-->
+                    <!--<field name="amount_to_pay" sum="amount_to_pay"/>-->
+                    <!--<field name="is_paid"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+        <record id="interment_loan_line_dp" model="ir.ui.view">
+            <field name="name">Interment Loan Line</field>
+            <field name="model">interment.loan.line.dp</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" import="false" delete="false">
+                    <field name="payment_id"/>
+                    <field name="loan_id"/>
+                    <field name="customer_id"/>
+                    <field name="amount_to_pay" sum="amount_to_pay"/>
+                    <field name="is_paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="interment_loan_line_search" model="ir.ui.view">
+           <field name="name">Search</field>
+           <field name="model">interment.loan.line</field>
+            <field name="arch" type="xml">
+                <search string="">
+              <field name="loan_id" string="Reference ID"/>
+              <field name="customer_id" string="Customer"/>
+            </search>
+           </field>
+        </record>
+        <record id="interment_loan_line_dp_search" model="ir.ui.view">
+           <field name="name">Search</field>
+           <field name="model">interment.loan.line.dp</field>
+            <field name="arch" type="xml">
+                <search string="">
+              <field name="loan_id" string="Reference ID"/>
+              <field name="customer_id" string="Customer"/>
+            </search>
+           </field>
+        </record>
+
+        <record id="interment_loan_line_action" model="ir.actions.act_window">
+            <field name="name">Payment Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.loan.line</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context" eval="{'search_default_customer_id': active_id}"/>-->
+            <field name="context">{'search_default_loan_id': active_id}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+        <record id="interment_loan_line_dp_action" model="ir.actions.act_window">
+            <field name="name">Downpayment Summary List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.loan.line.dp</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context" eval="{'search_default_customer_id': active_id}"/>-->
+            <field name="context">{'search_default_loan_id': active_id}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="interment_form_1" model="ir.ui.view">
+            <field name="name">interment.quotation.form.1</field>
+            <field name="model">interment.quotation.request</field>
+            <field name="inherit_id" ref="loan_information.interment_quotation_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[2]/group[1]" position="after">
+                    <button
+                            name="%(loan_information.interment_loan_line_action)d"
+                            type="action"
+                            string="Loan Summary List"
+                            icon="fa-pencil-square"
+                            attrs="{'invisible':[('state','!=','apro'),('state','!=','note')]}"
+                    />
+                </xpath>
+
+                <xpath expr="//notebook/page[1]/group[1]" position="after">
+                    <!--<button name="button_method_name" type="object" string="ObjectButton"/>-->
+                    <button
+                            name="%(loan_information.interment_loan_line_dp_action)d"
+                            type="action"
+                            string="Downpayment Summary List"
+                            icon="fa-pencil-square"
+                            attrs="{'invisible':[('state','!=','apro'),('state','!=','note')]}"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="interment_loan_line_menu_id" name="Loan Summary List" parent="loan_application.BRDC_menu_parent" action="interment_loan_line_action" sequence="5"/>-->
+
+
+    </data>
+</odoo>

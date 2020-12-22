@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+        <record id="view_partner_form_7" model="ir.ui.view">
+            <field name="name">Customer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="loan_application.view_partner_form_2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[@name='agent_page_id']" position="replace">
+                    <!--bok edit temporary-->
+                    <page string="Agent Information" name="agent_page_id_inherit"  attrs="{'invisible': [('is_agent','=',False)]}">
+                        <group  >
+                            <group>
+                                <field name="is_am" attrs="{'invisible': True}"/>
+                                <field name="is_um" attrs="{'invisible': True}"/>
+                                <field name="is_sa" attrs="{'invisible': True}"/>
+                                <field name="is_co" attrs="{'invisible': True}"/>
+                                <field name="agency_id" attrs="{'invisible':[('is_agent','=',False)]}" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                <field name="sales_agent_id"
+                                       options='{"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'invisible':[('is_agent','=',True)]}"
+                                />
+                                <field name="unit_manager_id"
+                                       options='{"no_create": 1, "no_create_edit": 1}'/>
+                                       <!--attrs="{'invisible':[('is_sa','=',False),('is_agent','=',True)]}"-->
+                                <!--/>-->
+                                <!--attrs="{'invisible': [('agency_id','!=','sa'),('is_agent','=',True)]}"-->
+                                <field name="agent_manager_id"
+                                       options='{"no_create": 1, "no_create_edit": 1}'/>
+                                       <!--attrs="{'invisible': [('is_agent','=',True),('is_um','=',False),'|',('is_sa','=',False)]}"-->
+                                <!--/>-->
+                            </group>
+                            <group>
+                                <field name="is_tax_excepted"/>
+                                <field name="collector_area_id" widget="many2many_tags" attrs="{'invisible': [('is_co','=',False)]}"/>
+                            </group>
+                        </group>
+                        <field name="agent_ids" nolabel="1">
+                            <tree limit="10">
+                                <field name="name"/>
+                                <field name="agency_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="agent_res_partner_custom_view" model="ir.ui.view">
+            <field name="name">Customer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="brdc_agent_commission.view_partner_form_7"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='unit_manager_id']" position="before">
+                    <field name="can_edit_agent" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='unit_manager_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_agent', '=', False)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='agent_manager_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_agent', '=', False)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<templates xml:space="preserve">
+    <t t-name="ShowCollectionInfo">
+        <div class="table-responsive">
+            <!--t-attf-style="width:#{p.progress}%">-->
+            <!--<table class="o_list_view table table-condensed table-striped">-->
+            <table id="collector">
+                <thead>
+                    <tr>
+                        <th class="text-center">Month</th>
+                        <th class="text-center">Current Due</th>
+                        <th class="text-center">Collection (Current Due)</th>
+                        <th class="text-center">Percentage</th>
+                        <th class="text-center">Past Due</th>
+                        <th class="text-center">Collection (Past Due)</th>
+                        <th class="text-center">Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="content" t-as="doc">
+                        <td class="text-center"><t t-esc="doc.month"/></td>
+                        <td class="text-center">₱ <t t-esc="doc.current_due"/></td>
+                        <td class="text-center">₱ <t t-esc="doc.collection_current"/></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" t-attf-style="width:#{doc.percentage_current}%">
+                                    <t t-if="doc.percentage_current &gt;= 94">
+                                        <t t-esc="doc.percentage_current"/>%
+                                    </t>
+                                </div>
+                                <t t-if="doc.percentage_current &lt;= 93">
+                                    <t t-esc="doc.percentage_current"/>%
+                                </t>
+                              </div>
+                        </td>
+                        <td class="text-center">₱ <t t-esc="doc.past_due"/></td>
+                        <td class="text-center">₱ <t t-esc="doc.collection_past"/></td>
+
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" t-attf-style="width:#{doc.percentage_past}%">
+                                    <t t-if="doc.percentage_past &gt;= 94">
+                                        <t t-esc="doc.percentage_past"/>%
+                                    </t>
+                                </div>
+                                <t t-if="doc.percentage_past &lt;= 93">
+                                    <t t-esc="doc.percentage_past"/>%
+                                </t>
+                              </div>
+                        </td>
+                        <!--<td>-->
+                            <!--<t t-esc="doc.percentage"/>-->
+                        <!--</td>-->
+                    </tr>
+                </tbody>
+            </table>
+            <!--<ul class="bar-graph">-->
+              <!--<li class="bar-graph-axis">-->
+                <!--<div class="bar-graph-label">100%</div>-->
+                <!--<div class="bar-graph-label">80%</div>-->
+                <!--<div class="bar-graph-label">60%</div>-->
+                <!--<div class="bar-graph-label">40%</div>-->
+                <!--<div class="bar-graph-label">20%</div>-->
+                <!--<div class="bar-graph-label">0%</div>-->
+              <!--</li>-->
+              <!--<li class="bar primary" style="height: 95%;" title="95">-->
+                <!--<div class="percent">95<span>%</span></div>-->
+                <!--<div class="description">Yetis</div>-->
+              <!--</li>-->
+              <!--<li class="bar secondary" style="height: 90%;" title="90">-->
+                <!--<div class="percent">90<span>%</span></div>-->
+                <!--<div class="description">ZURBians</div>-->
+              <!--</li>-->
+            <!--</ul>-->
+        </div>
+
+    </t>
+</templates>

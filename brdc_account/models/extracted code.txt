@@ -1,0 +1,769 @@
+        if self.is_plan_mod == False:
+            if self.purchase_term == 'cash':
+                installment_line = self.env['invoice.installment.line']
+                installment_line_dp = self.env['invoice.installment.line.dp']
+                installment_line.search([('account_invoice_id', '=', self.id)]).unlink()
+                installment_line_dp.search([('account_invoice_id', '=', self.id)]).unlink()
+                payment_config = self.env['payment.config']
+
+                for loan in self:
+                    loan.refresh()
+                    # date_start_str = datetime.strptime(loan.date_invoice, '%Y-%m-%d')
+                    # counter = 1
+                    if loan.purchase_term == 'cash' and loan.is_split:
+                        # payment_term_id = payment_config.search([('parent_id','=',self.product_type.id), ('name', '=', '3-months deferred')]).id
+                        amount_to_pay = loan.split_cash
+                        ## print amount_to_pay
+                        # for i in range(1, 3+1):
+                        #     line_id = installment_line.create({
+                        #         'date_for_payment': date_start_str,
+                        #         'amount_to_pay': amount_to_pay,
+                        #         'payable_balance': amount_to_pay,
+                        #         'customer_id': loan.partner_id.id,
+                        #         'account_invoice_id': loan.id,
+                        #         'payment_term': payment_term_id,
+                        #         'series_no': counter,
+                        #         'name': "(" + str(i) + "/4"
+                        #     })
+                        #     counter += 1
+                        #     date_start_str = date_start_str + relativedelta(months=1)
+                    elif loan.purchase_term == 'cash' and loan.product_type.category == 'service':
+                        # payment_term_id = payment_config.search([('parent_id', '=', self.product_type.id), ('name', '=', 'spotcash')]).id
+                        amount_to_pay = sum(line.price_unit for line in
+                                            loan.invoice_line_ids) + (0 if not loan.amount_tax else loan.amount_tax)
+                        # for i in range(1, 1 + 1):
+                        #     line_id = installment_line.create({
+                        #         'date_for_payment': date_start_str,
+                        #         'amount_to_pay': amount_to_pay,
+                        #         'payable_balance': amount_to_pay,
+                        #         'customer_id': loan.partner_id.id,
+                        #         'account_invoice_id': loan.id,
+                        #         'payment_term': payment_term_id,
+                        #         'series_no': counter,
+                        #         'name': "(" + str(i) + "/1"
+                        #     })
+                        #     counter += 1
+                        #     date_start_str = date_start_str + relativedelta(months=1)
+                    else:
+                        # payment_term_id = payment_config.search([('parent_id', '=', self.product_type.id), ('name', '=', 'spotcash')]).id
+                        amount_to_pay = loan.spot_cash
+                        # for i in range(1, 1 + 1):
+                        #     line_id = installment_line.create({
+                        #         'date_for_payment': date_start_str,
+                        #         'amount_to_pay': amount_to_pay,
+                        #         'payable_balance': amount_to_pay,
+                        #         'customer_id': loan.partner_id.id,
+                        #         'account_invoice_id': loan.id,
+                        #         'payment_term': payment_term_id,
+                        #         'series_no': counter,
+                        #         'name': "(" + str(i) + "/1"
+                        #     })
+                        #     counter += 1
+                        #     date_start_str = date_start_str + relativedelta(months=1)
+
+                ## return True
+            else:
+                installment_line = self.env['invoice.installment.line']
+                installment_line.search([('account_invoice_id','=',self.id)]).unlink()
+                payment_config = self.env['payment.config']
+                ## print 'bok'
+                for loan in self:
+                    # loan.refresh()
+                    # date_start_str = datetime.strptime(loan.date_invoice,'%Y-%m-%d')
+                    ## print 'service'
+                    # dp = payment_config.search([('parent_id', '=', self.product_type.id), ('name', '=', 'downpayment')])
+                    # if dp and not loan.new_payment_term_id.bpt_wod:
+                    #     if loan.is_split:
+                    #         if payment_config.search(
+                    #                 [('parent_id', '=', loan.product_type.id), ('name', '=', '4 mos split dp')]):
+                    #             date_start_str = date_start_str + relativedelta(months=4)
+                    #         else:
+                    #             date_start_str = date_start_str + relativedelta(months=1)
+                    #     else:
+                    #         date_start_str = date_start_str + relativedelta(months=1)
+                    # else:
+                    #     pass
+                    # counter = 1
+                    amount_to_pay = loan.monthly_payment
+                      # for i in range(1, loan.new_payment_term_id.no_months + 1):
+                      #   line_id = installment_line.create({
+                      #       'date_for_payment': date_start_str,
+                      #       'amount_to_pay': amount_to_pay,
+                      #       'payable_balance': amount_to_pay,
+                      #       'customer_id': loan.partner_id.id,
+                      #       'account_invoice_id': loan.id,
+                      #       'payment_term': loan.new_payment_term_id.id,
+                      #       'series_no': counter,
+                      #       'name': "(" + str(i) + "/" + str(loan.new_payment_term_id.no_months) + ")"
+                      #   })
+                      #   counter += 1
+                      #   date_start_str = date_start_str + relativedelta(months=1)
+                        ## print counter
+                installment_line_dp = self.env['invoice.installment.line.dp']
+                installment_line_dp.search([('account_invoice_id','=',self.id)]).unlink()
+
+                for loan in self:
+                    if loan.product_type.category == 'product':
+                        # loan.refresh()
+                        # date_start_str = datetime.strptime(loan.date_invoice, '%Y-%m-%d')
+                        # counter = 1
+                        # print loan.st4_dp
+                        dp = payment_config.search([('parent_id', '=', loan.product_type.id), ('name', '=', 'downpayment')])
+                        if dp and not loan.new_payment_term_id.bpt_wod:
+                            if loan.purchase_term == 'install' and loan.is_split:
+                                if payment_config.search([('parent_id', '=', loan.product_type.id),('name', '=', '4 mos split dp')]):
+                                    amount_to_pay = loan.st4_dp if loan.st4_dp != 0 else (loan.o_dp / 4)
+                                    # for i in range(1, 4+1):
+                                    #     line_id = installment_line_dp.create({
+                                    #         'date_for_payment': date_start_str,
+                                    #         'amount_to_pay': amount_to_pay,
+                                    #         'payable_balance': amount_to_pay,
+                                    #         'customer_id': loan.partner_id.id,
+                                    #         'account_invoice_id': loan.id,
+                                    #         'payment_term': loan.new_payment_term_id.id,
+                                    #         'series_no': counter,
+                                    #         'name': "(" + str(i) + "/4)"
+                                    #     })
+                                    #     counter += 1
+                                    #     date_start_str = date_start_str + relativedelta(months=1)
+                                        ## self.sep_down()
+                                else:
+                                    amount_to_pay = loan.o_dp if not loan.is_paidup else loan.s_dp
+                                    # # dp = payment_config.search(
+                                    # #     [('id', '=', loan.new_payment_term_id.id),
+                                    # #      ('bpt_wod', '=', False)])
+                                    # # print dp.name
+                                    # # if dp:
+                                    # for i in range(1, 1+1):
+                                    #     line_id = installment_line_dp.create({
+                                    #         'date_for_payment': date_start_str,
+                                    #         'amount_to_pay': amount_to_pay,
+                                    #         'payable_balance': amount_to_pay,
+                                    #         'customer_id': loan.partner_id.id,
+                                    #         'account_invoice_id': loan.id,
+                                    #         'payment_term': loan.new_payment_term_id.id,
+                                    #         'series_no': counter,
+                                    #         'name': "(" + str(i) + "/1)"
+                                    #     })
+                                    #     counter += 1
+                                    #     date_start_str = date_start_str + relativedelta(months=1)
+                            else:
+                                amount_to_pay = loan.o_dp if not loan.is_paidup else loan.s_dp
+                                # for i in range(1, 1 + 1):
+                                #     line_id = installment_line_dp.create({
+                                #         'date_for_payment': date_start_str,
+                                #         'amount_to_pay': amount_to_pay,
+                                #         'payable_balance': amount_to_pay,
+                                #         'customer_id': loan.partner_id.id,
+                                #         'account_invoice_id': loan.id,
+                                #         'payment_term': loan.new_payment_term_id.id,
+                                #         'series_no': counter,
+                                #         'name': "(" + str(i) + "/1)"
+                                #     })
+                                #     counter += 1
+                                #     date_start_str = date_start_str + relativedelta(months=1)
+                        else:
+                            pass
+                    else:
+                        # loan.refresh()
+                        # date_start_str = datetime.strptime(loan.date_invoice, '%Y-%m-%d')
+                        # counter = 1
+                        dp = payment_config.search([('parent_id', '=', loan.product_type.id),('name', '=', 'downpayment')])
+                        if dp and not loan.new_payment_term_id.bpt_wod:
+                            if loan.is_split:
+                                if payment_config.search([('parent_id', '=', loan.product_type.id), ('name', '=', '4 mos split dp')]):
+                                    date_start_str = date_start_str + relativedelta(months=4)
+                                    amount_to_pay = loan.st4_dp if loan.st4_dp != 0 else (loan.o_dp / 4)
+                                    # for i in range(1, 4 + 1):
+                                    #     line_id = installment_line_dp.create({
+                                    #         'date_for_payment': date_start_str,
+                                    #         'amount_to_pay': amount_to_pay,
+                                    #         'payable_balance': amount_to_pay,
+                                    #         'customer_id': loan.partner_id.id,
+                                    #         'account_invoice_id': loan.id,
+                                    #         'payment_term': loan.new_payment_term_id.id,
+                                    #         'series_no': counter,
+                                    #         'name': "(" + str(i) + "/4)"
+                                    #     })
+                                    #     counter += 1
+                                    #     date_start_str = date_start_str + relativedelta(months=1)
+                                else:
+                                    date_start_str = date_start_str
+                                    amount_to_pay = loan.o_dp if not loan.is_paidup else loan.s_dp
+                                    # for i in range(1, 1 + 1):
+                                    #     line_id = installment_line_dp.create({
+                                    #         'date_for_payment': date_start_str,
+                                    #         'amount_to_pay': amount_to_pay,
+                                    #         'payable_balance': amount_to_pay,
+                                    #         'customer_id': loan.partner_id.id,
+                                    #         'account_invoice_id': loan.id,
+                                    #         'payment_term': loan.new_payment_term_id.id,
+                                    #         'series_no': counter,
+                                    #         'name': "(" + str(i) + "/1)"
+                                    #     })
+                                    #     counter += 1
+                                    #     date_start_str = date_start_str + relativedelta(months=1)
+                            else:
+                                date_start_str = date_start_str
+                                amount_to_pay = loan.o_dp if not loan.is_paidup else loan.s_dp
+                                # for i in range(1, 1 + 1):
+                                #     line_id = installment_line_dp.create({
+                                #         'date_for_payment': date_start_str,
+                                #         'amount_to_pay': amount_to_pay,
+                                #         'payable_balance': amount_to_pay,
+                                #         'customer_id': loan.partner_id.id,
+                                #         'account_invoice_id': loan.id,
+                                #         'payment_term': loan.new_payment_term_id.id,
+                                #         'series_no': counter,
+                                #         'name': "(" + str(i) + "/1)"
+                                #     })
+                                #     counter += 1
+                                #     date_start_str = date_start_str + relativedelta(months=1)
+                        else:
+                            pass
+        else:
+            for loan in self:
+                loan.refresh()
+                installment_line = self.env['invoice.installment.line']
+                installment_line.search([('account_invoice_id', '=', self.id)]).unlink()
+                date_start_str = datetime.strptime(loan.date_invoice, '%Y-%m-%d')
+                counter = 1
+                amount_to_pay = loan.monthly_payment
+                # for i in range(1, loan.no_months_mode + 1):
+                #     line_id = installment_line.create({
+                #         'date_for_payment': date_start_str,
+                #         'amount_to_pay': amount_to_pay,
+                #         'payable_balance': amount_to_pay,
+                #         'customer_id': loan.partner_id.id,
+                #         'account_invoice_id': loan.id,
+                #         'payment_term': loan.new_payment_term_id.id,
+                #         'series_no': counter,
+                #         'name': "(" + str(i) + "/" + str(loan.no_months_mode) + ")"
+                #     })
+                #     counter += 1
+                #     date_start_str = date_start_str + relativedelta(months=1)
+                    # print counter
+
+            ###### computation needs to be fixed.
+
+
+        # amount_untaxed_InvoiceInstallmentLine = sum(
+        #     line.amount_to_pay for line in self.InvoiceInstallmentLine_ids)
+        # amount_untaxed_InvoiceInstallmentLineDP = sum(
+        #     line.amount_to_pay for line in self.InvoiceInstallmentLineDP_ids)
+        # self.update_move_line(tax_id)
+        # self.update_tax(self.move_id.id, tax_id, amount_untaxed_InvoiceInstallmentLineDP, amount_untaxed_InvoiceInstallmentLine, self.vat, self.pcf, account_id, has_pcf, icr_id, ugp_id, self.amount_tax)
+
+
+
+
+
+
+        <!--Inherit Form View to Modify it-->
+        <!--<record id="for_report_id" model="ir.ui.view">-->
+            <!--<field name="name">official receipt</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="brdc_account.account_invoice_from_inherit"/>-->
+            <!--<field name="arch" type="xml">-->
+
+                <!--<xpath expr="//field[@name='InvoiceInstallmentLineDP_ids']/tree" position="inside">-->
+                    <!--&lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+                    <!--<field name="cover_by" invisible="1"/>-->
+                    <!--<field name="payment_parent" invisible="1"/>-->
+                    <!--<button name="print_receipt" class="oe_highlight" groups="brdc_account.group_module_brdc_account_admin"-->
+                            <!--type="object"   string="Print Receipt" attrs="{'invisible':['|',('cover_by','!=',False),('is_paid','=',False),('payment_parent','=',False)]}"/>-->
+                    <!--<button name="cancel_payment" class="oe_highlight" groups="brdc_account.group_module_brdc_account_admin"-->
+                            <!--type="object"   string="cancel payment" attrs="{'invisible':['|',('cover_by','!=',False),('is_paid','=',False),('payment_parent','=',False)]}"/>-->
+
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='InvoiceInstallmentLine_ids']/tree" position="inside">-->
+                    <!--&lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+                    <!--<field name="cover_by" invisible="1"/>-->
+                    <!--<field name="payment_parent" invisible="1"/>-->
+                    <!--<button name="print_receipt" class="oe_highlight" groups="brdc_account.group_module_brdc_account_admin"-->
+                            <!--type="object"   string="Print Receipt" attrs="{'invisible':['|',('cover_by','!=',False),('is_paid','=',False),('payment_parent','=',False)]}"/>-->
+                    <!--<button name="cancel_payment" class="oe_highlight" groups="brdc_account.group_module_brdc_account_admin"-->
+                            <!--type="object"   string="cancel payment" attrs="{'invisible':['|',('cover_by','!=',False),('is_paid','=',False),('payment_parent','=',False)]}"/>-->
+                <!--</xpath>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
+
+
+
+
+       account paymentssssss >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+       # # @api.multi
+    # # def post(self):
+    # #
+    # #     #bug here! need to finddddddd T_T
+    # #
+    # #
+    # #
+    # #     for rec in self:
+    # #         rec.refresh()
+    # #         ai = rec.env['account.invoice'].search([('number','=',rec.communication)]) or rec.env['account.invoice'].browse(rec._context.get('active_ids', []))
+    # #         dp_line_id = rec.env['invoice.installment.line.dp'].search([('account_invoice_id','=', ai.id),('is_paid','=',False)])
+    # #         line_id = rec.env['invoice.installment.line'].search([('account_invoice_id','=', ai.id),('is_paid','=',False)])
+    # #         paid_amount = rec.amount
+    # #
+    # #         advance_payment_count = 0
+    # #
+    # #         # amount_to_pay = 0.00
+    # #         # if len(dp_line_id) > 0 or len(line_id) > 0:
+    # #         #     partner = rec.env['account.invoice'].browse(rec._context.get('active_ids', []))
+    # #         #     rec.partner_id = ai.partner_id
+    # #         #     # rec.partner_id = partner.partner_id if partner else ai.partner_id`
+    # #         #     rec.account_invoice_id = ai.id
+    # #         #     # rec.account_invoice_id = partner.id if partner else ai.id
+    # #         #     if len(dp_line_id) > 1:
+    # #         #         # print 'gt1'
+    # #         #         if rec.amount < (dp_line_id[0].amount_to_pay if dp_line_id[0].payable_balance == 0 else dp_line_id[0].payable_balance):
+    # #         #             raise UserError(_('Amount to pay should be greater than or equal the monthly payment!'))
+    # #         #         else:
+    # #         #             dp_array_ids = []
+    # #         #             last_id = []
+    # #         #             result_amount = []
+    # #         #             a = 0
+    # #         #             amount = rec.amount
+    # #         #             for DPLine in dp_line_id:
+    # #         #                 a += (DPLine.payable_balance if DPLine.payable_balance != 0 else DPLine.amount_to_pay)
+    # #         #                 mypayment = (
+    # #         #                     DPLine.payable_balance if DPLine.payable_balance != 0 else DPLine.amount_to_pay)
+    # #         #                 if a <= paid_amount:
+    # #         #                     result_amount.append(mypayment)
+    # #         #                     dp_array_ids.append(DPLine.id)
+    # #         #             for d in dp_array_ids:
+    # #         #                 last_id.append(d)
+    # #         #                 dp = rec.env['invoice.installment.line.dp'].search([('id', '=', d)])
+    # #         #                 FirstLineDP = rec.env['invoice.installment.line.dp'].search(
+    # #         #                     [('id', '=', dp_array_ids[0])])
+    # #         #                 NextLineDP = rec.env['invoice.installment.line.dp'].search([('id', '=', (d + 1))])
+    # #         #                 advance_payment_count = advance_payment_count + 1
+    # #         #
+    # #         #                 dp.write({
+    # #         #                     'is_paid': True,
+    # #         #                     'paid_amount': amount,
+    # #         #                     'balance': amount - (
+    # #         #                         dp.payable_balance if dp.payable_balance != 0 else dp.amount_to_pay),
+    # #         #                     'state': 'confirm',
+    # #         #                     'payment_transaction': rec.id,
+    # #         #                     'date_paid': rec.payment_date,
+    # #         #                     'notes': rec.or_series.name
+    # #         #                 })
+    # #         #                 FirstLineDP.write({
+    # #         #                     'ending_balance': FirstLineDP.beginning_balance - paid_amount,
+    # #         #                     'payment_parent': True
+    # #         #                 })
+    # #         #                 NextLineDP.write({
+    # #         #                     'paid_amount': 0
+    # #         #                 })
+    # #         #                 if NextLineDP.payable_balance < amount:
+    # #         #                     pb = 0
+    # #         #                 else:
+    # #         #                     pb = NextLineDP.payable_balance - amount
+    # #         #                 NextLineDP.write({
+    # #         #                     'beginning_balance': FirstLineDP.ending_balance,
+    # #         #                     'advance_payment': dp.balance,
+    # #         #                     'payable_balance': pb,
+    # #         #                     'cover_by': dp_array_ids[0]
+    # #         #                 })
+    # #         #                 if NextLineDP.amount_to_pay > NextLineDP.advance_payment:
+    # #         #                     NextLineDP.write({
+    # #         #                         'payable_balance': NextLineDP.amount_to_pay - NextLineDP.advance_payment,
+    # #         #                         'paid_amount': 0
+    # #         #                     })
+    # #         #                 amount -= (dp.payable_balance if dp.payable_balance != 0 else dp.amount_to_pay)
+    # #         #     elif len(dp_line_id) == 1:
+    # #         #         # print 'e1'
+    # #         #
+    # #         #         if rec.amount < dp_line_id[0].payable_balance:
+    # #         #             raise UserError(_('Amount to pay should be greater than or equal the monthly payment!'))
+    # #         #         else:
+    # #         #             if dp_line_id[0].payable_balance < 1:
+    # #         #                 amount_to_pay = dp_line_id[0].amount_to_pay
+    # #         #             else:
+    # #         #                 amount_to_pay = dp_line_id[0].payable_balance
+    # #         #             balance = paid_amount - amount_to_pay
+    # #         #             ending_b = dp_line_id[0].beginning_balance - paid_amount
+    # #         #             dp_line_id.refresh()
+    # #         #             amount_to_pay = line_id[0].amount_to_pay
+    # #         #             payable_balance = amount_to_pay - balance
+    # #         #             # if payable_balance < 1:
+    # #         #             #     payable_balance = 0
+    # #         #             rec.return_write(dp_line_id[0], line_id[0], paid_amount, balance, payable_balance,ending_b,ending_b)
+    # #         #     else:
+    # #         #         line_id = rec.env['invoice.installment.line'].search(
+    # #         #             [('account_invoice_id', '=', ai.id), ('is_paid', '=', False)])
+    # #         #         # print 'lt1'
+    # #         #         if len(line_id) > 1:
+    # #         #             if paid_amount <= line_id[0].payable_balance:
+    # #         #                 #allow short payment for monthly amortization.
+    # #         #                 # raise UserError(_('Amount to pay should be greater than or equal the monthly payment!'))
+    # #         #                 NextLine_id = rec.env['invoice.installment.line'].search(
+    # #         #                         [('id', '=', (line_id[0].id + 1))])
+    # #         #                 amount_to_pay = line_id[0].payable_balance
+    # #         #                 balance = amount_to_pay - paid_amount
+    # #         #                 ending_b = line_id[0].beginning_balance - paid_amount
+    # #         #                 line_dp_id = line_id[0].write({
+    # #         #                    'is_paid': True,
+    # #         #                     'payment_parent': True,
+    # #         #                     'paid_amount': paid_amount,
+    # #         #                     'balance': balance,
+    # #         #                     'state': 'confirm',
+    # #         #                     'payment_transaction': rec.id,
+    # #         #                     'ending_balance': ending_b,
+    # #         #                     'date_paid': rec.payment_date
+    # #         #                 })
+    # #         #                 # line_count = _line_id.search([('account_invoice_id', '=', ai.id)])
+    # #         #                 #adding the balance to the next amortization
+    # #         #                 pb = NextLine_id.payable_balance + balance
+    # #         #
+    # #         #                 NextLine_id.write({
+    # #         #                     'beginning_balance': ending_b,
+    # #         #                     'advance_payment': 0 - balance,
+    # #         #                     'payable_balance': pb,
+    # #         #                     })
+    # #         #
+    # #         #             else:
+    # #         #                 #auto deduct to the next amortization depending on how much is paid.
+    # #         #                 line_array_id = []
+    # #         #                 last_id = []
+    # #         #                 result_amount = []
+    # #         #                 a = 0
+    # #         #                 amount = rec.amount
+    # #         #                 for insLine in line_id:
+    # #         #                     a += (insLine.payable_balance if insLine.payable_balance != 0 else insLine.amount_to_pay)
+    # #         #                     mypayment = (insLine.payable_balance if insLine.payable_balance != 0 else insLine.amount_to_pay)
+    # #         #                     # line_array_amount.append(mypayment)
+    # #         #                     # line_array_id.append(insLine.id)
+    # #         #                     if a <= amount:
+    # #         #                         result_amount.append(mypayment)
+    # #         #                         line_array_id.append(insLine.id)
+    # #         #                 for i in line_array_id:
+    # #         #                     last_id.append(i)
+    # #         #                     # print i
+    # #         #                     InsLine_id = rec.env['invoice.installment.line'].search(
+    # #         #                         [('id', '=', i)])
+    # #         #                     FirstLine_id = rec.env['invoice.installment.line'].search(
+    # #         #                         [('id', '=', line_array_id[0])])
+    # #         #                     NextLine_id = rec.env['invoice.installment.line'].search(
+    # #         #                         [('id', '=', (i + 1))])
+    # #         #                     advance_payment_count = advance_payment_count + 1
+    # #         #                     InsLine_id.write({
+    # #         #                         'is_paid': True,
+    # #         #                         'paid_amount': amount,
+    # #         #                         'balance': amount - (InsLine_id.payable_balance if InsLine_id.payable_balance != 0 else InsLine_id.amount_to_pay),
+    # #         #                         'state': 'confirm',
+    # #         #                         'payment_transaction': self.id,
+    # #         #                         # 'ending_balance': InsLine_id.beginning_balance - rec.amount,
+    # #         #                         'date_paid': self.payment_date,
+    # #         #                         'notes': self.or_series.name
+    # #         #                     })
+    # #         #                     FirstLine_id.write({
+    # #         #                         'ending_balance': FirstLine_id.beginning_balance - rec.amount,
+    # #         #                         'payment_parent': True
+    # #         #                     })
+    # #         #                     NextLine_id.write({
+    # #         #                         'paid_amount': 0,
+    # #         #                     })
+    # #         #                     if NextLine_id.payable_balance < amount:
+    # #         #                         pb = 0
+    # #         #                     else:
+    # #         #                         pb = NextLine_id.payable_balance - amount
+    # #         #                     NextLine_id.write({
+    # #         #                         'beginning_balance': FirstLine_id.ending_balance,
+    # #         #                         'advance_payment': InsLine_id.balance,
+    # #         #                         'payable_balance': pb,
+    # #         #                         'cover_by': line_array_id[0],
+    # #         #
+    # #         #                     })
+    # #         #                     if NextLine_id.amount_to_pay > NextLine_id.advance_payment:
+    # #         #                         NextLine_id.write({
+    # #         #                             'payable_balance': NextLine_id.amount_to_pay - NextLine_id.advance_payment,
+    # #         #                             'paid_amount': 0,
+    # #         #                         })
+    # #         #                     amount -= (InsLine_id.payable_balance if InsLine_id.payable_balance != 0 else InsLine_id.amount_to_pay)
+    # #         #         else:
+    # #         #             # print 'line lt1'
+    # #         #             _line_id = rec.env['invoice.installment.line']
+    # #         #             if paid_amount < line_id[0].payable_balance:
+    # #         #                 #allow short payment for cash transactions.
+    # #         #                 # raise UserError(_('Amount to pay should be greater than or equal the monthly payment!'))
+    # #         #                 amount_to_pay = line_id[0].payable_balance
+    # #         #                 balance = amount_to_pay - paid_amount
+    # #         #                 ending_b = line_id[0].beginning_balance - paid_amount
+    # #         #                 line_dp_id = line_id[0].write({
+    # #         #                     'is_paid': True,
+    # #         #                     'payment_parent': True,
+    # #         #                     'amount_to_pay': paid_amount,
+    # #         #                     'paid_amount': paid_amount,
+    # #         #                     # 'payable_balance': balance,
+    # #         #                     'state': 'confirm',
+    # #         #                     'payment_transaction': rec.id,
+    # #         #                     'ending_balance': ending_b,
+    # #         #                     'date_paid': rec.payment_date
+    # #         #                 })
+    # #         #                 line_count = _line_id.search([('account_invoice_id', '=', ai.id)])
+    # #         #                 #create new line for another payment
+    # #         #                 date_start_str = datetime.strptime(rec.payment_date, '%Y-%m-%d')
+    # #         #                 _line_id.create({
+    # #         #                     'date_for_payment': date_start_str + relativedelta(day=7),
+    # #         #                     'amount_to_pay': balance,
+    # #         #                     'payable_balance': balance,
+    # #         #                     'beginning_balance': ending_b,
+    # #         #                     'customer_id': rec.partner_id.id,
+    # #         #                     'account_invoice_id': ai.id,
+    # #         #                     'payment_term': ai.new_payment_term_id.id,
+    # #         #                     'series_no': len(line_count) + 1,
+    # #         #                     'name': "(%s/%s)" % (len(line_count) + 1, len(line_count) + 1)
+    # #         #                 })
+    # #         #             else:
+    # #         #                 amount_to_pay = line_id[0].payable_balance
+    # #         #                 balance = paid_amount - amount_to_pay
+    # #         #                 ending_b = line_id[0].beginning_balance - paid_amount
+    # #         #                 line_dp_id = line_id[0].write({
+    # #         #                     'is_paid': True,
+    # #         #                     'payment_parent': True,
+    # #         #                     'paid_amount': paid_amount,
+    # #         #                     'balance': balance,
+    # #         #                     'state': 'confirm',
+    # #         #                     'payment_transaction': rec.id,
+    # #         #                     'ending_balance': ending_b,
+    # #         #                     'date_paid': rec.payment_date
+    # #         #                 })
+    # #         #                 line_id.refresh()
+    # #         #     rec.on_post()
+    # #         # else:
+    # #         #     rec.on_post()
+    # #         #     # print "single"
+    # #         # # print "hello stupid",advance_payment_count
+    # #         # payment_line = self.env['account.payment']
+    # #         # payments = payment_line.search([('or_series', '=', self.or_series.id)])
+    # #         # # account_payment.print_report()
+    # #
+    # #         # # Ranzy
+    # #         # # self.account_invoice_id.invoice_line_ids[0].lot_id.status = 'amo' # here doggy
+    # #         #
+    # #         # # print self.account_invoice_id.state
+    # #         #
+    # #         # giusab temporarily
+    # #         # print "hello, baby", self.account_invoice_id.purchase_term, self.env['sale.order'].search([('id','=',self.account_invoice_id.sale_order_id.id)]).is_split
+    # #         if advance_payment_count <= 1:
+    # #             line_count = self.env['sa.commission.line'].search_count([('agent_commission_id', '=',
+    # #                                                                   self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                         self.account_invoice_id.sale_order_id.id)]).id)])
+    # #             paid_count = self.env['invoice.installment.line'].search_count([('account_invoice_id', '=',self.account_invoice_id.id), ('is_paid', '=', True)])
+    # #             if line_count >= 18 and paid_count <= 1:
+    # #                 print line_count, paid_count
+    # #                 return
+    # #
+    # #             if self.account_invoice_id.purchase_term == 'cash' and self.env['sale.order'].search([('id','=',self.account_invoice_id.sale_order_id.id)]).is_split == True:
+    # #                 if self.account_invoice_id.state == 'paid':
+    # #                     if self.env['sa.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                   self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                         self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                   ), ('is_paid', '=', False)]):
+    # #
+    # #                         self.env['sa.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                          self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                     else:
+    # #                         pass
+    # #                     if self.env['um.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                   self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                         self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                   ), ('is_paid', '=', False)]):
+    # #
+    # #                         self.env['um.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                          self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                     else:
+    # #                         pass
+    # #                     if self.env['am.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                   self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                         self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                   ), ('is_paid', '=', False)]):
+    # #
+    # #                         self.env['am.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                          self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                     else:
+    # #                         pass
+    # #             else:
+    # #                 if self.env['sa.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                            ),('is_paid','=',False)]):
+    # #
+    # #                     self.env['sa.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                ),('is_paid','=',False)])[0].write({
+    # #                         'date_paid': self.payment_date,
+    # #                         'is_paid':True,
+    # #                         'invoice_id':self.id,
+    # #                     })
+    # #                 else:
+    # #                     pass
+    # #                 if self.env['um.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                            ),('is_paid','=',False)]):
+    # #
+    # #                     self.env['um.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                ),('is_paid','=',False)])[0].write({
+    # #                         'date_paid': self.payment_date,
+    # #                         'is_paid':True,
+    # #                         'invoice_id':self.id,
+    # #                     })
+    # #                 else:
+    # #                     pass
+    # #                 if self.env['am.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                            ),('is_paid','=',False)]):
+    # #
+    # #                     self.env['am.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                ),('is_paid','=',False)])[0].write({
+    # #                         'date_paid': self.payment_date,
+    # #                         'is_paid':True,
+    # #                         'invoice_id':self.id,
+    # #                     })
+    # #                 else:
+    # #                     pass
+    # #         elif advance_payment_count <= 0:
+    # #             pass
+    # #         else:
+    # #             unpaid_comm = self.env['sa.commission.line'].search_count([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                        ),('is_paid','=',False)])
+    # #             if unpaid_comm < advance_payment_count:
+    # #                 print unpaid_comm
+    # #             else:
+    # #                 unpaid_comm = 18
+    # #
+    # #             if self.env['sa.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                        ),('is_paid','=',False)]):
+    # #                 if advance_payment_count < unpaid_comm:
+    # #                     for x in range(0,advance_payment_count):
+    # #                         self.env['sa.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                 else:
+    # #                     for x in range(0,self.env['sa.commission.line'].search_count([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])):
+    # #                         self.env['sa.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #             else:
+    # #                 pass
+    # #             if self.env['um.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                        ),('is_paid','=',False)]):
+    # #                 if advance_payment_count < unpaid_comm:
+    # #                     for x in range(0,advance_payment_count):
+    # #                         self.env['um.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                 else:
+    # #                     for x in range(0,self.env['um.commission.line'].search_count([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])):
+    # #                         self.env['um.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #             else:
+    # #                 pass
+    # #             if self.env['am.commission.line'].search([('agent_commission_id','=', self.env['agent.commission'].search([('so_id', '=', self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                        ),('is_paid','=',False)]):
+    # #                 if advance_payment_count < unpaid_comm:
+    # #                     for x in range(0,advance_payment_count):
+    # #                         self.env['am.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #                 else:
+    # #                     for x in range(0,self.env['am.commission.line'].search_count([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])):
+    # #                         self.env['am.commission.line'].search([('agent_commission_id', '=',
+    # #                                                                    self.env['agent.commission'].search([('so_id', '=',
+    # #                                                                                                             self.account_invoice_id.sale_order_id.id)]).id
+    # #                                                                    ), ('is_paid', '=', False)])[0].write({
+    # #                             'date_paid': self.payment_date,
+    # #                             'is_paid': True,
+    # #                             'invoice_id': self.id,
+    # #                         })
+    # #
+    # #             else:
+    # #                 pass
+    # #
+    # #         if self.account_invoice_id.state == 'paid' and \
+    # #                 (self.account_invoice_id.product_type.name == 'Lot' or
+    # #                      self.account_invoice_id.product_type.name == 'MM Bundle' or
+    # #                          self.account_invoice_id.product_type.name == 'Columbary Vault' or self.account_invoice_id.product_type.name == 'Community Vault'):
+    # #             # print "amo ni sa ang self.account_invoce_id",self.account_invoice_id
+    # #             self.account_invoice_id.invoice_line_ids[0].lot_id.status = 'fp'
+    # #         elif self.account_invoice_id.state == 'open':
+    # #             self.account_invoice_id.invoice_line_ids[0].lot_id.status = 'amo'
+    # #         else:
+    # #             pass
+    # #
+    # #         if self.env['general.aging'].search([('id', '=', self.id)]):
+    # #             generate_general_aging = self.env['general.aging'].search([])
+    # #             dt = str(datetime.now().date())
+    # #             pl = 30
+    # #             # print dt, pl
+    # #             for c in range(0, len(generate_general_aging)):
+    # #                 generate_general_aging[c].get_days_passed(dt, pl)
+    # #
+    # #             self.account_invoice_id.lpd = self.payment_date
+    # #
+    # #
+    # #         # # or the loop approach, decide which is better # comment for the mean time
+    # #         rec.account_invoice_id.total_principal_payment = rec.account_invoice_id.total_principal_payment + rec.amount
+    # #         # Ranz
+    # #         # if ai:
+    # #         #     rec.write({
+    # #         #         'payment_method_id': 1,
+    # #         #         'has_invoices': True,
+    # #         #         'account_invoice_id': ai.id
+    # #         #     })
+    #
+    #         return payments.write({'name': self.or_series.name}), self.dcr_line_vals(), True

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="invoice_status_qweb"
+            model="account.invoice.status"
+            report_type="qweb-html"
+            string="Invoice Status"
+            name="brdc_account.invoice_status_template"
+            file="Invoice Status"
+        />
+
+        <template id="invoice_status_template">
+            <t t-call="report.html_container">
+                 <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <center>
+                            <h2>Terminated Accounts (<span t-esc="doc.count_('terminated')"/>)</h2>
+                        </center>
+
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 15px; border: 0.5px black solid;">
+                            <tr>
+                                <th>Invoice Information</th>
+                                <th>Amount to Pay</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
+                            </tr>
+                            <tr t-foreach="doc.invoice_line" t-as="line" style="border: 0.5px black solid;" t-if="line.state == 'terminated'">
+                                <td  width="50%">
+                                    <t t-foreach="line.invoice_id" t-as="inv">
+                                        <table  width="100%">
+                                            <tr>
+                                                <td>P.A. No.: <b><span t-esc="inv.pa_ref"/></b></td>
+                                                <td>Name: <b><span t-esc="inv.partner_id.name"/></b></td>
+                                            </tr>
+                                            <tr t-foreach="inv.invoice_line_ids" t-as="inv_line">
+                                                <td>
+                                                    <b><span t-esc="inv_line.product_id.name"/></b>
+                                                </td>
+                                                <td>
+                                                    <b><span t-esc="inv_line.lot_id.name"/></b>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.format(line.amount_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.format(line.paid_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.residual"/>
+                                </td>
+
+                            </tr>
+                        </table>
+                        <center>
+                            <h2>Reactivated Accounts (<span t-esc="doc.count_('reactivated')"/>)</h2>
+                        </center>
+
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 15px; border: 0.5px black solid;">
+                            <tr>
+                                <th>Invoice Information</th>
+                                <th>Amount to Pay</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
+                            </tr>
+                            <tr t-foreach="doc.invoice_line" t-as="line" style="border: 0.5px black solid;" t-if="line.state == 'reactivated'">
+                                <td  width="50%">
+                                    <t t-foreach="line.invoice_id" t-as="inv">
+                                        <table  width="100%">
+                                            <tr>
+                                                <td>P.A. No.: <b><span t-esc="inv.pa_ref"/></b></td>
+                                                <td>Name: <b><span t-esc="inv.partner_id.name"/></b></td>
+                                            </tr>
+                                            <tr t-foreach="inv.invoice_line_ids" t-as="inv_line">
+                                                <td>
+                                                    <b><span t-esc="inv_line.product_id.name"/></b>
+                                                </td>
+                                                <td>
+                                                    <b><span t-esc="inv_line.lot_id.name"/></b>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.format(line.amount_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.format(line.paid_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.residual"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.state"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <center>
+                            <h2>Restructured Accounts (<span t-esc="doc.count_('restructured')"/>)</h2>
+                        </center>
+
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 15px; border: 0.5px black solid;">
+                            <tr>
+                                <th>Invoice Information</th>
+                                <th>Amount to Pay</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
+                            </tr>
+                            <tr t-foreach="doc.invoice_line" t-as="line" style="border: 0.5px black solid;" t-if="line.state == 'restructured'">
+                                <td  width="50%">
+                                    <t t-foreach="line.invoice_id" t-as="inv">
+                                        <table  width="100%">
+                                            <tr>
+                                                <td>P.A. No.: <b><span t-esc="inv.pa_ref"/></b></td>
+                                                <td>Name: <b><span t-esc="inv.partner_id.name"/></b></td>
+                                            </tr>
+                                            <tr t-foreach="inv.invoice_line_ids" t-as="inv_line">
+                                                <td>
+                                                    <b><span t-esc="inv_line.product_id.name"/></b>
+                                                </td>
+                                                <td>
+                                                    <b><span t-esc="inv_line.lot_id.name"/></b>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.format(line.amount_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.2f}'.formatline.paid_total)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.residual"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                 </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

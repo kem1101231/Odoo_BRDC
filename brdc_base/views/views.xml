@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="brdc_base.list">
+      <field name="name">brdc_base list</field>
+      <field name="model">brdc_base.brdc_base</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="brdc_base.action_window">
+      <field name="name">brdc_base window</field>
+      <field name="res_model">brdc_base.brdc_base</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="brdc_base.action_server">
+      <field name="name">brdc_base server</field>
+      <field name="model_id" ref="model_brdc_base_brdc_base"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="brdc_base" id="brdc_base.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="brdc_base.menu_1" parent="brdc_base.menu_root"/>
+    <menuitem name="Menu 2" id="brdc_base.menu_2" parent="brdc_base.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="brdc_base.menu_1_list" parent="brdc_base.menu_1"
+              action="brdc_base.action_window"/>
+    <menuitem name="Server to list" id="brdc_base" parent="brdc_base.menu_2"
+              action="brdc_base.action_server"/>
+    -->
+  </data>
+</odoo>

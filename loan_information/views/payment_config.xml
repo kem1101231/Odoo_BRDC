@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payment_config_tree" model="ir.ui.view">
+            <field name="name">payment.config</field>
+            <field name="model">payment.config</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="sequence" widget="handle"/>
+                    <field name="display_name"/>
+                    <field name="less_perc"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="payment_config_form" model="ir.ui.view">
+            <field name="name">payment.config.form</field>
+            <field name="model">payment.config</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="......"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_parent"/>
+                            <field name="payment_type" attrs="{'invisible': [('is_parent','=',True)]}"/>
+                            <field name="category" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="parent_id" attrs="{'invisible': [('is_parent','=',True)]}"/>
+                            <field name="less_perc"/>
+                            <field name="bpt"/>
+                            <field name="bpt_wod"/>
+                            <field name="no_months" attrs="{'invisible': [('bpt','=',False)]}"/>
+                            <field name="years" attrs="{'invisible': [('bpt','=',False)]}"/>
+                            <field name="term_cat"/> 
+                        </group>
+                        <group>
+                            <field name="journal_id" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="account_id" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <!-- <field name="def_pricelist" attrs="{'invisible': [('is_parent','=',False)]}"/> -->
+
+                            <separator string="" colspan="2" style="margin-top:15px"/>
+                            <field name="full_cash" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="split_cash" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="split_downpayment" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="downpayment" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                            <field name="amortization" attrs="{'invisible': [('is_parent','=',False)]}"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_payment_config_filter_custom" model="ir.ui.view">
+            <field name="name">account.move.select.custom</field>
+            <field name="model">payment.config</field>
+            <field name="arch" type="xml">
+                <search string="">
+                  <filter string="Terms" domain="[('bpt','=',True)]" name="term_filter" context="{'bpt': True}"/>
+                  <filter string="Parent of Terms" domain="[('is_parent','=',True)]" context="{'is_parent': True}"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Parent" domain="[]" context="{'group_by':'parent_id'}" name="term_group"/>
+                </group>
+                </search>
+           </field>
+        </record>
+
+        <record id="payment_config_action_view" model="ir.actions.act_window">
+            <field name="name">Payment Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.config</field>
+            <field name="view_id" ref="payment_config_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_payment_config_filter_custom"/>
+            <field name="context">{'search_default_term_filter':1, 'search_default_term_group':1}</field>
+        </record>
+
+       <!--<record id="payment_config" model="ir.actions.act_window">-->
+           <!--<field name="name">Payment Config</field>-->
+           <!--<field name="type">ir.actions.act_window</field>-->
+           <!--<field name="res_model">payment.config</field>-->
+           <!--<field name="view_mode">tree,form</field>-->
+           <!--<field name="context" eval="{'search_default_bpt': 1}"/>-->
+       <!--</record>-->
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="payment_config_menu_id" name="Payment Configuration" parent="loan_application.Config_menu_parent" action="payment_config" sequence=""-->
+                  <!--groups=""-->
+        <!--/>-->
+
+    </data>
+</odoo>

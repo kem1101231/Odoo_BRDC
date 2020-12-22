@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="cash_purchase_agreement"
+                    model="sale.order"
+                    report_type="qweb-pdf"
+                    string="Cash Agreement"
+                    name="brdc_account.cash_agreement_report_template"
+                    file="Cash Purchase Agreement"
+                    paperformat="custom_legal_paperformat"
+                    menu="False"
+                />
+
+        <template id="cash_agreement_report_template">
+            <t t-call="report.html_container">
+                <font t-foreach="docs" t-as="d" face="Arial, serif">
+                    <div class="page" style="font-family:Calibri;font-size:70%;width:100%; height:100%;margin-top: 100px;">
+                        <style type="text/css">
+                            div.a {
+                                    padding-top: 80px;
+                            }
+                            div.b {
+                                padding-top: 50px;
+                            }
+                            tr.a {
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+                            tr.b {
+                                 border-top: 0.5px solid black;
+                            }
+                            th {
+                                text-align: center;
+                            }
+                            table.a {
+                                width: 100%;
+                            }
+                            table.c {
+                                table-layout: auto;
+                                width: 100%;
+                                text-align: center;
+                            }
+                            td.a {
+                                width: 140px;
+                            }
+                            td.b {
+                                width: 500px;
+                            }
+                            td.c {
+                                width: 100px;
+                                text-align: right;
+                            }
+                            td.d {
+                                border-bottom: 0.5px solid black;
+                            }
+                            p {
+                                font-size:100%;
+                                text-align: justify;
+                                text-justify: inter-word;
+                                line-height: 1.3;
+                            }
+                            ol {
+                                padding-left: 40px;
+                                display: block;
+                                text-align: justify;
+                            }
+                            li {
+                                text-align: justify;
+                            }
+                        </style>
+                        <div class="a"/>
+                        <table class="a">
+                            <tr>
+                                <td class="a">REFERENCES</td>
+                                <td class="b">:   <span t-field="d.name"/></td>
+                                <td class="c"><b>NUMBER</b> : <span t-field="d.name"/></td>
+                            </tr>
+                            <tr>
+                                <td class="a">DATE</td>
+                                <td class="b">:   <span t-field="d.confirmation_date" t-options ='{"format": "MM/dd/yyyy"}'/></td>
+                                <td class="c"><b>O.R. NUMBER</b> : </td>
+                            </tr>
+                            <tr>
+                                <td class="a">SALE AGENT</td>
+                                <td class="b">:   <span t-field="d.partner_id.sales_agent_id.name"/></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="a">AGENCY MANAGER</td>
+                                <td class="b">:  <span t-field="d.partner_id.agent_manager_id.name"/></td>
+                            </tr>
+                        </table>
+                        <table class="c">
+                            <tr>
+                                <td>
+                                    <h4 style="text-align: center;">CASH PURCHASE AGREEMENT</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <p t-foreach="d.partner_id" t-as="p_id">
+                                        <b>THIS AGREEMENT </b>is made and executed in the Philippines by and between
+                                        <b>BIOCELO REALTY &amp; DEVELOPMENT CORPORATION (BRDC)</b>, owner of
+                                        <b>Monte Cielo Enternal Garden</b>, with office address at 3rd Flr, Vensu Bldg.,
+                                        Nat'l Hi-way, Gen. Santos City herein referred to as <b>SELLER</b> and
+
+                                        <u>
+                                            <span t-field="p_id.name"/>
+                                        </u>, with residence address at
+                                        <u>
+                                            <span t-field="p_id.province_id.name"/>,
+                                            <span t-field="p_id.municipality_id.name"/>,
+                                            <span t-field="p_id.barangay_id.name"/>,
+                                            <span t-field="p_id.street"/>
+                                        </u>, herein referred to as the <b>BUYER</b>.
+                                    </p>
+                                    <p><center><b>WITNESSETH:</b></center></p>
+                                    <p>
+                                        <ol>
+                                            <li>
+                                                That the <b>BUYER</b> is willing to purchase and the <b>SELLER</b> agrees to sell
+                                                and convey to the said <b>BUYER</b> a certain memorial lot / garden / mausoleum which
+                                                shall be used for interment purposes only and best described as follows:
+                                                <table class="c">
+                                                    <tr>
+                                                        <td class="d"><span t-field="d.order_line.product_id.categ_id.parent_id.name"/></td>
+                                                        <td class="d"><span t-field="d.prod_id.categ_id.name"/></td>
+                                                        <td class="d"><span t-field="d.prod_id.area_number.name"/></td>
+                                                        <td class="d"><span t-field="d.lot_id.name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Type/Class</th>
+                                                        <th>Area</th>
+                                                        <th>(Block &amp; Lot No.)</th>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                            <li>
+                                                <b>BUYER</b> shall pay the <b>SELLER</b> the amount of
+                                                <u><span t-esc="d.num2word(d.amount_total)"/></u> (₱<u><span t-esc="d.amount_total"/></u>) Pesos
+                                                in Philippines Currency upon the signing of this agreement. Full payment shall be required before
+                                                any interment could be done in the specified memorial lot / garden / mausoleum. The number of
+                                                interment shalt be governed by existing rules and regulations of <b>SELLER</b> for each product type;
+                                            </li>
+                                            <li>
+                                                <b>SELLER</b> shall issue to the <b>BUYER</b> a Certificate of Perpetual Use on the aforesaid memorial lot /
+                                                garden / mausoleum upon his/her full payment of the agreed consideration
+                                            </li>
+                                            <li>
+                                                It is agreed that the memorial park of the <b>SELLER</b> is operated as a perpetual care memorial park,
+                                                which means that a Perpetual Care Fund (PCF) in the form of an irrevocable trust has been
+                                                established consistent with prudent memorial park management;
+                                            </li>
+                                            <li>
+                                                <b>BUYER</b> shall not sell, transfer or assign the above described memorial lot / garden / mausoleum
+                                                without the written consent of the <b>SELLER</b>. <b>SELLER</b> is hereby granted by <b>BUYER</b> the right of first
+                                                refusal at a price not higher than the acquisition cost ci the above-described memorial lot,
+                                                In case of sale to third parties, <b>BUYER</b> undertakes to sell the subject lot not low than the
+                                                prevailing price <b>SELLER</b> for the same product type
+                                            </li>
+                                            <li>
+                                                Only flat markers of marble conforming to the rules and regulations of the <b>SELLER</b> will be
+                                                permitted to mark the memorial lot / garden / mausoleum. Violation of this provision will
+                                                entitle the <b>SELLER</b> to summarily remove unauthorized markers without notice and need tier court
+                                                approval
+                                            </li>
+                                            <li>
+                                                <b>BUYER</b> agrees that he/she has read this agreement! and that he/she understands its terms and
+                                                conditions, and diet two se no covenants, conditions, warranties or representation other than
+                                                those contained herein
+                                            </li>
+                                            <li>
+                                                <b>BUYER</b> undertakes to abide with all existing rules and regulations of <b>SELLER</b>, and agrees
+                                                to observe all application laws governing memorial lots and those that will be approved and
+                                                adopted by BRDC Board and the government of the Republic of the Philippines
+                                            </li>
+                                            <li>
+                                                For purposes of this agreement, the <b>BUYER</b> hereby appoints the <b>SELLER</b> or any of its authorized
+                                                officers,  agents,  counsel  or  employees,  with  right  of  substitution,  as  attorney/s-in-fact
+                                                of the <b>BUYER</b> to implement all provisions of this agreement.
+                                            </li>
+                                            <li>
+                                                The  terms  and  conditions  hereof  shall  extend  to  and  he  binding  upon  the  heirs,  executors,
+                                                administrators,  successors  and  assigns  of  the  respective  parties  hereto.  As  used  herein,  the
+                                                singular includes the plural and the masculine includes feminine. The obligation and liabilities of
+                                                <b>BUYER/S</b> thereunder are joint and several.
+                                            </li>
+                                        </ol>
+                                        <p>Done this _____ day of ____________, 201___ General Santos City, Philippines.</p>
+                                        <div class="b"/>
+                                        <table style="text-align: left; table-layout: fixed; width: 100%;">
+                                            <tr>
+                                                <td><b>BIOCIELO REALTY &amp; DEVELOPMENT CORP.</b></td>
+                                                <td><b>BUYER:</b></td>
+                                            </tr>
+                                        </table>
+                                        <div style="padding-top: 30px;"/>
+                                        <table class="c">
+                                            <tr>
+                                                <td class="d"/>
+                                                <td class="d"><b t-field="d.partner_id.name"/> </td>
+                                            </tr>
+                                            <tr>
+                                                <td><i>GENERAL MANAGER</i></td>
+                                                <td><i>SIGNATURE OVER PRINTED NAME</i></td>
+                                            </tr>
+                                        </table>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br/>
+                                    <br/>
+                                    <center><b>WITNESSES:</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="table-layout: fixed;text-align:center;width: 100%;">
+                                        <tr>
+                                            <td class="d" style="text-align:right;">.</td>
+                                            <td class="d"/>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br/>
+                                    <center><b>ACKNOWLEDGEMENT</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Republic of the Philippines<br/>
+                                    Gen. Santos City<br/>
+                                    -----------------------------------</p>
+                                    <p>
+                                        <b>BEFORE ME</b>, a Notary Public for and in General Santos City, Philippines personally appeared
+                                        _________________________________ with CTO No. ____________________ issued on ____________
+                                        at ______________________ and _________________________________ with CTC No. _____________
+                                        issued on _______________, at _____________ both known to me the same persons who executed
+                                        the foregoinq instrument, in two (2) pages including this page, and they acknowledged to me that the same
+                                        is their own free and voluntary act and deed.
+                                    </p>
+                                    <p>
+                                        <b>WITNESS MY HAND AND SEAL</b> on this _________ day of _______________ at General Santos City.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </font>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

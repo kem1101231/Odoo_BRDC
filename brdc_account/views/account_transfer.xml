@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_transfer_form_view" model="ir.ui.view">
+            <field name="name">Change Request</field>
+            <field name="model">account.transfer.inv</field>
+            <field name="arch" type="xml">
+
+                <form string="" create="false" delete="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <p class="oe_grey">
+                        <h3>
+                            <field name="invoice_id" nolabel="1" options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}' attrs="{'readonly': [('state','!=','draft')]}" readonly="1"/>
+                        </h3>
+                        <!--<label for="pa_ref" string="Purchase Agreement"/>-->
+
+                    </p>
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Owner" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="type" widget="radio" attrs="{'readonly': [('state','!=','draft')]}" options="{'horizontal': true}"/>
+                            <field name="pa_ref" attrs="{'required': [('type', '!=', 'account')], 'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="product_type" attrs="{'readonly': [('type','!=','term')],'invisible':[('type','=','account')]}" widget="selection"/>
+                            <field name="new_payment_term_id" widget="selection" attrs="{'readonly': [('state','!=','draft')],'invisible':[('type','=','account')]}"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('type','!=','account')]}">
+                        <field string="Customer"
+                               name="transfer_to_id"
+                               options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                               attrs="{'readonly': [('state','!=','draft')],'required': [('type','=','account')]}"
+                            />
+                        <!--domain="[('customer','=',True),('state','=','note')]"-->
+                    </group>
+
+
+                    <notebook colspan="4">
+                        <page string="Invoice Lines" attrs="{'invisible': [('type','=','account')]}">
+                            <group col="4">
+                                <!--<group attrs="{'invisible': [('type','!=','product')]}" colspan="1">-->
+                                    <!--<field name="amount_paid" readonly="1"/>-->
+                                <!--</group>-->
+                                <group attrs="{'invisible': [('type','!=','product')]}" colspan="1">
+                                    <field name="remaining_month" readonly="1"/>
+                                </group>
+                                <group colspan="3">
+                                    <field name="pricelist_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                </group>
+                                <group attrs="{'invisible': [('type','!=','term')]}" colspan="1">
+                                    <field name="residual" readonly="1"/>
+                                </group>
+                                <group attrs="{'invisible': [('type','!=','term')]}" colspan="1">
+                                    <field name="paid_months" readonly="1"/>
+                                </group>
+                            </group>
+
+                            <group>
+                                <!--<field name="product_line"/>-->
+                            <field name="product_line" mode="tree"
+                                    attrs="{'readonly': [('state', '!=', 'draft')]}" nolabel="1">
+                                    <tree string="Sales Order Lines" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="product_id"
+                                            attrs="{'readonly': [('procurement_ids', '!=', [])]}"
+                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                                           />
+                                        <field name="lot_id"
+                                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                           domain="[('product_id.type','=','product'), ('product_id','=',product_id),('status','=','av')]"
+                                           />
+                                        <field name="layout_category_id" groups="sale.group_sale_layout"/>
+                                        <field name="name"/>
+                                        <field name="product_uom_qty"
+                                            string="Ordered Qty"
+                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                                        />
+                                        <field name="qty_delivered" invisible="context.get('hide_sale')"
+                                            attrs="{'readonly': [('qty_delivered_updateable', '=', False)]}"/>
+                                        <field name="product_uom"
+                                            attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}"
+                                            context="{'company_id': parent.company_id}"
+                                            groups="product.group_uom" options='{"no_open": True}'/>
+                                        <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags"/>
+                                        <field name="price_unit" />
+                                        <field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+                                        <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                        <field name="price_subtotal" widget="monetary" groups="sale.group_show_price_subtotal"/>
+                                        <field name="price_total" widget="monetary" groups="sale.group_show_price_total"/>
+                                        <field name="qty_delivered_updateable" invisible="1"/>
+                                        <field name="procurement_ids" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <!--<field name="invoice_status" invisible="1"/>-->
+                                        <field name="customer_lead" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group col="4">
+                                <group colspan="1">
+                                    <field name="contract" widget='monetary' options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                    <field name="amount_paid" widget='monetary' options="{'currency_field': 'currency_id'}" string="Deduction" readonly="1"/>
+                                    <field name="monthly_payment" widget='monetary' options="{'currency_field': 'currency_id'}" string="Amortization" readonly="1"/>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="1" name="sale_total">
+                                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <field name="pcf" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy"
+                                            states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <!--<page string="Other Info">-->
+                        <!--<group>-->
+                            <!--<field name="pricelist_id"/>-->
+                            <!--<field name="currency_id"/>-->
+                            <!--<field name="company_id"/>-->
+                        <!--</group>-->
+                    <!--</page>-->
+                    </notebook>
+
+                    <group invisible="1">
+                        <field name="sales_ids" string="Service Order" readonly="1" widget="many2many">
+                        <!--<field name="sales_ids" widget="many2many" string="Service Invoice" readonly="1">-->
+                            <tree delete="false" create="false">
+                                <field name="partner_id"/>
+                                <field name="display_name"/>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <button string="view sale order" widget="url" type="object" name="action_view_sale" class="oe_link oe_edit_only"/>
+
+                    <footer>
+                        <button name="action_save" type="object" string="Confirm" class="btn-primary" states="draft"/>
+                        <button name="action_create" type="object" string="Create Order" class="btn-primary" groups="brdc_account.group_module_brdc_account_admin" states="sent"/>
+                        <button name="action_draft" type="object" string="Set to Draft" class="btn-primary" states="sent"/>
+                        <button name="create_requests" string="Approve Request" type="object" class="btn-primary" groups="brdc_account.group_module_brdc_account_admin" states="created" confirm="continue?"/>
+                        <button name="disapp_requests" string="Disapprove Request" type="object" class="btn-primary" groups="brdc_account.group_module_brdc_account_admin" states="created" confirm="continue?"/>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_transfer_tree_view" model="ir.ui.view">
+            <field name="name">Change Request</field>
+            <field name="model">account.transfer.inv</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" delete="false">
+                    <field name="partner_id" string="Name"/>
+                    <field name="invoice_id" string="Reference Invoice"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_transfer_form_view_1" model="ir.ui.view">
+            <field name="name">Change Request</field>
+            <field name="model">account.transfer.inv</field>
+            <field name="arch" type="xml">
+
+                <form string="" create="false" delete="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <p class="oe_grey">
+                        <h3>
+                            <field name="invoice_id" nolabel="1" options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}' attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </h3>
+                    </p>
+                    <group>
+                        <group>
+                            <field name="type" widget="radio" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="product_type" attrs="{'invisible': [('type','!=','term')]}" widget="selection"/>
+                            <field name="new_payment_term_id" widget="selection" attrs="{'invisible': [('type','!=','term')]}"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('type','!=','account')]}">
+                        <field string="Customer"
+                               name="partner_id"
+                               options='{"always_reload": True,"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                               attrs="{'readonly': [('state','!=','draft')],'required': [('type','=','account')]}"
+                            />
+                        <!--domain="[('customer','=',True),('state','=','note')]"-->
+                    </group>
+
+                    <notebook colspan="4" attrs="{'invisible': [('type','!=','product')]}">
+                        <page string="Invoice Lines">
+                            <group>
+                                <group>
+                                    <field name="amount_paid" readonly="1"/>
+                                    <field name="remaining_month" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                    <notebook colspan="4" attrs="{'invisible': [('type','!=','term')]}">
+                        <page string="Invoice Lines">
+                            <group>
+                                <group>
+                                    <field name="residual" readonly="1"/>
+                                    <field name="paid_months" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="sales_ids" string="Service Order" readonly="1" widget="many2many">
+                        <!--<field name="sales_ids" widget="many2many" string="Service Invoice" readonly="1">-->
+                            <tree delete="false" create="false">
+                                <field name="partner_id"/>
+                                <field name="display_name"/>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <button string="view sale order" widget="url" type="object" name="action_view_sale" class="oe_link oe_edit_only"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_transfer_action_view" model="ir.actions.act_window">
+            <field name="name">Change Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.transfer.inv</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','!=','draft'),('active','in',('FALSE','TRUE'))]</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_invoice_inherit_transfer" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.transfer</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook[1]" position="inside">
+                    <!-- Add your fields or attributes here -->
+                    <page string="History">
+                        <label for="transfer_ids" string="Transfer from"/>
+                        <field name="transfer_ids" string="Transfer from" widget="many2many">
+                            <tree create="false">
+                                <field name="partner_id" string="Name"/>
+                            </tree>
+                        </field>
+                        <field name="sales_ids" string="Service Orders" widget="many2many" readonly="1"/>
+                        <!--<field name="sales_ids" widget="many2many">-->
+                            <!--<tree>-->
+                                <!--<field name="name" string="Name"/>-->
+                                <!--<field name="note" string="note"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_sale_order_inherit_transfer" model="ir.ui.view">
+            <field name="name">sale order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='related_project_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="note"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Change Requests</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','in',('out_invoice', 'out_refund')),('change_state','=','created')]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        </record>
+
+        <record id="action_invoice_tree1_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_tree"/>
+            <field name="act_window_id" ref="brdc_account.action_invoice_tree1"/>
+        </record>
+
+        <record id="action_invoice_tree1_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="brdc_account.action_invoice_tree1"/>
+        </record>
+
+        <record id="action_invoice_tree2" model="ir.actions.act_window">
+            <field name="name">Change Requests</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','in',('out_invoice', 'out_refund')),('change_state','not in',('created','submitted','approved'))]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        </record>
+
+        <record id="action_invoice_tree1_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_tree"/>
+            <field name="act_window_id" ref="brdc_account.action_invoice_tree1"/>
+        </record>
+
+        <record id="action_invoice_tree1_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="brdc_account.action_invoice_tree1"/>
+        </record>
+
+    </data>
+</odoo>

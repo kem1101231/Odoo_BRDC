@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="brdc_acf.list">
+      <field name="name">brdc_acf list</field>
+      <field name="model">brdc_acf.brdc_acf</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="brdc_acf.action_window">
+      <field name="name">brdc_acf window</field>
+      <field name="res_model">brdc_acf.brdc_acf</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="brdc_acf.action_server">
+      <field name="name">brdc_acf server</field>
+      <field name="model_id" ref="model_brdc_acf_brdc_acf"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="brdc_acf" id="brdc_acf.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="brdc_acf.menu_1" parent="brdc_acf.menu_root"/>
+    <menuitem name="Menu 2" id="brdc_acf.menu_2" parent="brdc_acf.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="brdc_acf.menu_1_list" parent="brdc_acf.menu_1"
+              action="brdc_acf.action_window"/>
+    <menuitem name="Server to list" id="brdc_acf" parent="brdc_acf.menu_2"
+              action="brdc_acf.action_server"/>
+    -->
+  </data>
+</odoo>

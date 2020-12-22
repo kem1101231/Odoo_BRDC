@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="interment_loan_line_1" model="ir.ui.view">
+            <field name="name">Payment Summary</field>
+            <field name="model">interment.loan.line</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" import="false" delete="false">
+                    <field name="payment_id"/>
+                    <field name="loan_id"/>
+                    <field name="customer_id"/>
+                    <field name="amount_to_pay" sum="amount_to_pay"/>
+                    <field name="is_paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="eipp_search_action" model="ir.ui.view">
+           <field name="name">eipp search</field>
+           <field name="model">eipp.loan.line</field>
+            <field name="arch" type="xml">
+                <search string="">
+              <field name="eipp_loan_id" string="Reference No" domain="[()]"/>
+            </search>
+           </field>
+        </record>
+
+        <record id="EIPP_loan_line_action" model="ir.actions.act_window">
+            <field name="name">Payment Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">eipp.loan.line</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context" eval="{'search_default_customer_id': active_id}"/>-->
+            <field name="context">{'search_default_eipp_loan_id': active_id}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="eipp_form_view" model="ir.ui.view">
+            <field name="name">EIPP APPLICATION</field>
+            <field name="model">eipp.application</field>
+            <field name="inherit_id" ref="loan_application.eipp_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[2]/group" position="inside">
+                    <field name="eipp_purchase_term"/>
+                </xpath>
+                 <xpath expr="//group[2]/group" position="after">
+                    <group>
+                        <field name="date_of_application"/>
+                    </group>
+                </xpath>
+                <xpath expr="//group[3]" position="inside">
+                    <group>
+                        <field name="eipp_price_list" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    </group>
+                    <group>
+                        <field name="eipp_product" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    </group>
+                    <group>
+                        <field name="eipp_selling_price"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[4]" position="inside">
+                    <group>
+                        <!--<field name="eipp_purchase_term"/>-->
+                        <field name="eipp_payment_term" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' attrs="{'invisible':[('eipp_purchase_term','=','cash')]}"/>
+                        <field name="eipp_start_payment_date"/>
+                    </group>
+                    <group>
+                        <field name="eipp_monthly_payment" attrs="{'invisible':[('eipp_purchase_term','=','cash')]}"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[4]" position="after">
+                    <group>
+                        <button type="object" name="compute_eipp_loan_line" string="Compute" colspan="2" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Cash/Installment Information">
+                            <field name="eipp_loan_line" readonly="1" nolabel="1">
+                                <tree string="Loan Line" create="false" limit="5">
+                                    <field name="date_for_payment" readonly="1"/>
+                                        <field name="amount_to_pay" readonly="1"/>
+                                        <field name="payable_balance" readonly="1"/>
+                                        <field name="paid_amount" readonly="1"/>
+                                        <field name="is_paid" readonly="1"/>
+                                        <field name="notes"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                    <div>
+                                        <label for="total_paid_amount"/>
+                                    </div>
+                                    <field name="total_paid_amount" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="balance_amount" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <button
+                                    name="%(loan_information.EIPP_loan_line_action)d"
+                                    type="action"
+                                    string="Payment Summary"
+                                    icon="fa-pencil-square"
+                                    attrs="{'invisible':[('state','!=','apro'),('state','!=','note')]}"
+                            />
+                        </page>
+                    </notebook>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="soa_report_paperformat_custom" model="report.paperformat">
+            <field name="name">SOA</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+                id="soa_report"
+                model="report.brdc_account.soa_details"
+                report_type="qweb-pdf"
+                string="Statement of Account"
+                name="brdc_account.soa_details"
+                file="brdc_account.soa_details"
+                paperformat="brdc_account.soa_report_paperformat_custom"
+                menu="False"
+        />
+
+        <template id="soa_details">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <style type="text/css">
+                            div {
+                            //border:1px solid;
+                            padding:2 px;
+                            }
+                            table {
+                            width:100%;
+                            page-break-inside:auto;
+                            font-size: 12px;
+                            }
+                            .ulo {
+                            display:table;
+                            width:100%;
+                            height:100px;
+                            font-size: 13px;
+                            }
+                            .l_img {
+                            display: table-cell;
+                            }
+                            .c_cont {
+                            display: table-cell;
+                            }
+                            .c_cont h5 {
+                            text-align:center;
+                            font-weight:bold;
+                            margin-bottom:0px;
+                            }
+                            .c_cont p {
+                            text-align:center;
+                            font-size:10px;
+                            margin-top:0px;
+                            }
+                            .r_img {
+                            display: table-cell;
+                            }
+                            .tthead h5 {
+                            font-weight: bold;
+                            margin-bottom:0px;
+                            }
+                            .tthead  h5,p{
+                            text-align: center;
+                            }
+                            .parent_infhead {
+                            display: table;
+                            width: 100%;
+                            font-size: 12px;
+                            }
+                            .r_infhead ,.l_infhead{
+                            display: table-cell;
+                            width:50%;
+                            }
+                            .thead th{
+                            //text-align:center;
+                            padding:2 2 2 0 px;
+                            }
+                            .l_align {
+                            text-align:left;
+                            }
+                            .r_align {
+                            text-align:right;
+                            }
+                            .c_align {
+                            text-align:center;
+                            }
+                            tr {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            }
+                            td {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            padding:1 1 1 0 px;
+                            margin:1 px;
+                            }
+                            tbody tr:first-child {
+                            border-top: 2px solid ;
+                            border-bottom: 2px solid ;
+                            }
+                            tbody tr:last-child {
+                            border-top: 2px solid ;
+                            }
+                            .bord_bold {
+                            border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            font-weight: bold;
+                            }
+                            .l_bold {
+                            text-align:left;
+                            font-weight: bold;
+                            }
+                            .r_bold {
+                            text-align:right;
+                            font-weight: bold;
+                            }
+                            .b_up {
+                            border-top:1 px solid;
+                            }
+                            tr.border_bottom td {
+                              border-bottom:1pt solid black;
+                            }
+
+                            tfoot tr:first-child {
+                            //border-top: 2px solid ;
+                            }
+                            //.footer {
+                            //width:100%;
+                            //height:100px;
+                            //}
+                        </style>
+                        <!--<div style="margin-top: 20px;"/>-->
+                        <div class="tthead">
+
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 20%;text-align: right;">
+                                        <img class="img img-responsive" src="/brdc_account/static/img/logo_1.png" style="max-height:65px;"/>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        <center>
+                                        <p>
+                                            <b>BIOCIELO REALTY AND DEVELOPMENT CORPORATION</b>
+                                            <br/>
+                                            3rd Floor, Vensu Building, National Highway, Gen. Santos City
+                                            <br/>
+                                            Tel No. (083) 554-3853; Mobile Phone No. 0922-821-5081
+                                            <br/>
+                                            email   safe_biocielo@yahoo.com
+                                        </p>
+                                        </center>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <center>
+                                            <img class="img img-responsive" src="/brdc_account/static/img/logo_2.png" style="max-height:65px;"/>
+                                        </center>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <hr/>
+                            <br/>
+                            <center>
+                                <h3 t-if="o.type == 'soa'">STATEMENT OF ACCOUNT</h3>
+                                <h3 t-if="o.type == 'led'">CUSTOMER LEDGER</h3>
+                            </center>
+                            <p style="font-size:15px;">As of <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')"/></p>
+                        </div>
+                        <br/>
+                        <table style="width: 100%; table-layout: fixed;">
+                            <tr style="font-size:15px;">
+                                <td> Purchase Agreement No.: <span t-esc="o.pa_ref"/> </td>
+                                <td> Sales Agent: <span t-esc="o.invoice_id.agent_id.name"/> </td>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <td> Customer: <span t-esc="o.partner_id.name"/> </td>
+                                <td> Amortization Start: <span t-field="o.invoice_id.date_invoice" t-field-options='{"format": "d MMMM y"}'/> </td>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <!--<td> Contract Price: <span t-esc="o.invoice_id.amount_total"/> </td>-->
+                                <td> Billing Address: <span t-esc="o.partner_id.street"/> </td>
+                                <td/>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <td> Monthly Due: ₱ <span t-esc="o.invoice_id.monthly_payment"/> </td>
+                                <td/>
+                            </tr>
+
+                        </table>
+                        <br/>
+                        <table style="width: 100%;">
+                            <tr class="border_bottom" style="font-size:15px;">
+                                <b>
+                                <td>Date</td>
+                                <td>OR No.</td>
+                                <td>Particular</td>
+                                <td>Amount Due</td>
+                                <td>Payment</td>
+                                <td>Balance</td>
+                                </b>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <td><span t-field="o.invoice_id.date_invoice" t-field-options='{"format": "d MMMM y"}'/></td>
+                                <td>PANo.<span t-esc="o.pa_ref"/></td>
+                                <td t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                                    <span t-esc="line.product_id.name"/><br/>
+                                    <span t-esc="line.lot_id.name"/>
+                                </td>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(o.invoice_id.amount_total)"/></td>
+                                <td/>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(o.invoice_id.amount_total)"/></td>
+                            </tr>
+                            <t t-set="payment_ids" t-value="o.soa_line.sorted(key=lambda a: (a.date))"/>
+                            <tr t-foreach="payment_ids" t-as="payments" style="font-size:15px;">
+                                <td><span t-field="payments.date" t-field-options='{"format": "d MMMM y"}'/></td>
+                                <td><span t-esc="payments.or_ref"/></td>
+                                <td><span t-esc="payments.description"/></td>
+                                <td/>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(payments.amount)"/></td>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(payments.balance)"/></td>
+                                <!--<td/>-->
+                            </tr>
+                            <tr class="border_bottom">
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td/>
+                            </tr>
+                            <tr t-if="o.type == 'led'" style="font-size:15px;">
+                                <td/>
+                                <td/>
+                                <th>TOTAL</th>
+                                <td/>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(o.amount_paid)"/></td>
+                                <td>₱ <span t-esc="'{0:,.2f}'.format(o.invoice_id.amount_total - o.amount_paid)"/></td>
+                            </tr>
+                        </table>
+                        <!--<hr/>-->
+
+                        <div t-if="o.type == 'soa'" style="font-size:15px;">
+                        Note: Please disregard this statement if payment has been made.<br/>
+                        Thank you.
+
+
+                            <table style="width: 100%;">
+                                <tr style="font-size:15px;">
+                                    <td width="70%"/>
+                                    <td width="20%">Due:</td>
+                                    <td width="10%">₱ <span t-esc="'{0:,.2f}'.format(o.due)"/> </td>
+                                </tr>
+                                <tr style="font-size:15px;">
+                                    <td width="70%"/>
+                                    <td width="20%" style="border-bottom:1pt solid black;">Surcharge:</td>
+                                    <td width="10%" style="border-bottom:1pt solid black;">₱ <span t-esc="'{0:,.2f}'.format(o.surcharge)"/></td>
+                                </tr>
+                                <tr style="font-size:15px;">
+                                    <td width="70%"/>
+                                    <td width="20%">Total:</td>
+                                    <td width="10%">₱ <span t-esc="'{0:,.2f}'.format(o.total_due)"/></td>
+                                </tr>
+                                 <tr style="font-size:15px;">
+                                    <td width="70%">Respectfully yours,</td>
+                                    <td width="20%"/>
+                                    <td width="10%"/>
+                                </tr>
+                                <tr>
+                                    <td width="70%">___________________________</td>
+                                    <td width="20%"/>
+                                    <td width="10%"/>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div t-if="o.type == 'led'">
+                            <table style="width: 100%;">
+                                 <tr style="font-size:15px;">
+                                    <td width="30%">Prepared by,</td>
+                                    <td width="70%"/>
+                                </tr>
+                                <tr>
+                                    <td width="30%">___________________________</td>
+                                    <td width="70%"/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

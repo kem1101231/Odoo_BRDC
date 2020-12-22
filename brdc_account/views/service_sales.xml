@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="service_order_series" model="ir.sequence">
+            <field name="name">Service Order</field>
+            <field name="code">service.order</field>
+            <field name="prefix">SeOr/%(range_year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="view_account_payment_invoice_form" model="ir.ui.view">
+            <field name="name">account.payment.invoice.form</field>
+            <field name="model">account.customer.deposit</field>
+            <field name="arch" type="xml">
+                <form string="Register Payment" version="7">
+                    <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="or_ref"/>
+                            <field name="journal_id" widget="selection"/>
+                            <label for="amount"/>
+                            <div name="amount_div" class="o_row" readonly="0">
+                                <field name="amount" readonly="0"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="payment_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string='Validate' name="post_customer_deposit" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_service_order_payment" model="ir.actions.act_window">
+            <field name="name">Register Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.customer.deposit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_payment_invoice_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="service_order_account_payment_form" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">service.order.invoice</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <group>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="service_order_id" nolabel="1"/>
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="assign" invisible="1"/>
+                        <field name="state" widget="radio"/>
+                    </group>
+                    <group>
+                        <group attrs="{'invisible': [('state', 'not in', ('no_product', 'from_other'))]}">
+                            <field name="partner_id" attrs="{'required': [('state', '=', 'from_other')], 'invisible': [('state', '!=', 'from_other')]}"/>
+                            <field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' attrs="{'required': [('state', 'in', ('no_product', 'from_other'))]}"/>
+                            <field name="lot_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' attrs="{'required': [('state', 'in', ('no_product', 'from_other'))]}"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <footer>
+                        <button string='Create Sales' name="create_sale_order" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_service_order_invoice" model="ir.actions.act_window">
+            <field name="name">Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.order.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'service_order_id': active_id}</field>
+            <field name="view_id" ref="service_order_account_payment_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="service_sales_form_view" model="ir.ui.view">
+            <field name="name">Services</field>
+            <field name="model">service.order</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="invoice_status" invisible="1"/>
+                        <field name="sales_ready" invisible="1"/>
+                        <field name="has_sales" invisible="1"/>
+                        <field name="to_invoice" invisible="1"/>
+                        <field name="hide_payment" invisible="1"/>
+                        <!--<field name="get_payments" invisible="1"/>-->
+                        <!--<field name="invoice_count" invisible="1"/>-->
+                       <!--  <button name="print_" string="PRINT" class="oe_highlight" states="draft" type="object"/> -->
+                        <button name="%(action_service_order_payment)d" type="action" attrs="{'invisible': [('hide_payment', '=', True)]}" string="Register Payment" groups="account.group_account_invoice" class="oe_highlight"/>
+                        <button name="confirm_" string="Confirm" states="draft" type="object"/>
+                        <button name="%(action_service_order_invoice)d" string="Create Sale" type="action" attrs="{'invisible': ['|', ('has_sales', '=', True), ('sales_ready', '=', False)]}"/>
+                                <!--attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>-->
+                        <button name="view_sale_order" string="View Sale Order" type="object" attrs="{'invisible': [('has_sales', '=', False)]}"/>
+                        <button name="cancel_" string="CANCEL" states="draft,ready,sale" type="object"/>
+                        <button name="draft_" string="SET TO QUOTATION" states="cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--<button class="oe_inline oe_stat_button" type="action" name="%(brdc_inventory.cremation_order_action)d"-->
+                                    <!--icon="fa-pencil-square"-->
+                                    <!--&gt;-->
+                                <!--<field string="Schedule Cremation" name="inter_button" widget="statinfo"/>-->
+                            <!--</button>-->
+                            <button class="oe_inline oe_stat_button" type="action" name="%(brdc_inventory.interment_order_action)d"
+                                    icon="fa-pencil-square"
+                                    attrs="{'invisible': [('invoice_status', '!=', 'paid')]}">
+                                <field string="Interments" name="inter_button" widget="statinfo"/>
+                            </button>
+                            <!--<field name="picking_ids" invisible="1"/>-->
+                            <!--<button type="object"-->
+                                <!--name="action_view_delivery"-->
+                                <!--class="oe_stat_button"-->
+                                <!--icon="fa-truck"-->
+                                <!--attrs="{'invisible': [('delivery_count', '=', 0)]}" groups="base.group_user">-->
+                                <!--<field name="delivery_count" widget="statinfo" string="Delivery"/>-->
+                            <!--</button>-->
+                            <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_status', 'not in', ['invoiced', 'paid'    ])]}">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <!--<label for="name" class="oe_edit_only"/>-->
+                            <h1>
+                                <field name="name" readonly="1"/>
+
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+
+                                <field name="is_interment" invisible="True"/>
+                                <field name="is_mm" invisible="True"/>
+                                <field name="is_crematory" invisible="True"/>
+                                <field name="partner_id" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}" required="1" options='{"no_create": 1, "no_create_edit": 1}'/>
+                                <field name="discounted"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="product_type" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                <field name="purchase_term" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+
+                                <field name="new_payment_term_id" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])], 'invisible':[('purchase_term','=','cash')]}" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}'/>
+                            </group>
+                             <group>
+                                <field name="order_date" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                <field name="confirmed_date" states="sale" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                <field name="pricelist_id" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}' domain="[('payment_config_id','=', product_type)]"/>
+                                <!--<field name="company_id" attrs="{'readonly': [('state', 'in', ['sale','lock','cancel'])]}"/>-->
+                                 <field name="prod_id"
+                                   attrs="{'invisible':[('is_interment', '!=', True)], 'readonly':[('state','!=','draft')]}"
+                                   options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}'
+                                   domain="[('type','=', 'product')]"/>
+                                <field name="lot_id"
+                                   attrs="{'invisible':[('is_interment', '!=', True)], 'readonly':[('state','!=','draft')]}"
+                                   options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}'
+                                   domain="[('status','not in', ['av', 'fi', 'ter', 'amo']),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>
+                    <!--domain="[('loanee_id','=', partner_id),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>-->
+                                <field name="service_avail_date" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Plan">
+                                <field name="is_installable" invisible="1"/>
+                                <group>
+									<table style="width:100%; table-layout: auto;" cellpadding="2px">
+										<tr style="background-color:#337AB7; color:#ffff;">
+											<td>Product</td>
+											<td>Unit Price</td>
+											<!-- <td>Taxes</td> -->
+											<td>Discount (%)</td>
+                                            <td>Discount Value</td>
+											<td>Subtotal</td>
+										</tr>
+										<tr>
+											<td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="product_id" options='{"no_open": True, "no_create_edit": 1}' attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                            </td>
+											<td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="price_unit" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                            </td>
+											<!-- <td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="tax_id" widget="many2many_tags" attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"/>
+                                            </td> -->
+											<td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="discount" attrs="{'readonly':[('is_installable', '=', False)]}"/>
+                                            </td>
+                                            <td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="discount_value" attrs="{'readonly':[('is_installable', '=', False)]}"/>
+                                            </td>
+											<td style="border: 1px solid #ddd; border-bottom: none !important;">
+                                                <field name="price_subtotal" widget='monetary' options="{'currency_field': 'currency_id'}"/> <!-- attrs="{'readonly': [('state', 'in', ['ready','sale','lock','cancel'])]}"-->
+                                            </td>
+										</tr>
+									</table>
+								</group>
+								<hr/>
+                                <group col="6">
+									<group colspan="2">
+										<!--<field name="adv_term" widget="radio"/>-->
+										<field name="adv_payment" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <!--<field name="payment_line1_ids" invisible="1"/>-->
+									</group>
+									<group colspan="2">
+										<!--<field name="for_amort_balance" widget='monetary' options="{'currency_field': 'currency_id'}"/>-->
+										<field name="monthly_amort" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									</group>
+                                    <group class="oe_subtotal_footer oe_right" name="sale_total">
+                                        
+                                        <field name="gross_amount" string="Gross Amount" widget='monetary' options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                        <field name="pcf" string="PCF" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="discount_total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="amount_tax" string="VAT" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="held_tax" string="Taxes" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+											<label for="amount_total" />
+										</div>
+										<field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+
+                                        <field name="payments_widget" colspan="2" nolabel="1" widget="payment_"/>
+                                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+											<label for="estimated_balance" />
+                                            <button name="button_dummy"
+												states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+										</div>
+                                        <field name="estimated_balance" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Collections">
+                                <group>
+                                    <group>
+                                        <!--<field name="payment_line_ids" nolabel="1" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}' >-->
+                                            <!--<tree>-->
+                                                <!--<field name="date_paid" string="Date of Payment"/>-->
+                                                <!--<field name="payment_id" string="Reference"/>-->
+                                                <!--<field name="amount" sum="amount"/>-->
+                                            <!--</tree>-->
+                                        <!--</field>-->
+                                        <field name="payment_line1_ids" nolabel="1" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' >
+                                            <tree>
+                                                <field name="date_paid" string="Date of Payment"/>
+                                                <field name="payment_id" string="Reference"/>
+                                                <field name="amount" sum="amount"/>
+                                            </tree>
+                                        </field>
+
+                                    </group>
+                                    <group>
+                                        <field name="total_paid" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_due" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="due_count" string="No. of Months(Due)"/>
+                                        <field name="month_to_pay"/>
+                                        <!-- <field name="last_payment"/> -->
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Payment Schedule">
+                                <field name="installment_line_ids" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'>
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="date_for_payment"/>
+                                        <field name="amount_to_pay"/>
+                                        <field name="type"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Journals">
+                                <field name="invoice_ids" invisible="1"/>
+                                <field name="ref_journal_entry" invisible="1"/>
+                                <field name="ref_journal_entry_line"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <br/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_sales_tree_view" model="ir.ui.view">
+            <field name="name">Services</field>
+            <field name="model">service.order</field>
+            <field name="arch" type="xml">
+                <tree string="" decoration-info="state == 'draft'" decoration-danger="state == 'cancel'" decoration-success="invoice_status == 'paid'">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="product_id" string="Product"/>
+                    <field name="purchase_term" string="Payment Type"/>
+                    <field name="monthly_amort" string="Monthly Due" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="state" invisible="1" compute="compute_state"/>
+                    <field name="invoice_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_sales_action_view" model="ir.actions.act_window">
+            <field name="name">Services</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="service_sales_action_search" model="ir.ui.view">
+           <field name="name">Service Search</field>
+           <field name="model">service.order</field>
+            <field name="arch" type="xml">
+                <search string="">
+              <field name="partner_id" string="Customer"/>
+            </search>
+           </field>
+        </record>
+
+        <record id="service_order_draft_view" model="ir.ui.view">
+            <field name="name">service.order.draft.form</field>
+            <field name="model">service.order.draft</field>
+            <field name="arch" type="xml">
+                <form string="Set Plans to Draft">
+                    <p class="oe_grey">
+                        Set state to draft?
+                    </p>
+                    <footer>
+                        <button string="Set to Draft" name="action_draft" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_service_order_draft"
+            multi="True"
+            key2="client_action_multi" name="Set to Draft"
+            res_model="service.order.draft" src_model="service.order"
+            view_mode="form" target="new" view_type="form" />
+
+        <!--<act_window id="action_service_order_cancel"-->
+            <!--multi="True"-->
+            <!--key2="client_action_multi" name="Set to Draft"-->
+            <!--res_model="service.order.draft" src_model="service.order"-->
+            <!--view_mode="form" target="new" view_type="form" />-->
+
+
+
+        <!--<record id="action_service_order_cancel_view" model="ir.ui.view">-->
+            <!--<field name="name">service.order.cancel.form</field>-->
+            <!--<field name="model">service.order.cancel</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Cancel Selected Invoices">-->
+                    <!--<footer>-->
+                        <!--<button string="Cancel Invoices" name="invoice_cancel" type="object" default_focus="1" class="btn-primary"/>-->
+                        <!--<button string="Cancel" class="btn-default" special="cancel"/>-->
+                    <!--</footer>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="action_service_order_cancel" model="ir.actions.act_window">-->
+            <!--<field name="name">Cancel Selected Plans</field>-->
+            <!--<field name="res_model">service.order.cancel</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="account_invoice_cancel_view"/>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

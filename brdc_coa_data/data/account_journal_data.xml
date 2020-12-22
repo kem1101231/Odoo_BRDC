@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+
+<!--<record id="brdc_account_journal_1" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_859"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Amortization MM Gold /MM Plus and Premium</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="1"/>-->
+    <!--<field name="code">AMORT</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_2" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_897"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Amortization	EIPP</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="2"/>-->
+    <!--<field name="code">AMORT</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_3" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_15"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Amortization	Lawn Lots</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="3"/>-->
+    <!--<field name="code">AMORT</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_4" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_846"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Cash Sales Crematorium</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="4"/>-->
+    <!--<field name="code">CASH</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_5" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_806"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Cash Sales Urn</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="5"/>-->
+    <!--<field name="code">CASH</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_6" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_822"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Collection Bone Transfer</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="6"/>-->
+    <!--<field name="code">CLCTN</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_7" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Downpayment Memorial Lot</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="7"/>-->
+    <!--<field name="code">DWNPMNT</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_8" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_817"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Others Penalty</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="8"/>-->
+    <!--<field name="code">PNLT</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--&lt;!&ndash;<record id="brdc_account_journal_9" model="account.journal">&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="update_posted">FALSE</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="company_id" ref="hrms_base.main_company_bradc"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="refund_sequence">FALSE</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_822"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="group_invoice_lines">FALSE</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="name">Others Reactivation/ Restructuring</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="sequence" eval="9"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="code">OR/R</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="display_on_footer">FALSE</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="show_on_dashboard">TRUE</field>&ndash;&gt;-->
+    <!--&lt;!&ndash;<field name="type">cash</field>&ndash;&gt;-->
+<!--&lt;!&ndash;</record>&ndash;&gt;-->
+
+<!--<record id="brdc_account_journal_10" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_829"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Others Scrap and Etc</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="10"/>-->
+    <!--<field name="code">OSE</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_11" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_819"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Processing Fee All</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="11"/>-->
+    <!--<field name="code">PFA</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_12" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_818"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Processing Fee Interment Services</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="12"/>-->
+    <!--<field name="code">PFIS</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_13" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_802"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Spot Cash Columbarium</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="13"/>-->
+    <!--<field name="code">CASH</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_14" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_804"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Spot Cash Community Vault</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="14"/>-->
+    <!--<field name="code">CASH</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<!--<record id="brdc_account_journal_15" model="account.journal">-->
+    <!--<field name="update_posted">FALSE</field>-->
+    <!--<field name="company_id" ref="hrms_base.main_company_bradc"/>-->
+    <!--<field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>-->
+    <!--<field name="refund_sequence">FALSE</field>-->
+    <!--<field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_803"/>-->
+    <!--<field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_26"/>-->
+    <!--<field name="group_invoice_lines">FALSE</field>-->
+    <!--<field name="name">Spot Cash Memorial Lot</field>-->
+    <!--<field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>-->
+    <!--<field name="sequence" eval="15"/>-->
+    <!--<field name="code">CASH</field>-->
+    <!--<field name="display_on_footer">FALSE</field>-->
+    <!--<field name="show_on_dashboard">TRUE</field>-->
+    <!--<field name="type">cash</field>-->
+<!--</record>-->
+
+<record id="brdc_account_journal_16" model="account.journal">
+    <field name="update_posted">FALSE</field>
+    <field name="company_id" ref="hrms_base.main_company_bradc"/>
+    <field name="inbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>
+    <field name="refund_sequence">FALSE</field>
+    <field name="default_credit_account_id" ref="brdc_coa_data.3_brdc_account_coa_817"/>
+    <field name="default_debit_account_id" ref="brdc_coa_data.3_brdc_account_coa_817"/>
+    <field name="group_invoice_lines">FALSE</field>
+    <field name="name">Surcharge</field>
+    <field name="outbound_payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_out')])]"/>
+    <field name="sequence" eval="16"/>
+    <field name="code">SUR</field>
+    <field name="display_on_footer">FALSE</field>
+    <field name="show_on_dashboard">TRUE</field>
+    <field name="type">cash</field>
+</record>
+
+    </data>
+</odoo>

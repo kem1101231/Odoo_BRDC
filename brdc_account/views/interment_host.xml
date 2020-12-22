@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="interment_host_schedule_form_view" model="ir.ui.view">
+            <field name="name">Interment Schedule</field>
+            <field name="model">interment.host.schedule</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header groups="base.group_no_one">
+                        <button name="action_send_notification" type="object" string="Send"/>
+                    </header>
+                    <div class="oe_right">
+                        <table>
+                            <tr>
+                                <td><div style="background-color:#fcf8e3; width: 20px; height: 20px; border: 1px solid black;"></div></td>
+                                <td style="padding-right: 15px"><p> PENDING</p></td>
+                                <td><div style="background-color:#d9edf7; width: 20px; height: 20px; border: 1px solid black;"></div></td>
+                                <td style="padding-right: 15px"><p> CONFIRMED</p></td>
+                                <td><div style="background-color:#dff0d8; width: 20px; height: 20px; border: 1px solid black;"></div></td>
+                                <td style="padding-right: 15px"><p> DONE</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h1>
+                        TODAY'S INTERMENT SCHEDULE
+                    </h1>
+
+                    <field name="host_id" invisible="1"/>
+                    <group>
+                        <field name="dashboard1" nolabel="1" widget="interment_schedule"/>
+                    </group>
+                    <h1>
+                        NEXT INTERMENT SCHEDULE
+                    </h1>
+                    <field name="host_id" invisible="1"/>
+                    <group>
+                        <field name="dashboard2" nolabel="1" widget="interment_schedule"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="interment_host_schedule_action_view" model="ir.actions.act_window">
+            <field name="name">My Schedule to be Hosted</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.host.schedule</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+
+    </data>
+</odoo>

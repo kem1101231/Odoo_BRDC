@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+    
+<!--         <record id="res_partner_address_inherit" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="province_id"/>
+                    <field name="municipality_id"/>
+                    <field name="barangay_id"/>
+                </xpath>
+            
+            </field>
+        </record> -->
+        <record id="brdc_transaction_view" model="ir.ui.view">
+            <field name="name">Transactions</field>
+            <field name="model">brdc.transactions</field>
+            <field name="arch" type="xml">
+   
+                <tree string="Transactions" >
+                    <field name="name"/>
+                    <field name="ref_type"/>
+                    <field name="ser_number"/>
+                    <field name="pa_number"/>
+                    <field name="customer"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>  
+
+        <record id="brdc_transaction_update_form_view" model="ir.ui.view">
+            <field name="name">Update Entries</field>
+            <field name="model">brdc.update.accounts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="trans_id" readonly="1"/>
+                            <field name="update_type" invisible="1"/>
+                            <field name="add_entries" invisible="1"/>
+                            <field name="de_debit" invisible="1"/>
+                            <field name="de_credit" invisible="1"/>
+
+                        </group>
+
+                        <group>
+                            <field name="balance_status" readonly="1"/>
+                            <field name="show_alter" invisible="1"/>
+                            <field name="alter_entries" readonly="1" attrs="{'invisible':[('show_alter','=',False)]}"/>
+                            <field name="status_cause" readonly="1" attrs="{'invisible':[('balance_status','in',['balance','over','under'])]}"/>
+                            <field name="recomendation" readonly="1" attrs="{'invisible':[('balance_status','=','balance'),('show_alter','=',False)]}"/>
+                            <field name="de_credit" string="Original Total" attrs="{'invisible':[('show_alter','=', False)]}"/>
+                            <field name="credit_def" readonly="1" attrs="{'invisible':[('status_cause','in',['debit', False])]}"/>
+                            <field name="debit_def" readonly="1" attrs="{'invisible':[('status_cause','in',['credit', False])]}"/>
+                        </group>
+                        
+<!--                          -->
+<!--     
+
+                        <field name=""/>
+                        <field name=""/>
+                     -->
+                    </group>
+                    <notebook>
+                        <page string="New Entries" attrs="{'invisible':[('add_entries','=',False)]}">
+                            <field name="new_entries" mode="tree">
+                                <tree editable="bottom"  delete="true" create="true">
+                                    <field name="entry_description"/>
+                                    <field name="entry_code"/>
+                                    <field name="entry_debit_amount" sum="Total"/>
+                                    <field name="entry_credit_amount" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook>
+
+
+                        <page string="Journal Entries">
+                            <field name="entries" mode="tree">
+                                <tree editable="bottom">
+                                    <field name="update_ref" invisible="1"/>
+                                    <field name="account_line" invisible="1"/>
+                                    <field name="label"/>
+                                    <field name="account_code"/>
+                                    <field name="debit" sum="Total"/>
+                                    <field name="credit" sum="Total"/>
+                                    <field name="d_debit" sum="Total" invisible="1"/>
+                                    <field name="d_credit" sum="Total" invisible="1"/>
+                                    <field name="adjust_account" invisible="1"/>
+                                    <field name="adjust_amount" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+<!--                                         <group>
+                        <group>
+                            
+                        </group>
+
+                        <group>
+
+                        </group>
+                        
+                    </group> -->
+                        <footer>
+                        <button name="update_entry" string="Update" type="object" class="oe_highlight oe_link"/>
+                        <button string="Close" type="object" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+                    
+            </field>
+        </record>
+
+        <record id="brdc_transaction_update_action_form_view" model="ir.actions.act_window">
+            <field name="name">Update Entries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brdc.update.accounts</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="brdc_transaction_update_form_view"/>
+            <field name="context">{'default_trans_id':active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <record id="brdc_transaction_form_view" model="ir.ui.view">
+            <field name="name">Release Commission</field>
+            <field name="model">brdc.transactions</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                        <button name="post_entries" string="Post" type="object" class="oe_highlight" attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="%(brdc_transaction_update_action_form_view)d"  type="action" string="Update Accounts" attrs="{'invisible':[('state','=','done')]}"/>
+                        
+
+                    </header>
+                    <div class="oe_title">
+                        <label for="name" class="oe_read_only"/>
+ 					</div>
+    
+                    <group>
+                    <group>
+                        <separator colspan="2" style="font-size:18px; margin-bottom:10px;" string="Reference"/> 
+                        <field name="ref_type"  readonly="1"/>
+                        <field name="customer"  readonly="1"/>
+                       <!--  <field name="hr_field"/> -->
+
+<!--                    <field name=""/>
+                        <field name=""/>
+                        <field name=""/>
+                        <field name=""/>
+                        <field name=""/>
+                        <field name=""/>
+                        <field name=""/> -->
+                    </group>
+                    <group>
+                        <separator colspan="2" style="font-size:18px; margin-bottom:10px;" string="Reference Details"/> 
+                        <field name="pa_number"  readonly="1"/>
+                        <field name="invoice_id"  readonly="1"/>
+                        <field name="invoice_number" invisible="1"/>
+                        <separator colspan="2" style="margin-bottom:15px;" string=""/> 
+                        <field name="payment_type" readonly="1"/>
+                        <field name="payment_term" readonly="1"/>
+                        <!-- -->
+                        <field name="ser_number" readonly="1"/>
+                    </group>
+                    </group>
+                    <notebook>
+                      <page string="Invoice Line">
+                          <field name="invoice_line"  readsonly="1"/>
+                      </page>
+                      <page string="Journal Entries">
+                          <field name="journal_entry_line" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="name"/>
+                                <field name="journal_id"/>
+                                <field name="account_id"/>
+                                <field name="debit" sum="Total"/>
+                                <field name="credit" sum="Total"/>
+                            </tree>
+                          </field>
+                      </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+
+
+    	<record model="ir.actions.act_window" id="brdc_transactions_action">
+            <field name="name">Transactions</field>
+            <field name="res_model">brdc.transactions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record >
+
+    	<menuitem id="brdc_transactions_menu" name="Transactions" parent="brdc_inventory.accounting_control_categ" action="brdc_transactions_action" sequence="1" groups="brdc_account.group_module_brdc_accounting"/>
+    </data>
+</odoo>

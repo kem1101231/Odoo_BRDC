@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cash_count_config_form" model="ir.ui.view">
+            <field name="name">cash.count.config.form</field>
+            <field name="model">cash.count.config.line</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                          <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cash_count_action_view" model="ir.actions.act_window">
+            <field name="name">Cash Count Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash.count.config.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="cash_count_transient_model" model="ir.ui.view">
+            <field name="name">cash.count.view.form</field>
+            <field name="model">cash.count.config</field>
+            <field name="arch" type="xml">
+                <form string="" create="false">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" states="draft"/>
+                        <button name="action_draft" type="object" string="Set to Draft" class="oe_highlight" states="confirm"/>
+                        <button name="print_cash_count" type="object" string="Print" states="confirm"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="date_of_transaction" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Denomination">
+                                <field name="config_line_ids" nolabel="1" default_focus="1" attrs="{'readonly':[('state', '!=', 'draft')]}">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="cash_config_line_id" nolabel="1" readonly="1"/>
+                                        <field name="description"/>
+                                        <field name="bill_number"/>
+                                        <field name="total_amount"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="payment_quantity" widget="monetary" readonly="1"/>
+                                    <field name="total_amount" widget="monetary"/>
+                                    <field name="remaining_balance" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="cash_count_transient_tree" model="ir.ui.view">
+            <field name="name">Cash Count Tree</field>
+            <field name="model">cash.count.config</field>
+            <field name="arch" type="xml">
+                <tree string="" create="false" import="false">
+                    <field name="name"/>
+                    <field name="total_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="cash_count_menu_id" name="Cash Count Configuration" parent="loan_application.Config_menu_parent" action="cash_count_action_view" sequence=""/>-->
+
+
+    </data>
+</odoo>

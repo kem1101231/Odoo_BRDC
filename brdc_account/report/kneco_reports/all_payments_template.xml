@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="all_payments_template">
+    <t t-call="report.html_container">
+        <t t-foreach="dataInput['commissions']" t-as="line">
+      <div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+      <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="margin:0;border:0px solid #fff"> 
+            <div class="panel-body" style="margin:0;margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin:0;margin-top: 0px;padding-top: 0px; border: 1px solid #fff;">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">Biocielo Realty Development Corporation</td>
+                                        </tr>
+                                         <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">Agent Commission</td>
+                                        </tr>
+                                       <!--  <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">As of: Month dd, yyyy</td>
+                                        </tr> -->    
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin:0;margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Agent:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 370px;  border: 1px solid #fff; padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"><span t-esc="dataInput['agent']" /></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Position:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff; padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"><span t-esc="dataInput['position']" /></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;">MONTHLY AMMORTICATION</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; "></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;">CONDUCTED PAYMENT:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+            
+                                                  
+                                                <table class="table table-hover" style="margin:0;margin-top: 2px;padding-top: 0px;">
+                                                    
+                                                    <thead  class="text-center">
+                                                        <tr style="background-color:#ddd;">
+                                                            
+                                                            
+                                                            <th style="font-size: 12px; padding:5px;width: 130px; border: 1px solid #000" class="text-center">DATE</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 280px; border: 1px solid #000" class="text-center">CUSTOMER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">PA NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">GROSS</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">WITHHOLDING TAX</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">COMMISSION</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">FOR RELEASE</th>
+                                                            
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <t t-foreach="line['lines']" t-as="commission">
+                                                       <tr>
+                                                            
+                                                            
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;" class="text-center"><span t-esc="commission['date']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px; padding-left: 8px;"><span t-esc="commission['customer']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center"><span t-esc="commission['pa']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="commission['gross']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="commission['withholding']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="commission['commission']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="commission['series']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="commission['ready']"/></td>
+                                                           
+                                                           
+                                                        </tr>
+                                                        </t>
+
+
+                                                         <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            
+
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">TOTAL</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"><span t-esc="line['gross']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"><span t-esc="line['withh']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"><span t-esc="line['commission']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right"></td>
+                                                            
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                        <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                    <tbody>
+                                  
+                                        <!-- <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >CONTRACT COST:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; border-bottom: 1px solid #000;">MON 00, 0000</td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                                               
+                     
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+
+</div>
+</t>
+<t t-foreach="dataInput['payments']" t-as="payment">
+<div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+      <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style=" margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff;">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">Biocielo Realty Development Corporation</td>
+                                        </tr>
+                                         <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">Customer Payment For Commission Reference</td>
+                                        </tr>
+                                       <!--  <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">As of: Month dd, yyyy</td>
+                                        </tr>  -->   
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Agent:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 370px;  border: 1px solid #fff; padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"><span t-esc="dataInput['agent']" /></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Position:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+            
+                                                  
+                                                <table class="table table-hover" style="margin-top: 2px;padding-top: 0px;">
+                                                    
+                                                    <thead  class="text-center">
+                                                        <tr style="background-color:#ddd;">
+                                                            
+                                                            
+                                                            <th style="font-size: 12px; padding:5px;width: 80px; border: 1px solid #000" class="text-center">PA NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 280px; border: 1px solid #000" class="text-center">CUSTOMER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">OR NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">DATE OF PAYMENT</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">AMOUNT</th>
+                                                           <!--  <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">OR NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">AMOUNT</th> -->
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="payment['lines']" t-as="payments">
+                                                            <!-- <span t-esc="payment['']"/> -->
+                                                       <tr>
+                                                            
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;" class="text-center"><span t-esc="payments['pa']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px; padding-left: 8px;"><span t-esc="payments['customer']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center"><span t-esc="payments['or']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center"><span t-esc="payments['date']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="payments['amount']"/></td>
+                                                            <!-- <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">200,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">200,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right">200,000.00</td> -->
+                                                           
+                                                        </tr>
+                                                    </t>
+
+                                                        <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <!-- <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td> -->
+                                                            
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <!-- <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td> -->
+                                                            
+                                                        </tr>
+                                                        <!-- <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">TOTAL</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            
+                                                            
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                                        <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                            <tbody>
+                                  
+                                        <!-- <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >CONTRACT COST:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; border-bottom: 1px solid #000;">MON 00, 0000</td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                                               
+                     
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+
+</div>
+</t>
+<t t-foreach="dataInput['invoices']" t-as="invoice">
+<div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+      <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style=" margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff;">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">Biocielo Realty Development Corporation</td>
+                                        </tr>
+                                         <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">Purchase Agreements For Commission Reference</td>
+                                        </tr>
+                                       <!--  <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">As of: Month dd, yyyy</td>
+                                        </tr>  -->   
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Agent:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 370px;  border: 1px solid #fff; padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"><span t-esc="dataInput['agent']" /></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Position:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+            
+                                                  
+                                                <table class="table table-hover" style="margin-top: 2px;padding-top: 0px;">
+                                                    
+                                                    <thead  class="text-center">
+                                                        <tr style="background-color:#ddd;">
+                                                            
+                                                            
+                                                            <th style="font-size: 12px; padding:5px;width: 80px; border: 1px solid #000" class="text-center">PA NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 280px; border: 1px solid #000" class="text-center">CUSTOMER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">CONTRACT DATE</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">CONTRACT TERM</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">MONTHLY</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">COMMISSION PER SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">CURRENT SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">NO. OF PAID MONTHS</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">NO. OF UNPAID MONTHS</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">DUE AMOUNT</th>
+                                                           <!--  <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">OR NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">AMOUNT</th> -->
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="invoice['lines']" t-as="invoices">
+                                                            <!-- <span t-esc="payment['']"/> -->
+                                                       <tr>
+                                                            
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;" class="text-center"><span t-esc="invoices['pa']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px; padding-left: 8px;"><span t-esc="invoices['customer']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center"><span t-esc="invoices['con_date']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['term']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['mon']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['comm']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['current_month']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['paid_mon']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['unpaid_mon']"/></td>
+                                                           <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="invoices['due']"/></td>
+                                                           
+                                                        </tr>
+                                                    </t>
+
+                                                        <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                             <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            
+                                                        </tr>
+                                                        <!-- <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">TOTAL</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            
+                                                            
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                                        <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                            <tbody>
+                                  
+                                        <!-- <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >CONTRACT COST:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; border-bottom: 1px solid #000;">MON 00, 0000</td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                                               
+                     
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+
+</div>
+</t>
+<t t-foreach="dataInput['summary']" t-as="summary">
+<div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+      <div class="col-lg-12" style="margin: 0px; padding:0px; border:0px solid #fff">
+        <div class="panel panel-default" style="border:0px solid #fff"> 
+            <div class="panel-body" style=" margin:10px; padding:5px;">
+                         <div class="table-responsive" style="margin-top: 0px;padding-top: 0px; border: 1px solid #fff;">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">Biocielo Realty Development Corporation</td>
+                                        </tr>
+                                         <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">Commission Summary per Purchase Agreement</td>
+                                        </tr>
+                                       <!--  <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 2px;  border: 1px solid #fff">As of: Month dd, yyyy</td>
+                                        </tr>  -->   
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Agent:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 370px;  border: 1px solid #fff; padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"><span t-esc="dataInput['agent']" /></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">Position:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; border-bottom: 1px solid #000;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px; "></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" ></td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+            
+                                                  
+                                                <table class="table table-hover" style="margin-top: 2px;padding-top: 0px;">
+                                                    
+                                                    <thead  class="text-center">
+                                                        <tr style="background-color:#ddd;">
+                                                            
+                                                            
+                                                            <th style="font-size: 12px; padding:5px;width: 80px; border: 1px solid #000" class="text-center">PA NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 280px; border: 1px solid #000" class="text-center">CUSTOMER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">TERMS</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">COMMISSION PER TERM</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">TOTAL GROSS</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">WITHHOLDING TAX</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">TOTAL COMMSSION</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">TOTAL CLAIMED</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">READY FOR RELEASE</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">BALANCE</th>
+                                                           <!--  <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">SERIES</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">OR NUMBER</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">AMOUNT</th> -->
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="summary['lines']" t-as="summary_line">
+                                                            <!-- <span t-esc="payment['']"/> -->
+                                                       <tr>
+                                                            
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-left: 8px; padding-top: 5px;" class="text-center"><span t-esc="summary_line['pa']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px; padding-left: 8px;"><span t-esc="summary_line['customer']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-center"><span t-esc="summary_line['max_comm_term']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['comm_series']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['total_gross']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['total_withh']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['total_comm']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['total_claimed']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['for_release']"/></td>
+                                                           <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['series']"/></td>
+                                                           <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="summary_line['unclaimed']"/></td>
+                                                           
+                                                        </tr>
+                                                    </t>
+
+                                                        <tr style="height: 50px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; border-bottom: 1px solid #fff;"></td>
+                                                            
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                             <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            
+                                                        </tr>
+                                                        <!-- <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">TOTAL</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:6px; font-weight: bold; " class="text-right">200,000,000.00</td>
+                                                            
+                                                            
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                                        <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 15px;">
+                                
+                                            <tbody>
+                                  
+                                        <!-- <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 150px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                             <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-top: 4px;"></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 350px;  border: 1px solid #fff;s padding-right: 20px; margin-right: 20px;padding-top: 4px;"></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 130px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >CONTRACT COST:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; border-bottom: 1px solid #000;">MON 00, 0000</td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                                               
+                     
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+
+</div>
+</t>
+    </t>
+</template>
+</odoo>

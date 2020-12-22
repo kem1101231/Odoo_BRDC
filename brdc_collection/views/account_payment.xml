@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_invoice_payment" model="ir.ui.view">
+            <field name="name">account.payment.inherit_from_invoice</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='or_reference']" position="before">
+                        <field name="paymentType"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_date']" position="before">
+                        <field name="collection_id" attrs="{'invisible':[('paymentType', '=', 'manual')]}" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                </xpath>
+                <xpath expr="//field[@name='or_reference']" position="before">
+                        <field name="collected_id" attrs="{'invisible':[('paymentType', '=', 'manual')]}" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                </xpath>
+                <xpath expr="//field[@name='or_series']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('paymentType','=','collection')]}</attribute>
+                    <attribute name="options">{"no_open": True,"no_create": 1, "no_create_edit": 1}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

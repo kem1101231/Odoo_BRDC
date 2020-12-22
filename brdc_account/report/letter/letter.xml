@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="brdc_letter_format_form_view" model="ir.ui.view">
+            <field name="name">Letter Format</field>
+            <field name="model">brdc.letter.format</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="generate" string="Generate" class="oe_highlight" type="object"/>
+                        <button name="print_due" string="Print" type="object"/>
+                        <!--<button name="send_due" string="Send to email" type="object"/>-->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <!--<field name="collector_id" options='{"no_open": True, "no_create_edit": 1}'/>-->
+                                <field name="partner_id" options='{"no_open": True, "no_create_edit": 1}'/>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="area_id" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <field name="partner_line_ids" nolabel="1">
+                            <tree edit="false" create="false" limit="20">
+                                <field name="invoice_id" string="Reference"/>
+                                <field name="partner_id" string="Customer"/>
+                                <field name="address"/>
+                                <field name="product_id" string="Product"/>
+                                <field name="lot_id" string="Block/Lot"/>
+                                <field name="monthly_due"/>
+                                <field name="surcharge"/>
+                                <field name="month_due"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="brdc_letter_format_action_view" model="ir.actions.act_window">
+            <field name="name">Letter Format</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brdc.letter.format</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

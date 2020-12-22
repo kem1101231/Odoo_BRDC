@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="partner_soa_ledger_report_1"
+            model="partner.soa.ledger"
+            report_type="qweb-html"
+            string="Partner Ledger"
+            name="brdc_account.partner_soa_ledger_report_template_1"
+            file="Partner Ledger"
+        />
+
+        <template id="partner_soa_ledger_report_template_1">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <center>
+                            <h1>
+                                Biocielo Realty Development Corporation<br/>
+                                Partner Ledger
+                            </h1>
+                            <h3>For the period From <span t-field="doc.date_start" t-field-options='{"format": "d MMMM y"}'/> to <span t-field="doc.date_end" t-field-options='{"format": "d MMMM y"}'/></h3>
+                        </center>
+
+                        <table style="width: 100%;">
+                            <tr t-foreach="doc.partner_ids" t-as="partner">
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td>
+                                                <table style="width: 100%;">
+                                                    <td width="75%">
+                                                        <b><span t-esc="partner.partner_id.name"/></b>
+                                                    </td>
+                                                    <td>
+                                                       <b>Total of ₱ <span t-esc="'{0:,.2f}'.format(partner.total_payment)"/></b>
+                                                    </td>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr t-foreach="partner.child_ids" t-as="child">
+                                            <td>
+                                                <table style="width: 100%;">
+                                                    <tr>
+                                                        <td width="20%"><span t-esc="child.date"/></td>
+                                                        <td width="25%"><span t-esc="child.invoice"/></td>
+                                                        <td width="15%"><span t-esc="child.payment_id.or_reference"/></td>
+                                                        <td width="30%"><span t-esc="child.description"/></td>
+                                                        <td>₱ <span t-esc="child.get_currency(child.payment)"/></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="daily_payment_summary_report"
+                    model="account.payment.summary"
+                    report_type="qweb-pdf"
+                    string="Payment Summary"
+                    name="brdc_cash_count.daily_payment_summary_report_template"
+                    file="Payment Summary"
+                    paperformat="custom_legal_paperformat"
+                    menu="False"
+                />
+
+        <template id="daily_payment_summary_report_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="d">
+                    <div class="page">
+                        <!--<t t-foreach="recs" t-as="payments">-->
+                            <!--<span t-field="payments.name"/>-->
+                        <!--</t>-->
+                        <style type="text/css">
+                            table.a {
+                            font-family: "Trebuchets MS", Arial, Helvetica, sans-serif;
+                            border-collapse: collapse;
+                            width:100%;
+                            }
+                            td.a tr.a {
+                            border-collapse: collapse;
+                            width:100%;
+                            border-top: 1px solid #ddd;
+                            border-bottom: 1px solid #ddd;
+                            padding: 8px;
+                            }
+                            tr.b {
+                            padding-top: 50px;
+                            }
+                            table.b {
+                            table-layout: auto;
+                            width:100%;
+                            }
+                        </style>
+                        <center><h2>DAILY PAYMENT SUMMARY</h2></center>
+                        <table class="a">
+                            <tr>
+                                <td>
+                                    <table class="b">
+                                        <tr>
+                                            <td>
+                                                <span t-field="d.responsible_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="d.date"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td class="a">
+                                    <table class="b">
+                                        <tr t-foreach="d.payment_ids" t-as="dpi" class="a">
+                                            <td class="a"><span t-field="dpi.or_reference"/></td>
+                                            <td class="a"><span t-field="dpi.payment_date"/></td>
+                                            <td class="a"><span t-field="dpi.journal_id.name"/></td>
+                                            <td t-if="dpi.journal_id.type == 'bank'" class="a">
+                                                <span t-field="dpi.check_number"/>
+                                            </td>
+                                            <td class="a"><span t-field="dpi.partner_id.name"/></td>
+                                            <td class="a"><span t-field="dpi.amount"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+                </t>
+            <!--</t>-->
+        </template>
+
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="cash_count_report"
+                    model="cash.count.config"
+                    report_type="qweb-pdf"
+                    string="Daily Cash Count"
+                    name="brdc_cash_count.cash_count_report_template"
+                    file="Daily Cash Count"
+                    paperformat="custom_legal_paperformat"
+                    menu="False"
+                />
+
+        <template id="cash_count_report_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="d">
+                    <div class="page">
+                        <style type="text/css">
+                            table.a {
+                            font-family: "Trebuchets MS", Arial, Helvetica, sans-serif;
+                            border-collapse: collapse;
+                            width:100%;
+                            }
+                            td.a tr.a {
+                            width:100%;
+                            border-top: 0.2px solid #ddd;
+                            border-bottom: 0.2px solid #ddd;
+
+                            vertical-align:bottom;
+                            }
+                            tr.b {
+                            padding-top: 50px;
+                            }
+                            tr.c {
+                            background-color: #ddd;
+                            }
+                            td.c {
+                            padding: 8px;
+                            text-align: right;
+                            }
+                            table.b {
+                            table-layout: fixed;
+                            width:100%;
+                            text-align: center;
+                            }
+                            p.a {
+                            color: red;
+                            }
+                        </style>
+                        <center>
+                        <h2>Daily Cash Count</h2>
+                            <table class="a">
+                                <tr>
+                                    <td>
+                                        <table class="b">
+                                            <tr>
+                                                <td>
+                                                    <span t-field="d.payment_summary_id.responsible_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="d.date_of_transaction"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr class="b">
+                                    <td class="a">
+                                        <table class="b">
+                                            <tr class="c">
+                                                <td class="a"><b>Denomination</b></td>
+                                                <td class="a"><b>Value</b></td>
+                                                <td class="a"></td>
+                                                <td class="a"><b>Number of Coins/Bills</b></td>
+                                                <td class="a"><b>Total</b></td>
+                                            </tr>
+                                            <tr t-foreach="d.config_line_ids" t-as="dc" class="a">
+                                                <td class="a">
+                                                    <span t-field="dc.cash_config_line_id"/>
+                                                </td>
+                                                 <td class="a">
+                                                    <span t-field="dc.description"/>
+                                                </td>
+                                                 <td class="a">
+                                                    <p class="a">x</p>
+                                                </td>
+                                                 <td class="a">
+                                                    <span t-field="dc.bill_number"/>
+                                                </td>
+                                                 <td class="a">
+                                                    <span t-field="dc.total_amount"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                                <td class="c"><b>Total Payments : </b></td>
+                                                <td class="c"><span t-field="d.payment_quantity"/> </td>
+                                            </tr>
+                                            <tr>
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                                <td class="c"><b>Total Count : </b></td>
+                                                <td class="c"><span t-field="d.total_amount"/> </td>
+                                            </tr>
+                                            <tr class="a">
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                                <td class="c"><b>Shortfall/Excess : </b></td>
+                                                <td class="c"><span t-field="d.remaining_balance"/> </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

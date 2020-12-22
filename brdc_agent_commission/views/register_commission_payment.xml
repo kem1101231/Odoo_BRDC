@@ -1,0 +1,103 @@
+
+<odoo>
+    <data>
+        <!--<record id="inherited_account_payment_search" model="ir.ui.view">-->
+            <!--<field name="name">Account Payment Search</field>-->
+            <!--<field name="model">account.payment</field>-->
+            <!--<field name="mode">primary</field>-->
+            <!--<field name="inherit_id" ref="brdc_account.account_payment_custom_search"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//search" position="inside">-->
+                    <!--<field name="or_reference" string="OR Number"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="register_commission_payment_tree" model="ir.ui.view">
+            <field name="name">Register Commission Payment</field>
+            <field name="model">register.commission_payment</field>
+            <field name="arch" type="xml">
+                <tree string="Register Commission Payment">
+                    <!--<field name="name"/>-->
+                    <field name="or_id"/>
+                    <field name="ac_id"/>
+                    <field name="payment"/>
+                    <field name="number_of_commission_paid"/>
+                    <field name="date_registered"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--<record id="register_commission_payment_search" model="ir.ui.view">-->
+            <!--<field name="name">register.commission.payment.search</field>-->
+            <!--<field name="model">register.commission_payment</field>-->
+            <!--<field name="mode">primary</field>-->
+            <!--&lt;!&ndash;<field name="inherit_id" ref="brdc_agent_commission.register_commission_payment_search"/>&ndash;&gt;-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//search" position="inside">-->
+                    <!--<field name="or_id" string="OR Num"/>-->
+                    <!--<field name="ac_id" string="PA Num"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="register_commission_payment_form" model="ir.ui.view">
+            <field name="name">Register Commission Payment</field>
+            <field name="model">register.commission_payment</field>
+            <field name="arch" type="xml">
+                <form string="Register Commission Payment">
+                    <header>
+                        <button name="action_confirm" type="object"
+                                string="Confirm" states="draft"
+                                confirm="Are you sure you want to do this?"/>
+                        <button name="action_cancelled" type="object"
+                                string="Cancelled" states="confirmed"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to do this?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <!--<field name="name"/>-->
+                            <group>
+                                <field name="ac_id"
+                                       options='{"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="or_id"
+                                       options='{"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                       <!--domain="[('account_invoice_id.so_id','=','so_id')]"/-->
+                                       <!--context="{'filter_by':'partner_id'}"/>-->
+                                <field name="payment"/>
+
+                            </group>
+                            <group>
+                                <field name="number_of_commission_paid"/>
+                                <field name="date_registered"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="register_commission_payment_action" model="ir.actions.act_window">
+            <field name="name">Register Commission Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">register.commission_payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

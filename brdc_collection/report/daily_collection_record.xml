@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="collection_paper_format" model="report.paperformat">
+            <field name="name">legal custom</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+            id="daily_collection_record_id"
+            model="daily.collection.record"
+            report_type="qweb-pdf"
+            string=" Daily Collections"
+            name="brdc_collection.daily_collection_record_template"
+            paperformat="collection_paper_format"
+            file="FILE_NAME"
+        />
+
+        <template id="daily_collection_record_template">
+            <t t-call="report.html_container">
+                <font t-foreach="docs" t-as="d">
+                    <div class="page" style="font-size:100%; width:100%; height:100%;margin-top: 100px;">
+                        <style type="text/css">
+                            div.a {
+                            padding-top: 80px;
+                            }
+                            p.a{
+                            padding-top: 3px;
+                            }
+                            p.b{
+                            text-decoration: underline;
+                            }
+                            table.a{
+                            font-family: "Trebuchets MS", Arial, Helvetica, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%
+                            }
+                            tr.b {
+                            padding-top: 50px;
+                            }
+                            td.a tr.a {
+                            border-collapse: collapse;
+                            width:100%;
+                            border-top: 1px solid #ddd;
+                            border-bottom: 1px solid #ddd;
+                            padding: 8px;
+                            }
+                        </style>
+                        <center>
+                            <p style="font-size:40px;"><strong>Daily Collection Record</strong></p>
+                            <p class="a" style="font-size:20px;">Biocielo Realty and Development Corporation</p>
+                        </center>
+                        <div class="a"/>
+                        <strong>
+                                <p style="font-size:15px;"><span t-field="d.name"/></p>
+                        </strong>
+                        <table class="a">
+                            <tr style="font-size:15px;">
+                                <td style="width:15%;">PA No.</td>
+                                <td>Customer</td>
+                                <td>Payment Type</td>
+                                <td>Cheque Number</td>
+                                <td>Receipt Number</td>
+                                <td>Amount</td>
+                            </tr>
+                            <tr t-foreach="d.dcr_lines_ids" t-as="dli" style="font-size:15px;">
+                                <td><span t-field="dli.PA"/></td>
+                                <td><span t-field="dli.partner_ids"/></td>
+                                <td><span t-field="dli.cash_cheque_selection"/></td>
+                                <td><span t-field="dli.drc_bank_id.name"/></td>
+                                <td><span t-field="dli.or_reference"/></td>
+                                <td>₱ <span t-field="dli.amount_paid"/></td>
+                            </tr>
+                            <tr t-foreach="d.dcr_lines_mm_ids" t-as="dli" style="font-size:15px;">
+                                <td><span t-field="dli.service_id.name"/></td>
+                                <td><span t-field="dli.partner_ids"/></td>
+                                <td><span t-field="dli.cash_cheque_selection"/></td>
+                                <td><span t-field="dli.drc_bank_id.name"/></td>
+                                <td><span t-field="dli.or_reference"/></td>
+                                <td>₱ <span t-field="dli.amount_paid"/></td>
+                            </tr>
+
+                            <tr style="font-size:15px;">
+                                <td/>
+                                <td><b>TOTAL CASH COLLECTION</b></td>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td><b>₱ <span t-field="d.total_collection"/></b> </td>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <td/>
+                                <td><b>TOTAL CHEQUE COLLECTION</b></td>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td><b>₱ <span t-field="d.total_collection_bank"/></b> </td>
+                            </tr>
+
+                        </table>
+                        <p style="page-break-after:auto;">   </p>
+                        <div class="a"/>
+                        <strong>
+                            <p style="font-size:15px;">Collection Count</p>
+                        </strong>
+                        <table class="a">
+                            <tr style="font-size:15px;">
+                                <td>Denomination</td>
+                                <td>Value</td>
+                                <td>Number of Bill/Coin</td>
+                                <td>Total</td>
+                            </tr>
+                            <tr t-foreach="d.cash_count_line_ids" t-as="dpi" class="a" style="font-size:15px;">
+                                <td class="a"><span t-field="dpi.cash_config_line_id.name"/></td>
+                                <td class="a"><span t-field="dpi.description"/></td>
+                                <td class="a"><span t-field="dpi.bill_number"/></td>
+                                <td class="a"><span t-field="dpi.total_amount"/></td>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <th>TOTAL COUNT</th>
+                                <td/>
+                                <td/>
+                                <td><b>₱ <span t-field="d.total_count"/></b> </td>
+                            </tr>
+                            <tr style="font-size:15px;">
+                                <th>DIFFERENCE</th>
+                                <td/>
+                                <td/>
+                                <td><b>₱ <span t-field="d.count_difference"/></b> </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p style="font-size:15px;">
+                            Prepared by:<br/>
+                            _____________________________________<br/>
+                            <span t-field="d.collector_id.name"/>
+                        </p>
+
+
+                    </div>
+                </font>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,196 @@
+<odoo>
+    <data>
+        <record id="agent_commission_tree" model="ir.ui.view">
+            <field name="name">agent commission tree</field>
+            <field name="model">agent.commission</field>
+            <field name="arch" type="xml">
+                <tree string="Agent Commissions" create="false">
+                    <field name="pa_ref"/>
+                    <field name="partner_id"/>
+                    <field name="confirmation_date"/>
+                    <!--<field name="sales_agent_id"/>-->
+                    <!--<field name="unit_manager_id"/>-->
+                    <!--<field name="agency_manager_id"/>-->
+                    <field name="sa_comm"/>
+                    <field name="um_comm"/>
+                    <field name="am_comm"/>
+                    <field name="contract_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="agent_commission_form" model="ir.ui.view">
+            <field name="name">agent commission form</field>
+            <field name="model">agent.commission</field>
+            <field name="arch" type="xml">
+                <form string="Agent Commissions" create="false">
+                    <header>
+                            <button name="compute_commission_manually" type="object"
+                                    string="Compute"
+                                    class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <!--col="3"-->
+                        <group>
+                            <group>
+                                <field name="pa_ref"/>
+                                <field name="so_id"/>
+                                <field name="partner_id"/>
+                                <!--<field name="sales_agent_id"/>-->
+                                <!--<field name="unit_manager_id"/>-->
+                                <!--<field name="agency_manager_id"/>-->
+                            </group>
+                            <group>
+                                <field name="contract_price"/>
+                                <field name="confirmation_date"/>
+                                <!--<field name="sa_comm"/>-->
+                                <!--<field name="um_comm"/>-->
+                                <!--<field name="am_comm"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <table style="width:100%" cellpadding="2px">
+                                <tr>
+                                    <th style="border-bottom:2px solid; padding:2px">
+                                        <span>Agent</span>
+                                    </th>
+                                    <th style="border-bottom:2px solid; padding:2px">
+                                        <span>Commission Amount</span>
+                                    </th>
+                                    <th style="border-bottom:2px solid; padding:2px">
+                                        <span>Deduction</span>
+                                    </th>
+                                    <th style="border-bottom:2px solid; padding:2px">
+                                        <span>Commission Payable</span>
+                                    </th>
+                                </tr>
+                                <tr style="padding:2px">
+                                    <td>
+                                        <field name="sales_agent_id"/>
+                                    </td>
+                                    <td>
+                                        <field name="sa_comm"/>
+                                    </td>
+                                    <td>
+                                        <field name="sa_ded"/>
+                                    </td>
+                                    <td>
+                                        <field name="w_sa_comm" attrs="{'readonly':True}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="unit_manager_id"/>
+                                    </td>
+                                    <td>
+                                        <field name="um_comm"/>
+                                    </td>
+                                    <td>
+                                        <field name="um_ded"/>
+                                    </td>
+                                    <td>
+                                        <field name="w_um_comm" attrs="{'readonly':True}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="agency_manager_id"/>
+                                    </td>
+                                    <td>
+                                        <field name="am_comm"/>
+                                    </td>
+                                    <td>
+                                        <field name="am_ded"/>
+                                    </td>
+                                    <td>
+                                        <field name="w_am_comm" attrs="{'readonly':True}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--<group string="Sales Agent ">-->
+                            <!--<field name="sales_agent_id"/>-->
+                            <!--<field name="sa_comm"/>-->
+                            <!--<field name="sa_ded"/>-->
+                            <!--<field name="f_sa_comm"/>-->
+                            <!--</group>-->
+                            <!--<group string="Unit Manager">-->
+                            <!--<field name="unit_manager_id"/>-->
+                            <!--<field name="um_comm"/>-->
+                            <!--<field name="um_ded"/>-->
+                            <!--<field name="f_um_comm"/>-->
+                            <!--</group>-->
+                            <!--<group string="Agency Manager">-->
+                            <!--<field name="agency_manager_id"/>-->
+                            <!--<field name="am_comm"/>-->
+                            <!--<field name="am_ded"/>-->
+                            <!--<field name="f_am_comm"/>-->
+                            <!--</group>-->
+
+                        </group>
+                        <field name="sa_commission_line" col="1">
+                            <tree create="false" edit="true" delete="false" limit="5" editable="bottom">
+                                <field name="name"  attrs="{'readonly':True}"/>
+                                <field name="invoice_id"  attrs="{'readonly':True}"/>
+                                <field name="date_paid"  attrs="{'readonly':True}"/>
+                                <field name="sa_percentage" sum="Total"  attrs="{'readonly':True}"/>
+                                <field name="date_distributed"  attrs="{'readonly':True}"/>
+                                <field name="is_paid"/>
+                                <!--<field name="is_distributed"/>-->
+                            </tree>
+                        </field>
+                        <field name="um_commission_line">
+                            <tree create="false" edit="false" delete="false" limit="5">
+                                <field name="name"/>
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                                <field name="um_percentage" sum="Total"/>
+                                <field name="date_distributed"/>
+                                <!--<field name="is_distributed"/>-->
+                            </tree>
+                        </field>
+                        <field name="am_commission_line">
+                            <tree create="false" edit="false" delete="false" limit="5">
+                                <field name="name"/>
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                                <field name="am_percentage" sum="Total"/>
+                                <field name="date_distributed"/>
+                                <!--<field name="is_distributed"/>-->
+                            </tree>
+                        </field>
+                        <!--usab-->
+                        <!--<field name="agent_commission_line">-->
+                            <!--<tree create="false" edit="false" delete="false">-->
+                                <!--<field name="invoice_id"/>-->
+                                <!--<field name="date_paid"/>-->
+                                <!--<field name="sa_percentage"/>-->
+                                <!--<field name="am_percentage"/>-->
+                                <!--<field name="um_percentage"/>-->
+                                <!--&lt;!&ndash;<field name="date_distributed"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="is_distributed"/>&ndash;&gt;-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="agent_commission_action" model="ir.actions.act_window">
+            <field name="name">Agent Commission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">agent.commission</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

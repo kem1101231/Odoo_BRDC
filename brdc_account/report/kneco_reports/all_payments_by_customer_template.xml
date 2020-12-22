@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="request_form_template">
+    <t t-call="report.html_container">
+       <link rel='stylesheet' href="/mgc_request/static/src/css/bootstrap.css"/>
+        <link rel='stylesheet' href="/mgc_request/static/src/css/font-awesome.css"/>
+      <div class="page" style="padding:0px; margin:0px; border: 1px solid #fff;">
+     <div class="col-lg-12" style="margin: 0px; padding:0px; border:1px solid #fff">
+        <div class="panel panel-default" style="border:1px solid #fff; padding-left:0px; margin:0px;"> 
+            <div class="panel-body" style="margin:0px; padding:8px;  border: 1px solid #fff;">
+                         <div class="table-responsive" style="margin:0px; padding: 0px; border: 1px solid #fff">
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px;">
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td style="font-size: 16px; font-weight: bold; padding:0px; border: 1px solid #fff">Marbel Universal Trading Inc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 11px; padding: 0px;  border: 1px solid #fff">MUTI Bldg., Osmeña St., Koronadal City</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="font-size: 15px; font-weight: bold; padding-bottom: 0px; padding-top: 10px;  border: 1px solid #fff">REQUEST FORM</td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">REQUESTED BY:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px;  border: 1px solid #fff; border-bottom: 1px solid #000;  padding-right: 20px; margin-right: 20px;padding-top: 4px;"><span t-esc="dataInput['requestor']"/></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 110px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;" >REQUEST NO.:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 160px;border: 1px solid #fff; border-bottom: 1px solid #000; font-weight: bold;"><span t-esc="dataInput['request_no']"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">B.U. &amp; DEPT.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"><span t-esc="dataInput['requestor_department']"/></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff; padding-left: 15px;padding-top: 4px;">REQUEST DATE:</td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff; border-bottom: 1px solid #000"><span t-esc="dataInput['request_date']"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">REQUEST TYPE:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"><span t-esc="dataInput['request_type']"/></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right"></td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 4px;">REQUEST NAME:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"><span t-esc="dataInput['request_name']"/></td>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 80px; border: 1px solid #fff" class="text-right"></td>
+                                            <td style="font-size: 14px; padding:0px;width: 180px;border: 1px solid #fff;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 0px; ">
+                                    <tbody>
+                                        <tr style="background-color:#ddd; ">
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 500px; border: 1px solid #000;   padding-top: 4px; padding-right: 10PX; padding-left: 5px;">PURPOSE:</td>
+                                            <td style="font-size: 10px;  padding:0px; font-weight: bold; width: 500px;  border: 1px solid #000;   padding-right: 30px; margin-right: 30px;padding-top: 4px; padding-left: 5px;">SPECIAL INSTRUCTION:</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #000; padding-top: 8px; height: 40px;text-indent: 15px;"> <span t-esc="dataInput['purpose']"/></td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #000;  padding-top: 8px; height: 40px; text-indent: 15px;"> <span t-esc="dataInput['spec_instruction']"/></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table><!-- 
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 6px; padding-right: 10PX;" class="text-right">PUPOSE:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 520px;  border: 1px solid #fff; border-bottom: 1px solid #000;  padding-right: 30px; margin-right: 30px;padding-top: 4px;">Kawasaki Phili., Inc.</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px; font-weight: bold; padding:0px;width: 100px; border: 1px solid #fff; padding-top: 10px; padding-right: 10" class="text-right">SPECIAL INST.:</td>
+                                            <td style="font-size: 13px;  padding:0px; width: 450px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #000"></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table> -->
+                                
+                                                <table class="table table-hover" style="margin-top: 10px;padding-top: 0px;">
+
+                                                    <thead  class="text-center">
+                                                        <tr style="background-color:#ddd; ">
+ 
+                                                            <th style="font-size: 12px;  padding:5px;width: 100px; border: 1px solid #000" class="text-center">QTY</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">UNIT</th>
+                                                            <th style="font-size: 12px;  padding:5px;width: 300px; border: 1px solid #000" class="text-center">PARTICULAR</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">UNIT PRICE</th>
+                                                            <th style="font-size: 12px; padding:5px;width: 100px; border: 1px solid #000" class="text-center">AMOUNT</th>
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <t t-foreach="dataInput['items']" t-as="line">
+                                                            <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-left: 8px; padding-right: 8px; padding-top: 5px;" class="text-center"><span t-esc="line['qty']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;" class="text-center"><span t-esc="line['unit']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-left: 8px; padding-top: 5px;"><span t-esc="line['descrip']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="line['price']"/></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;padding-top: 5px;" class="text-right"><span t-esc="line['total']"/></td>    
+
+
+                                                            <!-- <td class="text-center"  style="height:15px;padding:8px;"><span t-esc="line['descrip']"/></td>
+                                                            <td class="text-center"  style="height:15px;padding:8px;"><span t-esc="line['qty']"/></td>
+                                                            <td  style="height:15px;padding:8px;"><span t-esc="line['unit']"/></td>
+                                                            <td class="text-right"  style="height:15px;padding:8px;"><span t-esc="line['price']"/></td>
+                                                            <td class="text-right"  style="height:15px;padding:8px;"><span t-esc="line['total']"/></td>  -->
+                                                        </tr>
+                                                        </t>
+                                                       
+
+                                                       <tr>
+                                                            
+                                                        </tr>
+                                                       
+                                                         <!-- <tr style="height: 20px;">
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;"></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px;"></td>
+                                                        </tr> -->
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; font-weight: bold; padding-left: 8px;">Total</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; "></td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                            <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                             <td style="border: 1px solid #000; font-size: 12px;  padding:0px; padding-right: 8px;" class="text-right">200000</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-hover" style="margin-top: 10px;padding-top: 0px; margin-bottom: 0px; ">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 11px; font-weight: bold; padding:0px;width: 500px; border: 1px solid #fff; padding-top: 8px; padding-right: 10PX; padding-left: 5px;" class="text-right">TOTAL AMOUNT:</td>
+                                            <td style="font-size: 13px;  padding:8px; font-weight: bold; width: 100px;  border: 1px solid #fff;  border-top: 1px solid #000;  border-bottom: 1px solid #000; " class="text-right"><span t-esc="dataInput['total']" widget="monetary"/></td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 15px;padding-top: 0px; margin-bottom: 0px; ">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 11px;  padding:0px; padding-right: 50px;border: 1px solid #fff; border-bottom: 1px solid #bbb; padding-top: 8px;">APPROVED BY THE FOLLOWING:</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style="margin-top: 0px;padding-top: 0px; margin-bottom: 0px; ">
+                                    <tbody>
+                                        <tr>
+                                            <t t-foreach="dataInput['approvers']" t-as="line">
+                                                <td style="padding:0px; padding-right: 20px;border: 1px solid #fff; padding-top: 8px; height: 40px; border-right: 1px solid #fff;border-left: 1px solid #fff;" class="text-center">
+                                                    <p style=" padding:0px; margin:0px; font-weight:bold; padding-top:17px;"><span t-esc="line['name']"/></p>
+                                                    <p style=" padding:0px; margin:0px; font-size:13px;">Dated: <span t-esc="line['date']"/></p>
+
+                                            </td>
+                                               
+                                            </t>
+                                            
+                                        </tr>
+                                         <!--  style="font-size:11px; margin:0px; padding:0px; padding-top:8px;" -->
+                                      
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover" style=" padding:0px; margin:0px; margin-top: 5px; padding-top: 0px; margin-bottom: 0px; ">
+                                    <tbody>
+                                         <!--  style="font-size:11px; margin:0px; padding:0px; padding-top:8px;" -->
+                                        <tr>
+                                            <td style="font-size: 11px;  padding:0px; margin:0px; padding-right: 50px; border: 1px solid #fff; border-top: 1px solid #bbb;  padding-top: 8px; text-indent: 15px;">
+                                                <p style=" padding:0px; margin:0px;"> Note: This document no longer requires signatures, for approval of this request was already conducted online. Persons indicated above may still able to sign the document.</p>
+                                                <p style="text-indent:42px; padding:0px; margin:0px;">This will only be generated if the request was approved thus all documents of this type not present on the list of approved request will be rendered void and invalid.</p>
+                                            </td> 
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+    </t>
+</template>
+</odoo>

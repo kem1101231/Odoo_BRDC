@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="eipp_agreement_report"
+                    model="sale.order"
+                    report_type="qweb-pdf"
+                    string="EIPP Agreement"
+                    name="brdc_account.eipp_agreement_report_template"
+                    file="EIPP Agreement"
+                    paperformat="custom_legal_paperformat"
+                    menu="False"
+                />
+
+        <template id="eipp_agreement_report_template">
+            <t t-call="report.html_container">
+                <font t-foreach="docs" t-as="d" face="Arial, serif">
+                    <div class="page" style="font-family:Arial; width:100%; height:100%;margin-top: 100px;">
+                        <style type="text/css">
+
+                            div.a {
+                                    padding-top: 80px;
+                            }
+                            div.b {
+                                padding-top: 80px;
+                            }
+                            tr.a {
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+                            tr.b {
+                                 border-top: 0.5px solid black;
+                            }
+                            th {
+                                text-align: center;
+                            }
+                            table.a {
+                                width: 100%;
+                            }
+                            table.c {
+                                table-layout: auto;
+                                width: 100%;
+                                text-align: center;
+                            }
+                            td.a {
+                                width: 140px;
+                            }
+                            td.b {
+                                width: 500px;
+                            }
+                            td.c {
+                                width: 100px;
+                                text-align: right;
+                            }
+                            td.d {
+                                padding-top: 50px;
+                                border-bottom: 0.5px solid black;
+                            }
+                            p {
+                                font-size:100%;
+                                text-align: justify;
+                                text-justify: inter-word;
+                                line-height: 1.3;
+                            }
+                            ol {
+                                padding-left: 40px;
+                                display: block;
+                                text-align: justify;
+                            }
+                            li {
+                                text-align: justify;
+                            }
+                        </style>
+                        <div class="a"/>
+                        <table>
+                            <tr class="a">
+                                <td>
+                                    <table class="a">
+                                        <tr>
+                                            <td class="a">REFERENCE</td>
+                                            <td class="b">: <span t-field="d.name"/></td>
+                                            <td class="c">NUMBER</td>
+                                            <td class="b">: <span t-field="d.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="a">O.R NUMBER</td>
+                                            <td class="b">: </td>
+                                            <td class="c">DATE</td>
+                                            <td class="b">: --/--/--</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3 style="text-align: center;">EIPP AGREEMENT</h3>
+                                    <p>
+                                        <b>THIS AGREEMENT </b>is made and executed in the Philippines by and between
+                                        <b>BIOCELO REALTY &amp; DEVELOPMENT CORPORATION (BRDC), SELLER</b> of
+                                        <b>Monte Cielo Enternal Garden</b>, with office address at 3rd Flr, Vensu Bldg.,
+                                        Nat'l Hi-way, Gen. Santos City herein referred to as <b>SELLER</b>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center><b>-and-</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p t-foreach="d.partner_id" t-as="p_id">
+                                        <u>
+                                            <span t-field="p_id.name"/>
+                                        </u>, with address at
+                                        <u>
+                                            <span t-field="p_id.province_id.name"/>,
+                                            <span t-field="p_id.municipality_id.name"/>,
+                                            <span t-field="p_id.barangay_id.name"/>,
+                                            <span t-field="p_id.street"/>
+                                        </u>, herein referred to as the <b>BUYER</b>.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="a">
+                                        That <b>BUYER</b> is willing to enroll in the <b>Early Interment Pay Off Program (EIPP)</b> of the <b>SELLER</b>
+                                        and <b>SELLER</b> agrees to enroll to the said Program a certain Monte Cielo product purchased by the <b>BUYER</b>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="c">
+                                        <tr>
+                                            <u>
+                                                <td><span t-field="d.order_line.product_id.categ_id.parent_id.name"/></td>
+                                                <td><span t-field="d.prod_id.categ_id.name"/></td>
+                                                <td><span t-field="d.prod_id.area_number.name"/></td>
+                                                <td><span t-field="d.lot_id.name"/></td>
+                                            </u>
+                                        </tr>
+                                        <tr class="b">
+                                            <th>Product</th>
+                                            <th>Type/Class</th>
+                                            <th>Area</th>
+                                            <th>(Block &amp; Lot No.)</th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        That for and in consideration of the above agreement the parties hereby agree to the following terms and conditions:
+                                        <ol>
+                                            <li>
+                                                BUYER shall pay the SELLER the total amount of <u><span t-esc="d.num2word(d.amount_total)"/></u> (₱<u><span t-esc="d.amount_total"/></u>) Pesos in Philippines Currency in consideration of the usual interment services on the above-mentioned memorial lot that will be availed by the BUYER and rendered by the SELLER at anytime in the future, payable under the following conditions:
+                                                <ol>
+                                                    <li>
+                                                        BUYER shall pay the SELLER a down payment amounting to <u><span t-esc="d.num2word(d.get_monthly_payment(d.monthly_payment))"/></u> (₱<u><span t-esc="d.get_monthly_payment(d.monthly_payment)"/></u>) Pesos upon the signing of this agreement for at interment that will he held on <b><span t-field="d.order_line.product_id.categ_id.name"/></b>.
+                                                    </li>
+                                                    <li>
+                                                        <b>BUYER</b> shall pay to the <b>SELLER</b> the balance, without any interest, within one (1) year from the signing of this contract in a payment schedule at the discretion of the <b>BUYER</b>.
+                                                    </li>
+                                                    <li>
+                                                        It is understood that this enrollment is made on a one account one unit basis whereby this account is applicable only to the memorial lot described above subject to exemptions herein granted.
+                                                    </li>
+                                                    <li>
+                                                        In ease BUYER opts to upgrade to a weekend interment service during actual availment, BUYER shall pay the difference between the current weekend price and current weekday price; however, in case BUYER opts to downgrade from weekend to weekday, BUYER shall not be enticed to any refund;
+                                                    </li>
+                                                    <li>
+                                                        Any increase in the price of interment services approved by SELLER during the term of this agreement shall not apply to BUYER's account.
+                                                    </li>
+                                                    <li>
+                                                        In case BUYER'S account is not fully paid after one year, a monthly penalty interest of one and one-half percent (1.5%) on the balance payable shall be charged on the outstanding balance of the BUYER until fully paid, and the new price — if any — shall be retroactively applied to BUYER'S account and the balance payable shall be re-computed accordingly.
+                                                    </li>
+                                                    <li>
+                                                        BUYER'S account shall be considered in default if not fully paid after two years, in which case, SELLER shall, without need of notice or order from any court or tribunal, forfeit fifty percent (50%) of all payments made by BUYER, net of taxes and penalty charges, and refund to the BUYER the remaining fifty percent (50%) of all such payments.
+                                                    </li>
+                                                    <li>
+                                                        In case the enrolled memorial lot purchased on installment by BUYER is forfeited due to default, only fifty percent (50%) of all amounts paid for the said account, net of taxes and other charges, shall be refunded to the BUYER, unless BUYER has signified his intention to transfer his account to another memorial lot owned and fully paid by BuyER, if any.
+                                                    </li>
+                                                    <li>
+                                                        BUYER's account unit may be assigned or transferred to another BUYER who owns a fully paid memorial lot at Monte Cielo upon payment of appropriate transfer and processing fees.
+                                                    </li>
+                                                    <li>
+                                                        In case the interment services under this agreement is availed by the BUYER before full payment, the balance payable shall be paid by the BUYER before an interment service could be provided.
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li>
+                                                BUYER undertakes to abide with all exiting rules and regulations of SELLER, and observe all applicable laws governing memorial lots and those that will be approved and adopted by the SELLER and the government of the Republic of the Philippines;
+                                            </li>
+                                            <li>
+                                                BUYER agrees tha he/she has read this agreement and that he/she understood its terms and conditions, and that there are no covenants, conditions, warranties or representations other than those contained herein;
+                                            </li>
+                                            <li>
+                                                For purposes of this agreement, the BUYER hereby appoints the SELLER or any of its authorized officers, agents, counsel or employees, with right of substitution, as attorney/s-in-fact of the BUYER to implement all provisions thereof;
+                                            </li>
+                                            <li>
+                                                The terms and conditions hereof shall extend to and he binding upon the heirs, executors, administrators, successors and assigns of the respective parties hereto. As used herein, the singular includes the plural and the masculine includes feminine. The obligation and liabilities of BUYER/S thereunder are joint and several.
+                                            </li>
+                                        </ol>
+                                        Done this _____ day of ____________, 201___ General Santos City, Philippines.
+                                        <div class="b"/>
+                                        <table class="c">
+                                            <tr>
+                                                <td><b>BIOCIELO REALTY &amp; DEVELOPMENT CORP.</b></td>
+                                                <td><b>BUYER:</b></td>
+                                            </tr>
+                                            <tr/>
+                                            <tr/>
+                                            <tr/>
+                                            <tr>
+                                                <td class="d"/>
+                                                <td class="d"><b t-field="d.partner_id.name"/> </td>
+                                            </tr>
+                                            <tr>
+                                                <td><i>GENERAL MANAGER</i></td>
+                                                <td><i>SIGNATURE OVER PRINTED NAME</i></td>
+                                            </tr>
+
+                                        </table>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br/>
+                                    <br/>
+                                    <center><b>WITNESSES:</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="table-layout: fixed;text-align:center;width: 100%;">
+                                        <tr>
+                                            <td class="d" style="text-align:right;">.</td>
+                                            <td class="d"/>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <center><b>ACKNOWLEDGEMENT</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Republic of the Philippines<br/>
+                                    Gen. Santos City<br/>
+                                    -----------------------------------</p>
+                                    <p>
+                                        <b>BEFORE ME</b>, a Notary Public for and in General Santos City, Philippines personally appeared
+                                        _________________________________ with CTO No. ____________________ issued on ____________
+                                        at ______________________ and _________________________________ with CTC No. _____________
+                                        issued on _______________, at _____________ both known to me the same persons who executed
+                                        the foregoinq instrument, in two (2) pages including this page, and they acknowledged to me that the same
+                                        is their own free and voluntary act and deed.
+                                    </p>
+                                    <p>
+                                        <b>WITNESS MY HAND AND SEAL</b> on this _________ day of _______________ at General Santos City.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </font>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sale_advance_payment_inherit" model="ir.ui.view">
+            <field name="name">sale.advance.payment.inherit</field>
+            <field name="model">sale.advance.payment.inv</field>
+            <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[1]" position="attributes">
+                    <attribute name="groups">brdc_account.group_module_brdc_account_cashier</attribute>
+                </xpath>
+                 <xpath expr="//button[2]" position="attributes">
+                    <attribute name="groups">brdc_account.group_module_brdc_account_cashier</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

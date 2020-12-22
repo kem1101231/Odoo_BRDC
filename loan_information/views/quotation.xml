@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="interment_quotation_form" model="ir.ui.view">
+            <field name="name">interment.quotation.form</field>
+            <field name="model">interment.quotation.request</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <field name="active" invisible="1"/>
+                    <header attrs="{'invisible': [('active','=',False)]}">
+                          <button name="action_eval" string="Evaluate" class="oe_highlight" states="draft" type="object"/>
+                          <button name="action_apro" type="object" string="Approve" states="eval" class="oe_highlight"/>
+                          <button name="action_note" type="object" string="Note" states="apro" class="oe_highlight"/>
+                          <button name="action_draft" type="object" string="Reset to Draft" states="eval,apro,note"/>
+                          <field name="state"
+                                 widget="statusbar"
+                                 statusbar_visible="draft,eval,apro,note"
+                          />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <div class="oe_title">
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="customer_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="product_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="product_lot_id" domain="[('product_id','=',product_id), ('status', '=', 'av')]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="date_requested" readonly="1"/>
+                                <field name="product_pricelist_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="selling_price" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                        <group col="3" string="Payment Information">
+                            <group>
+                                <field name="purchase_term" attrs="{'readonly':[('state','!=','draft')]}" on_change="purchase_term_onchange"/>
+                                <field name="spot_cash" attrs="{'invisible':[('purchase_term','=','install')]}"/>
+                                <field name="split_4" string="Split to 4 mos" attrs="{'invisible':[('purchase_term','=','cash')],'readonly':[('state','!=','draft')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="o_down_payment" attrs="{'invisible':[('purchase_term','=','cash')]}"/>
+                                <field name="dp_split" attrs="{'invisible':['|',('split_4','=', False),('purchase_term','=','cash')]}"/>
+                            </group>
+                            <group>
+                                <field name="is_split_cash" string="Split to 3" attrs="{'invisible':[('purchase_term','=','install')],'readonly':[('state','!=','draft')]}"/>
+                                <field name="split_cash" attrs="{'invisible':['|',('purchase_term','=','install'),('is_split_cash','=', False)]}"/>
+                                <field name="down_payment" attrs="{'invisible':[('purchase_term','=','cash')]}" string="Spot Downpayment"/>
+                            </group>
+                        </group>
+                        <group string="Payment Term" col="2">
+                            <group>
+                                <field name="bal_payment_term" attrs="{'invisible':[('purchase_term','=','cash')]}"/>
+                                <field name="bal_payment_wInterest" attrs="{'invisible':[('purchase_term','=','cash')]}"/>
+                                <field name="start_payment_date" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group attrs="{'invisible':[('purchase_term','=','cash')]}">
+                                <field name="payment_term_id" widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="monthly_payment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible':[('purchase_term','=','cash')]}">
+                            <button type="object" name="compute_loan_line_dp" string="Compute" colspan="2" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        </group>
+                        <group attrs="{'invisible':[('purchase_term','=','install')]}">
+                            <button type="object" name="compute_loan_line" string="Compute" colspan="2" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Downpayment Information" attrs="{'invisible':[('purchase_term','=','cash')]}">
+                                <div class="oe_button_box" name="button_box_1">
+                                </div>
+                                <field name="interment_loan_line_dp" nolabel="1">
+                                    <tree string="Loan Line" create="false" limit="4">
+                                        <field name="date_for_payment" readonly="1"/>
+                                        <field name="amount_to_pay" readonly="1"/>
+                                        <field name="paid_amount" readonly="1"/>
+                                        <field name="is_paid" readonly="1"/>
+                                        <field name="notes"/>
+                                        <!--<button name="action_paid_amount" icon="gtk-execute" type="object" string="Pay Amount" attrs="{'invisible':[('is_paid','=',True)]}"/>-->
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_amount_dp" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <div>
+                                        <label for="total_paid_amount_dp"/>
+                                        <!--<button name="button_reset_balance_total" states="draft"-->
+                                            <!--string="(update)" class="oe_link oe_edit_only"-->
+                                            <!--type="object" help="Recompute Balance"/>-->
+                                    </div>
+                                    <field name="total_paid_amount_dp" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="balance_amount_dp" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                                </group>
+                                <!--<button type="object" name="compute_loan_line_dp" string="Compute" colspan="2" class="oe_highlight" attrs="{'invisible':[('state','=','apro')]}"/>-->
+
+                            </page>
+                            <page string="Cash/Installment Information">
+                                <div class="oe_button_box" name="button_box">
+                                </div>
+                                <field name="interment_loan_line" nolabel="1">
+                                    <tree string="Loan Line" create="false" limit="5">
+                                        <field name="date_for_payment" readonly="1"/>
+                                        <field name="amount_to_pay" readonly="1"/>
+                                        <field name="payable_balance" readonly="1"/>
+                                        <field name="paid_amount" readonly="1"/>
+                                        <field name="is_paid" readonly="1"/>
+                                        <field name="notes"/>
+                                        <!--<button name="action_paid_amount" icon="gtk-execute" type="object" string="Pay Amount" attrs="{'invisible':[('is_paid','=',True)]}"/>-->
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                    <div>
+                                        <label for="total_paid_amount"/>
+                                        <!--<button name="button_reset_balance_total" states="draft"-->
+                                            <!--string="(update)" class="oe_link oe_edit_only"-->
+                                            <!--type="object" help="Recompute Balance"/>-->
+                                    </div>
+                                    <field name="total_paid_amount" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="balance_amount" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <!--<button type="object" name="compute_loan_line" string="Compute" colspan="2" class="oe_highlight" attrs="{'invisible':[('state','=','apro')]}"/>-->
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="interment_quotation_tree" model="ir.ui.view">
+            <field name="name">interment.quotation.tree</field>
+            <field name="model">interment.quotation.request</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="customer_id" string="Customer Name"/>
+                    <!--<field name="balance_amount_dp" string="Balance Amount(Downpayment)"/>-->
+                    <!--<field name="balance_amount" string="Balance Amount(Installment)"/>-->
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="interment_quotation_request_search" model="ir.ui.view">
+           <field name="name">interment.quotation.search</field>
+           <field name="model">interment.quotation.request</field>
+            <field name="arch" type="xml">
+                <search string="">
+              <field name="customer_id" string="Customer" domain="[()]"/>
+            </search>
+           </field>
+        </record>
+
+        <record id="interment_quotation_action" model="ir.actions.act_window">
+            <field name="name">Package Application</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.quotation.request</field>
+            <field name="context">{'search_default_customer_id': active_id}</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="target">current</field>-->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="res_partner_interment_quotation" model="ir.ui.view">
+            <field name="name">res.partner.interment.quotation</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="loan_application.view_partner_form_7"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(loan_information.interment_quotation_action)d"
+                    icon="fa-pencil-square">
+                        <field string="Package Application" name="count_request" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="interment_quotation_action_menu" name="Package Application" parent="loan_application.BRDC_menu_parent" action="interment_quotation_action" sequence="2"/>-->
+    </data>
+</odoo>

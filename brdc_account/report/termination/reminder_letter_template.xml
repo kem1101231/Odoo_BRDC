@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+                <report
+                    id="action_reminder_letter"
+                    model="account.invoice"
+                    report_type="qweb-pdf"
+                    string="Reminder Letter"
+                    name="brdc_account.reminder_letter_template"
+                    file="brdc_account.reminder_letter_template"
+                    paperformat="brdc_account.custom_legal_paperformat"
+                    menu="False"
+                />
+        <template id="reminder_letter_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                <!-- <t t-call="report.external_layout"> -->
+                    <div class="page">
+                        <style>
+                            table{
+                            empty-cells:show;
+                            }
+                            tr{
+                            min-height:2em;
+                            }
+                            table, tr, td {
+                            border: 1px solid black;
+                            margin: 0 !important;
+                            padding: 2px 0px 2px !important;
+                            }
+                            input {
+                            margin: 0;
+                            margin-bottom: 5px !important;
+                            }
+                            .center{
+                            text-align: center;
+                            }
+                            .right{
+                            text-align: right;
+                            }
+                            .top{
+                            vertical-align: top;
+                            }
+                            .middle{
+                            vertical-align: middle;
+                            }
+                            .bottom{
+                            vertical-align: bottom;
+                            }
+                            .no-border{
+                            border: 0;
+                            }
+                            .strong{
+                            font-weight:bold;
+                            }
+                            .upcase{
+                            text-transform: uppercase;
+                            }
+                            td.left-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-left: 1px solid #4993c1;
+                            }
+                            td.top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.right-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            td.top-border{
+                            border-top: 1px solid #4993c1;
+                            }
+                            td.bottom-border{
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            span.header{
+                            margin-top:1rem !important;
+                            margin-bottom:1rem !important;
+                            }
+                            .hltd_clmn{
+                            background-color: #82b5d4;
+                            }
+                        </style>
+                        <table class="table-condensed table">
+                            <t t-set="area_no" t-value="0"/>
+                            <t t-set="area_class" t-value="nan"/>
+                            <t t-set="block_no" t-value="0"/>
+                            <t t-foreach="doc.invoice_line_ids" t-as="inv">
+                                <t t-set="area_no" t-value="inv.product_id.area_number.name"/>
+                                <t t-set="area_class" t-value="inv.product_id.categ_id.name"/>
+    <!--                            <t t-set="block_no" t-value="inv.product_id.block_number"/>-->
+                            </t>
+                            <tr>
+                                <td class="no-border center" colspan="2" rowspan="4" width="20%">
+                                    <img class="img" height="4%" src="/brdc_account/static/img/logo_2.png"/>
+                                </td>
+                                <td class="no-border upcase strong center" colspan="4" width="40%">
+                                    <span>biocielo realty &amp; development corporation</span>
+                                </td>
+                                <td class="no-border center middle" colspan="2" rowspan="4" width="20%">
+                                    <img class="img" width="70%" src="/brdc_account/static/img/logo_1.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>3rd Floor Vensu Building, National Highway, General Santos City</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Tel No.(083) 554-3853; Mobile Phone No. 0922-821-5081</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="4">
+                                    <span>Email: safe_biocielo@yahoo.com</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8" style="border-bottom: 3px solid black;padding:1em 0 !important"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase center" colspan="8"><h2>reminder letter</h2></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8"  style="padding:4rem 0 !important">DATE</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border upcase" colspan="8"><span t-field="doc.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border upcase" colspan="8"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8" style="padding: 2em 0 !important;"><p>
+                                    Dear SIR/MADAM: <br/><br/>
+                                    Greetings! <br/><br/><br/>
+                                    Our records show that your account with the Company amounting to Zero <span class="strong" t-field="doc.residual"/> remains unsettled as of this date. <br/><br/>
+                                    We wish to remind you of Item <strong># 4</strong> in our Purchase Agreement which states that upon your failure to pay an aggregate of three <u>(3) monthly amortizations</u>, our purchase agreement will be automatically terminated without need of written notice, in which case, ownership of the subject lot shall be fully restored to the Company. <br/><br/>
+                                    We understand how much you and your loved ones value your memorial lot at the Monte Cielo Memorial Gardens, that is why we are offering you an opportunity to keep your memorial lot by updating your payments within seven <strong>(7) days</strong> from receipt of this letter. <br/><br/>
+                                    We could help you best if you call us or visit us in our office anytime during office hours. <br/><br/>
+                                    What a pleasure it has been to have you as a customer.
+                                </p></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="6"/>
+                                <td class="no-border" colspan="2" style="padding-bottom: 2em !important;"><p>Very truly yours,</p></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="6"/>
+                                <td class="no-border top-border" colspan="2">Credit and Collection Department</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">PA NO:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.pa_ref"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Memorial Lot:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.product_type"/>: <span t-esc="area_class"/>: Area - <span t-esc="area_no"/>: Blk. -  <span t-esc="block_no"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Date Due:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.date_invoice"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Amount Due:</td>
+                                <td class="no-border" colspan="4"><span t-field="doc.residual"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Late Charges:</td>
+                                <td class="no-border" colspan="4"></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong" colspan="2">Total Amount Due:</td>
+                                <td class="no-border strong" colspan="4"><span t-field="doc.residual"/></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-top:1em !important;">Received by:</td>
+                                <td class="no-border" colspan="6" style="padding-top:1em !important;"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2"/>
+                                <td class="no-border top-border" colspan="4"><i>Printed Name over Signature</i></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-top: 1em !important">Date &amp; Time Received:</td>
+                                <td class="no-border bottom-border" colspan="4" style="padding-top: 1em !important;"/>
+                                <td class="no-border" colspan="2" style="padding-top: 1em !important;"/>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

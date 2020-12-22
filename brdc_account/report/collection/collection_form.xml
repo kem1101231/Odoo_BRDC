@@ -1,0 +1,47 @@
+    <odoo>
+    	<data>
+
+        <record id="brdc_collection_form_view" model="ir.ui.view">
+            <field name="name">Generate Collection Report</field>
+            <field name="model">brdc.report.collect.main</field>
+            <field name="arch" type="xml">
+                <form string="Collection Report">
+                    <header>
+                        <!-- <button type="object" name="print_collection_report" string="Print"/> -->
+                    </header>
+	                <group>
+	                   	<group>
+                            <separator string="Collection Report" colspan="2"/>
+		                   	<field name="report_type"/>
+		                   	<field name="group_result"/>
+                            <field name="generate_cashier" attrs="{'invisible':['|',('report_type','!=','col'),('group_result','not in', ['col'])]}" />
+                            <field name="generate_daily" attrs="{'invisible':[('report_type','!=','col')]}" />
+                            <field name="date_for_daily" attrs="{'invisible':['|',('report_type','!=','col'),('generate_daily','=',False)]}" />
+                            <field name="current_month" attrs="{'invisible':['|',('report_type', '!=','col'),('generate_daily','=',True)]}"/>
+                            <field name="for_year" attrs="{'invisible':['|',('report_type', '!=','col'), ('generate_daily','=',True)]}"/>
+                            <field name="select_collector" attrs="{'invisible':[('group_result', 'not in',['col'])]}"/>
+                            <field name="collector"  attrs="{'invisible':[('select_collector', '=', False)]}"/>
+                            <button type="object" name="print_collection_report" string="Print" class="oe_highlight oe_right" colspan="2" style="margin-right:80px; margin-top:30px;"/>
+		                
+                        </group>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="brdc_collection_form_action">
+            <field name="name">Collection</field>
+            <field name="res_model">brdc.report.collect.main</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record >
+
+   			<!-- <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accounting.sales.report</field>
+            <field name="view_mode">form</field> -->
+        
+        <menuitem id="brdc_coll_form_menu" name="Collection Reports" parent="brdc_inventory.collection_category_menu_id" action="brdc_account.brdc_collection_form_action" />
+        </data>
+
+    </odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--<record id="action_account_invoice_payment_inherit" model="ir.actions.act_window">-->
+            <!--<field name="name">Register Payment</field>-->
+            <!--<field name="res_model">account.payment</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="view_account_payment_invoice_form"/>-->
+            <!--<field name="context">{'default_invoice_ids': [(4, active_id, None)]}</field>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
+
+        <!-- Inherit Form View to Modify it -->
+
+        <record id="invoice_installment_line_form_view" model="ir.ui.view">
+            <field name="name">Payment Information</field>
+            <field name="model">invoice.installment.line</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="account_invoice_id"/>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="payment_transaction"/>
+                                <field name="date_paid"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <notebook>
+                            <page string="Payment Information">
+                                <label for="date_for_payment:" string="Scheduled Date"/>
+                                <field name="date_for_payment"/>
+                                <group col="3">
+                                    <group class="oe_right" colspan="1">
+                                        <field name="beginning_balance"/>
+                                         <label string="Minus the amount paid"/>
+                                        <br/>
+                                        <field name="ending_balance"/>
+                                    </group>
+                                    <group class="oe_right">
+                                        <field name="paid_amount"/>
+                                        <label string="Minus the total payment"/>
+                                        <br/>
+                                        <field name="balance"/>
+                                    </group>
+                                    <group class="oe_right">
+                                        <field name="amount_to_pay"/>
+                                        <field name="advance_payment"/>
+                                        <field name="payable_balance"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_installment_line_dp_form_view" model="ir.ui.view">
+            <field name="name">Payment Information</field>
+            <field name="model">invoice.installment.line.dp</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="account_invoice_id"/>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="payment_transaction"/>
+                                <field name="date_paid"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <notebook>
+                            <page string="Payment Information">
+                                <label for="date_for_payment:" string="Scheduled Date"/>
+                                <field name="date_for_payment"/>
+                                <group col="3">
+                                    <group class="oe_right" colspan="1">
+                                        <field name="beginning_balance"/>
+                                         <label string="Minus the amount paid"/>
+                                        <br/>
+                                        <field name="ending_balance"/>
+                                    </group>
+                                    <group class="oe_right">
+                                        <field name="paid_amount"/>
+                                        <label string="Minus the total payment"/>
+                                        <br/>
+                                        <field name="balance"/>
+                                    </group>
+                                    <group class="oe_right">
+                                        <field name="amount_to_pay"/>
+                                        <field name="advance_payment"/>
+                                        <field name="payable_balance"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="daily_collection_record_search" model="ir.ui.view">
+            <field name="name">Search</field>
+            <field name="model">daily.collection.record</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="state"/>
+                    <filter string="Checked Payments" domain="[('state', '=', 'submit')]" help="Payments that are checked"/>
+                    <filter string="Confirmed Payments" domain="[('state', '=', 'confirm')]" help="Payments that are confirmed"/>
+                    <separator/>
+                    <group expand="0" string="Group by...">
+                        <filter name="collector_id" string="Collector" context="{'group_by': 'collector_id'}"/>
+                        <filter name="date" string="Date" context="{'group_by': 'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="daily_collection_record_form" model="ir.ui.view">
+            <field name="name">daily.collection.record.form</field>
+            <field name="model">daily.collection.record</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_submit" type="object" string="Submit" states="draft" class="btn-primary"/>
+                        <button name="action_confirm" type="object" string="Confirm" states="submit" class="btn-primary" confirm="If you confirm, there is no setting it back, you still want to continue?" groups="brdc_account.group_module_brdc_account_cashier"/>
+                        <button name="action_draft" type="object" string="Set to Draft" states="submit"/>
+                        <button name="get_denomination" type="object" string="Generate Denomination" states="draft" groups="brdc_account.group_module_brdc_account_collector" class="oe_edit_only"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,confirm"/>
+                    </header>
+                    <sheet>
+                        <h1 class="mt0">
+                            <field name="name" class="oe_inline" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </h1>
+                        <!--<div class="oe_button_box" name="expense_button_box">-->
+                                <!--<button name="show_payments"-->
+                                        <!--string="Payments"-->
+                                        <!--type="object"-->
+                                        <!--class="oe_stat_button"-->
+                                        <!--icon="fa-archive">-->
+                                <!--</button>-->
+                        <!--</div>-->
+                        <group>
+                            <group>
+                                <field name="collector_id" attrs="{'readonly':[('state','!=','draft')]}" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <!--<field name="or_filter"/>-->
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Collection Lawn Lot">
+                                <field name="dcr_lines_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="bottom" decoration-info="state == 'draft'" decoration-danger="payment_status == 'draft'" decoration-success="payment_status == 'posted'">
+
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="DailyCollectionRecord_id" invisible="1"/>
+                                        <field name="dcr_collector" invisible="1"/>
+                                        <field name="partner_ids" required="1" string="Customer" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <field name="invoice_id" required="1" string="Reference." options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+
+                                        <field name="cash_cheque_selection" string="Payment Type"/>
+                                        <field name="drc_bank_id" attrs="{'readonly':[('cash_cheque_selection', '=', 'cash')], 'required': [('cash_cheque_selection', '=', 'cheque')]}"/>
+                                        <!--<field name="or_series" domain="[('state','=','unused'),('responsible','=',parent.collector_id)]" string="_" options='{"no_open": True}'/>-->
+                                        <field name="or_reference" required="1" string="O.R."/>
+                                        <!--<field name="date" required="1" string="Date Collected"/>-->
+                                        <field name="amount_paid" required="1" string="Collected"/>
+                                        <field name="journal_id" required="1" string="Journal" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <!--<field name="PA" required="1" string="Purchase Agreement"/>-->
+                                        <field name="payment_status" states="confirmed"/>
+                                        <button name="show_payment" type="object" string="Payment" states="confirmed"/>
+                                        <!--<button name="show_invoice" type="object" string="Invoice" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="MM/EIPP">
+                                <field name="dcr_lines_mm_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="bottom" decoration-info="state == 'draft'" decoration-danger="payment_status == 'draft'" decoration-success="payment_status == 'posted'">
+                                        <!--<field name="payment_status" invisible="1"/>-->
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="partner_ids" required="1" string="Customer" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <field name="service_id" required="1" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <field name="product_id" required="1" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+
+                                        <field name="cash_cheque_selection" string="Payment Type"/>
+                                        <field name="drc_bank_id" attrs="{'readonly':[('cash_cheque_selection', '=', 'cash')], 'required': [('cash_cheque_selection', '=', 'cheque')]}"/>
+                                        <!--<field name="or_series" domain="[('state','=','unused'),('responsible','=',parent.collector_id)]" string="_" options='{"no_open": True}'/>-->
+                                        <field name="or_reference" required="1" string="O.R."/>
+                                        <field name="amount_paid" required="1" string="Collected"/>
+                                        <field name="journal_id" required="1" string="Journal" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <field name="payment_status" states="confirmed"/>
+                                        <button name="show_payment_mm" type="object" string="Payment" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Cash Count">
+                                <field name="cash_count_line_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="cash_config_line_id" readonly="1" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}'/>
+                                        <field name="description"/>
+                                        <field name="bill_number"/>
+                                        <field name="total_amount"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_right" colspan="1">
+
+                                </group>
+                            </page>
+                            <page string="Others">
+                                <group>
+                                    <field name="write_uid" string="Last update by"/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <group>
+                            <group>
+                                <field name="total_collection" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_collection_bank" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <group>
+                                <field name="total_count" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="count_difference" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </group>
+
+
+                        <notebook>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="payment_to_be_collect_tree_view" model="ir.ui.view">
+            <field name="name">Collection</field>
+            <field name="model">daily.collection.record</field>
+            <field name="arch" type="xml">
+                <tree string="" decoration-info="state=='draft'">
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--<record id="payment_to_be_collect_action_view1" model="ir.actions.act_window">-->
+            <!--<field name="name">Collections</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">daily.collection.record</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!---->
+        <!--</record>-->
+
+        <record id="payment_to_be_collect_action_view2" model="ir.actions.act_window">
+            <field name="name">Collections</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.collection.record</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_collector_id': 1}</field>
+        </record>
+
+        <record id="dcr_line_form_view" model="ir.ui.view">
+            <field name="name">Collection</field>
+            <field name="model">dcr.lines</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                        <!--<button name="show_payment" type="object" string="View Payment" attrs="{'invisible': [('state', '!=', 'posted')]}"/>-->
+                    </header>
+                    <div class="oe_title">
+                        <h1><field name="payment_id" string="Payment Reference"/></h1>
+                    </div>
+                    <group>
+                        <group name="1">
+                            <field name="or_reference" string="O.R. No."/>
+                            <field name="invoice_id" string="Invoice Reference"/>
+                            <field name="partner_ids"/>
+                            <field name="journal_id"/>
+                            <field name="amount_paid" string="Amount Paid"/>
+                        </group>
+                        <group name="2">
+                            <field name="setdate" string="Date Collected"/>
+                            <field name="PA" string="P.A. No."/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                            <field name="payment_id"/>
+                        </group>
+                    </group>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="dcr_bank_form_view" model="ir.ui.view">
+            <field name="name">Cheque Information</field>
+            <field name="model">dcr.bank</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="......" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="bank_id" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}' required="1"/>
+                                <field name="partner_id" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}' required="1"/>
+                            </group>
+                            <group>
+                                <field name="date_issued" required="1"/>
+                                <field name="create_uid" string="Responsible" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="payment_ids">
+                            <tree>
+                                <field name="display_name"/>
+                                <field name="state"/>
+                                <field name="amount" sum="amount"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="drc_bank_tree_view" model="ir.ui.view">
+            <field name="name">Cheque Information</field>
+            <field name="model">dcr.bank</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dcr_bank_action_view" model="ir.actions.act_window">
+            <field name="name">Cheque Information</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dcr.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="payment_to_be_collect_menu_id" name="" parent="loan_application.BRDC_menu_parent" action="payment_to_be_collect_action_view"/>-->
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_payment_form_view_inherit1" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit1</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="brdc_account.account_payment_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="after">
+                    <footer>
+                        <button string="Cancel" class="btn-default" special="cancel" invisible="1"/>
+                    </footer>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

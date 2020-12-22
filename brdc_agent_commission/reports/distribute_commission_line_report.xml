@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="distribute_commission_line_report_paperformat_custom" model="report.paperformat">
+            <field name="name">agent commission distribution</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+                id="distribute_commission_line_report"
+                model="brdc_account.released.commission"
+                report_type="qweb-html"
+                string="Commission Voucher"
+                name="brdc_agent_commission.distribute_commission_line_view"
+                file="brdc_agent_commission.distribute_commission_line_view"
+                paperformat="distribute_commission_line_report_paperformat_custom"
+                menu="True"
+        />
+
+        <!--menu="True"-->
+
+        <template id="distribute_commission_line_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <style type="text/css">
+                            div {
+                            //border:1px solid;
+                            //padding:0 px;
+                            }
+                            table {
+                            width:100%;
+                            page-break-inside:auto;
+                            font-size: 12px;
+                            //empty-cells: show;
+                            //table-layout: fixed;
+                            }
+                            .ulo {
+                            display:table;
+                            width:100%;
+                            height:0px;
+                            }
+                            .l_img {
+                            display: table-cell;
+                            }
+                            .c_cont {
+                            display: table-cell;
+                            }
+                            .c_cont h5 {
+                            text-align:center;
+                            font-weight:bold;
+                            margin-bottom:0px;
+                            padding:0 px;
+                            }
+                            .c_cont p {
+                            text-align:center;
+                            font-size:10px;
+                            margin-top:0px;
+                            margin-bottom:0px;
+                            padding:0 px;
+                            }
+                            .r_img {
+                            display: table-cell;
+                            }
+                            .tthead h5 {
+                            font-weight: bold;
+                            }
+                            .tthead  h5,p{
+                            text-align: center;
+                            }
+                            .parent_infhead {
+                            display: table;
+                            width: 100%;
+                            font-size: 12px;
+                            }
+                            .r_infhead ,.l_infhead{
+                            display: table-cell;
+                            }
+                            .thead th{
+                            //text-align:center;
+                            border-bottom: 1px solid;
+                            }
+                            .l_align {
+                            text-align:left;
+                            }
+                            .r_align {
+                            text-align:right;
+                            }
+                            .c_align {
+                            text-align:center;
+                            }
+                            tr {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            }
+                            td {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            padding:1 1 1 0 px;
+                            //margin:1 px;
+                            }
+                            tr:first-child {
+                            //border-top: 1px solid ;
+                            border-bottom: 1px solid ;
+                            }
+                            tr:last-child {
+                            //border-top: 1px solid ;
+                            }
+                            .bord_bold {
+                            border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            font-weight: bold;
+                            }
+                            .r_bold {
+                            text-align:right;
+                            font-weight: bold;
+                            }
+                            .l_bold {
+                            text-align:left;
+                            font-weight: bold;
+                            }
+                            .c_bold {
+                            text-align:center;
+                            font-weight: bold;
+                            }
+                            .bord_top {
+                            //border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            }
+                            .bord_bot {
+                            border-bottom:1 px solid;
+                            //border-top:1 px solid;
+                            }
+                            //.footer {
+                            //width:100%;
+                            //height:100px;
+                            //}
+                        </style>
+                        <div class="ulo">
+                            <div class="c_cont">
+                                <h5>BIOCIELO REALTY <![CDATA[&amp;]]> DEVELOPMENT CORPORATION</h5>
+                                <p>3rd Floor, Vensu Building, National Highway Gen. Santos City</p>
+                                <p>Tel no. (083)554-3853; Mobile Phone No. 0922-821-5081</p>
+                            </div>
+                        </div>
+                        <div class="tthead">
+                            <h5>NET COMMISSION VOUCHER</h5>
+                        </div>
+                        <!--<br/>-->
+                        <div class="parent_infhead">
+                            <div class="l_infhead">
+                                Agent Name: <span style="font-weight: bold;" t-field="doc.account_agent_commission_id.agent_id.name"/><br/>
+                                Position: <span style="font-weight: bold;" t-field="doc.account_agent_commission_id.position_id.name"/><br/>
+                            </div>
+                            <div class="r_infhead r_align">
+                                Net Commission Voucher #: <span>____________</span><br/>
+                                Date Distributed: <span t-field="doc.date"  t-options='{"format": "MMMM d, y"}'/><br/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+        <!--<template id="distribute_commission_line_view_" >-->
+            <!--<t t-call="report.html_container">-->
+                <!--&lt;!&ndash;<t t-call="report.internal_layout">&ndash;&gt;-->
+                <!--<t t-foreach="docs" t-as="d" >-->
+                    <!--<div class="page">-->
+                        <!--<style type="text/css">-->
+                            <!--div {-->
+                            <!--//border:1px solid;-->
+                            <!--//padding:0 px;-->
+                            <!--}-->
+                            <!--table {-->
+                            <!--width:100%;-->
+                            <!--page-break-inside:auto;-->
+                            <!--font-size: 12px;-->
+                            <!--//empty-cells: show;-->
+                            <!--//table-layout: fixed;-->
+                            <!--}-->
+                            <!--.ulo {-->
+                            <!--display:table;-->
+                            <!--width:100%;-->
+                            <!--height:0px;-->
+                            <!--}-->
+                            <!--.l_img {-->
+                            <!--display: table-cell;-->
+                            <!--}-->
+                            <!--.c_cont {-->
+                            <!--display: table-cell;-->
+                            <!--}-->
+                            <!--.c_cont h5 {-->
+                            <!--text-align:center;-->
+                            <!--font-weight:bold;-->
+                            <!--margin-bottom:0px;-->
+                            <!--padding:0 px;-->
+                            <!--}-->
+                            <!--.c_cont p {-->
+                            <!--text-align:center;-->
+                            <!--font-size:10px;-->
+                            <!--margin-top:0px;-->
+                            <!--margin-bottom:0px;-->
+                            <!--padding:0 px;-->
+                            <!--}-->
+                            <!--.r_img {-->
+                            <!--display: table-cell;-->
+                            <!--}-->
+                            <!--.tthead h5 {-->
+                            <!--font-weight: bold;-->
+                            <!--}-->
+                            <!--.tthead  h5,p{-->
+                            <!--text-align: center;-->
+                            <!--}-->
+                            <!--.parent_infhead {-->
+                            <!--display: table;-->
+                            <!--width: 100%;-->
+                            <!--font-size: 12px;-->
+                            <!--}-->
+                            <!--.r_infhead ,.l_infhead{-->
+                            <!--display: table-cell;-->
+                            <!--}-->
+                            <!--.thead th{-->
+                            <!--//text-align:center;-->
+                            <!--border-bottom: 1px solid;-->
+                            <!--}-->
+                            <!--.l_align {-->
+                            <!--text-align:left;-->
+                            <!--}-->
+                            <!--.r_align {-->
+                            <!--text-align:right;-->
+                            <!--}-->
+                            <!--.c_align {-->
+                            <!--text-align:center;-->
+                            <!--}-->
+                            <!--tr {-->
+                            <!--page-break-inside:avoid;-->
+                            <!--page-break-after:auto;-->
+                            <!--}-->
+                            <!--td {-->
+                            <!--page-break-inside:avoid;-->
+                            <!--page-break-after:auto;-->
+                            <!--padding:1 1 1 0 px;-->
+                            <!--//margin:1 px;-->
+                            <!--}-->
+                            <!--tr:first-child {-->
+                            <!--//border-top: 1px solid ;-->
+                            <!--border-bottom: 1px solid ;-->
+                            <!--}-->
+                            <!--tr:last-child {-->
+                            <!--//border-top: 1px solid ;-->
+                            <!--}-->
+                            <!--.bord_bold {-->
+                            <!--border-bottom:1 px solid;-->
+                            <!--border-top:1 px solid;-->
+                            <!--font-weight: bold;-->
+                            <!--}-->
+                            <!--.r_bold {-->
+                            <!--text-align:right;-->
+                            <!--font-weight: bold;-->
+                            <!--}-->
+                            <!--.l_bold {-->
+                            <!--text-align:left;-->
+                            <!--font-weight: bold;-->
+                            <!--}-->
+                            <!--.c_bold {-->
+                            <!--text-align:center;-->
+                            <!--font-weight: bold;-->
+                            <!--}-->
+                            <!--.bord_top {-->
+                            <!--//border-bottom:1 px solid;-->
+                            <!--border-top:1 px solid;-->
+                            <!--}-->
+                            <!--.bord_bot {-->
+                            <!--border-bottom:1 px solid;-->
+                            <!--//border-top:1 px solid;-->
+                            <!--}-->
+                            <!--//.footer {-->
+                            <!--//width:100%;-->
+                            <!--//height:100px;-->
+                            <!--//}-->
+                        <!--</style>-->
+                        <!--<div class="ulo">-->
+                            <!--<div class="c_cont">-->
+                                <!--<h5>BIOCIELO REALTY <![CDATA[&amp;]]> DEVELOPMENT CORPORATION</h5>-->
+                                <!--<p>3rd Floor, Vensu Building, National Highway Gen. Santos City</p>-->
+                                <!--<p>Tel no. (083)554-3853; Mobile Phone No. 0922-821-5081</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="tthead">-->
+                            <!--<h5>NET COMMISSION VOUCHER</h5>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+                        <!--<div class="parent_infhead">-->
+                            <!--<div class="l_infhead">-->
+                                <!--Agent Name: <span style="font-weight: bold;" t-field="d.account_agent_commission_id.agent_id.name"/><br/>-->
+                                <!--Position: <span style="font-weight: bold;" t-field="d.account_agent_commission_id.position_id.name"/><br/>-->
+                            <!--</div>-->
+                            <!--<div class="r_infhead r_align">-->
+                                <!--Net Commission Voucher #: <span>____________</span><br/>-->
+                                <!--Date Distributed: <span t-field="d.date"  t-options='{"format": "MMMM d, y"}'/><br/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="tb_cont">-->
+                            <!--<table class="table-condensed">-->
+                                <!--<tr class="thead">-->
+                                    <!--<th class="l_align">Client</th>-->
+                                    <!--<th class="l_align">PA #</th>-->
+                                    <!--<th class="c_align">Payment</th>-->
+                                    <!--<th class="l_align">OR #</th>-->
+                                    <!--<th>Date Paid</th>-->
+                                    <!--<th>Commission</th>-->
+                                    <!--<th class="r_align">Remarks</th>-->
+                                <!--</tr>-->
+                                <!--<br/>-->
+                                <!--<tr>-->
+                                    <!--&lt;!&ndash;&ndash;&gt;-->
+                                <!--</tr>-->
+                                <!--<t t-set="total" t-value="0"/>-->
+                                <!--<t t-if="d.is_sa==True">-->
+                                    <!--<t t-set="a_total" t-value="0"/>-->
+                                    <!--<t t-set="count" t-value="0"/>-->
+                                    <!--<t t-set="agent_ids" t-value="[]"/>-->
+                                    <!--<t t-foreach="d.sa_temp_commission_line.sorted(key=lambda r: r.agent_commission_id.partner_id.name, reverse=True)" t-as="i" >-->
+                                        <!--<t t-set="agent_ids" t-value="agent_ids+[i.agent_commission_id.partner_id]"/>-->
+                                    <!--</t>-->
+                                    <!--<t t-foreach="set(agent_ids)" t-as="r">-->
+
+                                        <!--<t t-set="so_ids" t-value="[]"/>-->
+                                        <!--<t t-foreach="d.sa_temp_commission_line" t-as="i" >-->
+                                            <!--<t t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                <!--<t t-set="so_ids" t-value="so_ids+[i.agent_commission_id.so_id]"/>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                        <!--<t t-foreach="set(so_ids)" t-as="p">-->
+                                            <!--<tr >-->
+                                                <!--<td t-if="count  &lt; 1" class="l_bold"><span t-field="r.name"/></td>-->
+                                                <!--<td t-else="" class="l_align"><span/></td>-->
+                                                <!--<td class="l_align"><span t-field="p.pa_ref"/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                            <!--</tr>-->
+                                            <!--<t t-set="count" t-value="count+1"/>-->
+                                            <!--<t t-foreach="d.sa_temp_commission_line" t-as="i" >-->
+                                                <!--<tr t-if="p.id == i.agent_commission_id.so_id.id">-->
+                                                    <!--<tr t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span t-esc="'{0:,.2f}'.format(float(i.invoice_id.amount))"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.invoice_id.name"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.date_paid"/></td>-->
+                                                        <!--<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.sa_percentage))"/></td>-->
+                                                        <!--<td class="r_align"><span t-field="i.name"/></td>-->
+                                                        <!--<t t-set="total" t-value="total+i.sa_percentage"/>-->
+                                                        <!--<t t-set="a_total" t-value="a_total+i.sa_percentage"/>-->
+                                                    <!--</tr>-->
+                                                <!--</tr>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+
+                                        <!--<t t-set="a_total" t-value="0"/>-->
+                                        <!--<t t-set="count" t-value="0"/>-->
+                                        <!--<tr >-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                        <!--</tr>-->
+                                    <!--</t>-->
+                                <!--</t>-->
+
+                                <!--<t t-if="d.is_um==True">-->
+                                    <!--<t t-set="a_total" t-value="0"/>-->
+                                    <!--<t t-set="count" t-value="0"/>-->
+                                    <!--<t t-set="agent_ids" t-value="[]"/>-->
+                                    <!--<t t-foreach="d.um_temp_commission_line.sorted(key=lambda r: r.agent_commission_id.partner_id.name, reverse=True)" t-as="i" >-->
+                                        <!--<t t-set="agent_ids" t-value="agent_ids+[i.agent_commission_id.partner_id]"/>-->
+                                    <!--</t>-->
+                                    <!--<t t-foreach="set(agent_ids)" t-as="r">-->
+                                        <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="l_bold"><span t-field="r.name"/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="r_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--<t t-set="so_ids" t-value="[]"/>-->
+                                        <!--<t t-foreach="d.um_temp_commission_line" t-as="i" >-->
+                                            <!--<t t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                <!--<t t-set="so_ids" t-value="so_ids+[i.agent_commission_id.so_id]"/>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                        <!--<t t-foreach="set(so_ids)" t-as="p">-->
+                                            <!--<tr >-->
+                                                <!--&lt;!&ndash;<td class="l_align"><span/></td>&ndash;&gt;-->
+                                                <!--<td t-if="count  &lt; 1" class="l_bold"><span t-field="r.name"/></td>-->
+                                                <!--<td t-else="" class="l_align"><span/></td>-->
+                                                <!--<td class="l_align"><span t-field="p.pa_ref"/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                            <!--</tr>-->
+                                            <!--<t t-set="count" t-value="count+1"/>-->
+                                            <!--<t t-foreach="d.um_temp_commission_line" t-as="i" >-->
+                                                <!--&lt;!&ndash;<span t-esc="i.agent_commission_id.partner_id.id"/>&ndash;&gt;-->
+                                                <!--<tr t-if="p.id == i.agent_commission_id.so_id.id">-->
+                                                    <!--<tr t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span t-esc="'{0:,.2f}'.format(float(i.invoice_id.amount))"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.invoice_id.name"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.date_paid"/></td>-->
+                                                        <!--<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.um_percentage))"/></td>-->
+                                                        <!--<td class="r_align"><span t-field="i.name"/></td>-->
+                                                        <!--&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;-->
+                                                        <!--<t t-set="total" t-value="total+i.um_percentage"/>-->
+                                                        <!--<t t-set="a_total" t-value="a_total+i.um_percentage"/>-->
+                                                    <!--</tr>-->
+                                                <!--</tr>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                        <!--&lt;!&ndash;<tr class="bord_bot_top">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top l_bold"><span>Total</span></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_bold r_align"><span t-esc="'{0:,.2f}'.format(float(a_total))"/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--<t t-set="a_total" t-value="0"/>-->
+                                        <!--<t t-set="count" t-value="0"/>-->
+                                        <!--<tr >-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                            <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                        <!--</tr>-->
+                                    <!--</t>-->
+                                <!--</t>-->
+
+                                <!--<t t-if="d.is_am==True">-->
+                                    <!--<t t-set="a_total" t-value="0"/>-->
+                                    <!--<t t-set="count" t-value="0"/>-->
+                                    <!--<t t-set="agent_ids" t-value="[]"/>-->
+                                    <!--<t t-foreach="d.am_temp_commission_line.sorted(key=lambda r: r.agent_commission_id.partner_id.name, reverse=True)" t-as="i" >-->
+                                        <!--<t t-set="agent_ids" t-value="agent_ids+[i.agent_commission_id.partner_id]"/>-->
+                                    <!--</t>-->
+                                    <!--<t t-foreach="set(agent_ids)" t-as="r">-->
+                                        <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="l_bold"><span t-field="r.name"/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td class="r_align"><span/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--<t t-set="so_ids" t-value="[]"/>-->
+                                        <!--<t t-foreach="d.am_temp_commission_line" t-as="i" >-->
+                                            <!--<t t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                <!--<t t-set="so_ids" t-value="so_ids+[i.agent_commission_id.so_id]"/>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                        <!--<t t-foreach="set(so_ids)" t-as="p">-->
+                                            <!--<tr >-->
+                                                <!--&lt;!&ndash;<td class="l_align"><span/></td>&ndash;&gt;-->
+                                                <!--<td t-if="count  &lt; 1" class="l_bold"><span t-field="r.name"/></td>-->
+                                                <!--<td t-else="" class="l_align"><span/></td>-->
+                                                <!--<td class="l_align"><span t-field="p.pa_ref"/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="c_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                                <!--<td class="r_align"><span/></td>-->
+                                            <!--</tr>-->
+                                            <!--<t t-set="count" t-value="count+1"/>-->
+                                            <!--<t t-foreach="d.am_temp_commission_line" t-as="i" >-->
+                                                <!--&lt;!&ndash;<span t-esc="i.agent_commission_id.partner_id.id"/>&ndash;&gt;-->
+                                                <!--<tr t-if="p.id == i.agent_commission_id.so_id.id">-->
+                                                    <!--<tr t-if="r.id == i.agent_commission_id.partner_id.id">-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span/></td>-->
+                                                        <!--<td class="c_align"><span t-esc="'{0:,.2f}'.format(float(i.invoice_id.amount))"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.invoice_id.name"/></td>-->
+                                                        <!--<td class="l_align"><span t-field="i.date_paid"/></td>-->
+                                                        <!--<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.am_percentage))"/></td>-->
+                                                        <!--<td class="r_align"><span t-field="i.name"/></td>-->
+                                                        <!--&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;-->
+                                                        <!--<t t-set="total" t-value="total+i.am_percentage"/>-->
+                                                        <!--<t t-set="a_total" t-value="a_total+i.am_percentage"/>-->
+                                                    <!--</tr>-->
+                                                <!--</tr>-->
+                                            <!--</t>-->
+                                        <!--</t>-->
+                                        <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_top"><span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_bold l_bold"><span>Total</span></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td class="bord_bold r_align"><span t-esc="'{0:,.2f}'.format(float(a_total))"/></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                        <!--<t t-set="a_total" t-value="0"/>-->
+                                        <!--<t t-set="count" t-value="0"/>-->
+                                    <!--</t>-->
+                                <!--</t>-->
+
+                                <!--<tr >-->
+                                    <!--<td class="bord_top c_align"><span/></td>-->
+                                    <!--<td class="bord_top c_align"><span/></td>-->
+                                    <!--<td class="bord_top c_align"><span/></td>-->
+                                    <!--<td class="bord_top c_align"><span/></td>-->
+                                    <!--<td class="bord_top c_align"><span/></td>-->
+                                    <!--<td class="bord_bold l_bold"><span>Total</span></td>-->
+                                    <!--<td class="bord_bold r_align"><span t-esc="'{0:,.2f}'.format(float(total))"/></td>-->
+                                <!--</tr>-->
+                                <!--<tr >-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                <!--</tr>-->
+
+                                <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--<tr >-->
+                                    <!--<td class="l_bold"><span>Prepared by:</span></td>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--&lt;!&ndash;<td class="l_bold"><span>Checked by:</span></td>&ndash;&gt;<td/>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--&lt;!&ndash;<td class="l_align"><span>Noted by:</span></td>&ndash;&gt;<td/>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--<td class="l_bold"><span>Approved by:</span></td>-->
+                                <!--</tr>-->
+                                <!--<tr >-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                <!--</tr>-->
+
+                                <!--<tr >-->
+                                    <!--<td class="bord_bot c_align"><span/></td>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--&lt;!&ndash;<td class="bord_bot c_align"><span/></td>&ndash;&gt;<td/>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--&lt;!&ndash;<td class="bord_bot l_bold"><span/></td>&ndash;&gt;<td/>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--<td class="bord_bot c_align"><span/></td>-->
+                                <!--</tr>-->
+                                <!--<tr >-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                    <!--<td><span/><![CDATA[&nbsp;]]> </td>-->
+                                <!--</tr>-->
+                                <!--<tr >-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--<td class="c_align"><span/></td>-->
+                                    <!--<td class="c_bold"><span>Received by:</span></td>-->
+                                    <!--<td class="bord_bot c_bold"><span style="font-weight: bold;" t-field="d.agent_id.name"/></td>-->
+                                    <!--<td class="c_bold"><span>Date:</span></td>-->
+                                    <!--<td class="bord_bot c_align"><span/></td>-->
+                                <!--</tr>-->
+
+                                <!--&lt;!&ndash;backup&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="d.is_um==True">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="a_total" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="count" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="agent_ids" t-value="[]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="d.um_temp_commission_line.sorted(key=lambda r: r.agent_commission_id.partner_id.name, reverse=True)" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="agent_ids" t-value="agent_ids+[i.agent_commission_id.partner_id]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="set(agent_ids)" t-as="r">&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<tr >&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="l_bold"><span t-field="r.name"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="r_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="so_ids" t-value="[]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="d.um_temp_commission_line.sorted(key=lambda r: r.invoice_id.or_series.id, reverse=True)" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="r.id == i.agent_commission_id.partner_id.id">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="so_ids" t-value="so_ids+[i.agent_commission_id.so_id]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="set(so_ids)" t-as="p">&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<tr >&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span/></td>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td t-if="count  &lt; 1" class="l_bold"><span t-field="r.name"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td t-else="" class="l_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span t-field="p.name"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="r_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;<t t-set="invoice_ids" t-value="[]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="d.um_temp_commission_line" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="p.id == i.so_id.id">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="invoice_ids" t-value="invoice_ids+[i.invoice_id]"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="set(invoice_ids)" t-as="c">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="l_total" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-foreach="d.um_temp_commission_line" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<span t-esc="i.agent_commission_id.partner_id.name"/>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="c.id == i.invoice_id.id">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="p.id == i.agent_commission_id.so_id.id">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="r.id == i.agent_commission_id.partner_id.id">&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span t-field="i.invoice_id.name"/></td>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span t-field="i.date_paid"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.um_percentage))"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="total" t-value="total+i.um_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="a_total" t-value="a_total+i.um_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="l_total" t-value="l_total+i.um_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td t-if="count  &lt; 1" class="l_bold"><span t-field="r.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td t-else="" class="l_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="l_align"><span t-field="p.name"/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td t-if="count  &lt; 1" class="l_bold"><span t-field="p.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td t-else="" class="l_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="l_align"><span t-field="c.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="c.payment_date"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"><span t-esc="'{0:,.2f}'.format(float(l_total))"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="count" t-value="count+1"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+
+
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<tr class="bord_bot_top">&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_bold"><span>Total</span></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="bord_bold r_align"><span t-esc="'{0:,.2f}'.format(float(a_total))"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="a_total" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="count" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td><span/><![CDATA[&nbsp;]]> </td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;backup&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;<t t-if="d.is_sa==True">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr t-foreach="d.sa_temp_commission_line" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="i_dp_l+1"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-esc="i_dp_l"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.so_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.partner_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.invoice_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"><span t-field="i.date_paid"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.sa_percentage))"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="total" t-value="total+i.sa_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="d.is_um==True">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr t-foreach="d.um_temp_commission_line" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="i_dp_l+1"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-esc="i_dp_l"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.so_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.partner_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.invoice_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"><span t-field="i.date_paid"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.um_percentage))"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="total" t-value="total+i.um_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-if="d.is_am==True">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="0"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<tr t-foreach="d.am_temp_commission_line" t-as="i" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="i_dp_l" t-value="i_dp_l+1"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-esc="i_dp_l"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.so_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.agent_commission_id.partner_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="c_align"><span t-field="i.invoice_id.name"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"><span t-field="i.date_paid"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="r_align"> <span t-esc="'{0:,.2f}'.format(float(i.am_percentage))"/></td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<span t-field="i.currency_id.symbol" />&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<t t-set="total" t-value="total+i.am_percentage"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                            <!--</table>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="footer">&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</t>-->
+            <!--</t>-->
+        <!--</template>-->
+
+    </data>
+</odoo>

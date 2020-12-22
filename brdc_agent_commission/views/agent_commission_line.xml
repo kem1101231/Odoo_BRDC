@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+        <record id="sa_commission_line_tree" model="ir.ui.view">
+            <field name="name">SA Commission</field>
+            <field name="model">sa.commission.line</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Agent Commission">
+                    <field name="partner_id"/>
+                    <field name="pa_ref"/>
+                    <field name="so_id"/>
+                    <field name="invoice_id"/>
+                    <field name="date_paid"/>
+                    <!--<field name="sales_agent_id"/>-->
+                    <field name="sa_percentage"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sa_commission_line_form" model="ir.ui.view">
+            <field name="name">SA commission</field>
+            <field name="model">sa.commission.line</field>
+            <field name="arch" type="xml">
+                <form string="Sales Agent Commission">
+                    <sheet>
+                        <!--<field name="name"/>-->
+                        <group col="3">
+                            <field name="partner_id"/>
+                            <group>
+                                <field name="pa_ref" attrs="{'readonly': True}"/>
+                                <field name="so_id" attrs="{'readonly': True}"/>
+                                <field name="invoice_id" attrs="{'readonly': True}"/>
+                                <field name="date_paid" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="distribute_commission_line_id" attrs="{'readonly': True}"/>
+                                <field name="date_distributed" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="sales_agent_id"/>
+                                <field name="sa_percentage" attrs="{'readonly': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="um_commission_line_tree" model="ir.ui.view">
+            <field name="name">UM Commission</field>
+            <field name="model">um.commission.line</field>
+            <field name="arch" type="xml">
+                <tree string="Unit Manager Commission">
+                    <field name="partner_id"/>
+                    <field name="pa_ref"/>
+                    <field name="so_id"/>
+                    <field name="invoice_id"/>
+                    <field name="date_paid"/>
+                    <!--<field name="unit_manager_id"/>-->
+                    <field name="um_percentage"/>
+                </tree>
+            </field>
+        </record>
+        <record id="um_commission_line_form" model="ir.ui.view">
+            <field name="name">UM commission</field>
+            <field name="model">um.commission.line</field>
+            <field name="arch" type="xml">
+                <form string="Unit Manager Commission">
+                    <sheet>
+                        <!--<field name="name"/>-->
+                        <group col="3">
+                            <field name="partner_id"/>
+                            <group>
+                                <field name="pa_ref" attrs="{'readonly': True}"/>
+                                <field name="so_id" attrs="{'readonly': True}"/>
+                                <field name="invoice_id" attrs="{'readonly': True}"/>
+                                <field name="date_paid" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="distribute_commission_line_id" attrs="{'readonly': True}"/>
+                                <field name="date_distributed" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="unit_manager_id"/>
+                                <field name="um_percentage" attrs="{'readonly': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="am_commission_line_tree" model="ir.ui.view">
+            <field name="name">AM Commission</field>
+            <field name="model">am.commission.line</field>
+            <field name="arch" type="xml">
+                <tree string="Agency Manager Commission">
+                    <field name="partner_id"/>
+                    <field name="pa_ref"/>
+                    <field name="so_id"/>
+                    <field name="invoice_id"/>
+                    <field name="date_paid"/>
+                    <!--<field name="agency_manager_id"/>-->
+                    <field name="am_percentage"/>
+                </tree>
+            </field>
+        </record>
+        <record id="am_commission_line_form" model="ir.ui.view">
+            <field name="name">AM commission</field>
+            <field name="model">am.commission.line</field>
+            <field name="arch" type="xml">
+                <form string="Agency Manager Commission">
+                    <sheet>
+                        <!--<field name="name"/>-->
+                        <group col="3">
+                            <field name="partner_id"/>
+                            <group>
+                                <field name="pa_ref" attrs="{'readonly': True}"/>
+                                <field name="so_id" attrs="{'readonly': True}"/>
+                                <field name="invoice_id" attrs="{'readonly': True}"/>
+                                <field name="date_paid" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="distribute_commission_line_id" attrs="{'readonly': True}"/>
+                                <field name="date_distributed" attrs="{'readonly': True}"/>
+                            </group>
+                            <group>
+                                <field name="agency_manager_id"/>
+                                <field name="am_percentage" attrs="{'readonly': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

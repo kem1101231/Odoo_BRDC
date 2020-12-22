@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+
+<record id="brdc_account_tax_1" model="account.tax">
+    <field name="active">TRUE</field>
+    <field name="include_base_amount">FALSE</field>
+    <field name="amount" eval="12"/>
+    <field name="company_id" ref="hrms_base.main_company_bradc"/>
+    <field name="analytic">FALSE</field>
+    <field name="price_include">FALSE</field>
+    <field name="description">VAT 12%</field>
+    <field name="sequence" eval="1"/>
+    <field name="account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="refund_account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="amount_type">percent</field>
+    <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    <field name="name">Memorial Lot</field>
+    <field name="type_tax_use">sale</field>
+    <field name="tax_adjustment">FALSE</field>
+</record>
+
+<record id="brdc_account_tax_2" model="account.tax">
+    <field name="active">TRUE</field>
+    <field name="include_base_amount">FALSE</field>
+    <field name="amount" eval="12"/>
+    <field name="company_id" ref="hrms_base.main_company_bradc"/>
+    <field name="analytic">FALSE</field>
+    <field name="price_include">FALSE</field>
+    <field name="description">VAT 12%</field>
+    <field name="sequence" eval="1"/>
+    <field name="account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="refund_account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="amount_type">percent</field>
+    <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    <field name="name">Columbarium</field>
+    <field name="type_tax_use">sale</field>
+    <field name="tax_adjustment">FALSE</field>
+</record>
+
+<record id="brdc_account_tax_3" model="account.tax">
+    <field name="active">TRUE</field>
+    <field name="include_base_amount">FALSE</field>
+    <field name="amount" eval="12"/>
+    <field name="company_id" ref="hrms_base.main_company_bradc"/>
+    <field name="analytic">FALSE</field>
+    <field name="price_include">FALSE</field>
+    <field name="description">VAT 12%</field>
+    <field name="sequence" eval="1"/>
+    <field name="account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="refund_account_id" ref="brdc_coa_data.3_brdc_account_coa_865"/>
+    <field name="amount_type">percent</field>
+    <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    <field name="name">Community Vault</field>
+    <field name="type_tax_use">sale</field>
+    <field name="tax_adjustment">FALSE</field>
+</record>
+
+
+    </data>
+</odoo>

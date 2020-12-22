@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="action_schedule_of_account_per_customer"
+                   model="account.invoice"
+                   report_type="qweb-pdf"
+                   string="Schedule of Account per Customer"
+                   name="brdc_account.schedule_of_account_per_customer"
+                   file="brdc_account.schedule_of_account_per_customer"
+                   paperformat="brdc_account.custom_letter_landscape_margin10_paperformat"
+                   menu="True"
+               />
+        <template id="brdc_account.schedule_of_account_per_customer">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <style>
+                            table{
+                            empty-cells:show;
+                            }
+                            tr{
+                            min-height:2em;
+                            }
+                            td{
+                            font-size:8px !important;
+                            }
+                            table, tr, td {
+                            border: 1px solid black;
+                            margin: 0 !important;
+                            padding: 2px 0px 2px !important;
+                            }
+                            input {
+                            margin: 0;
+                            margin-bottom: 5px !important;
+                            }
+                            .center{
+                            text-align: center;
+                            }
+                            .right{
+                            text-align: right;
+                            }
+                            .top{
+                            vertical-align: top;
+                            }
+                            .middle{
+                            vertical-align: middle !important;
+                            }
+                            .bottom{
+                            vertical-align: bottom;
+                            }
+                            .no-border{
+                            border: 0;
+                            border:1px solid #fff;
+                            }
+                            .strong{
+                            font-weight:bold;
+                            }
+                            .upcase{
+                            text-transform: uppercase;
+                            }
+                            td.left-right-border{
+                            border-right: 1px solid black;
+                            border-left: 1px solid black;
+                            }
+                            td.left-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-left: 1px solid #4993c1;
+                            }
+                            td.top-bottom-border{
+                            background: #b5e0fb;
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            }
+                            td.right-top-bottom-border{
+                            border-top: 1px solid #4993c1;
+                            border-bottom: 1px solid #4993c1;
+                            border-right: 1px solid #4993c1;
+                            }
+                            span.header{
+                            margin-top:1rem !important;
+                            margin-bottom:1rem !important;
+                            }
+                            .hltd_clmn{
+                            background-color: #82b5d4;
+                            }
+                            .no-pads{
+                            padding: 0px 5px !important;
+                            }
+                        </style>
+                        <t t-set="area_no" t-value="0"/>
+                        <t t-set="area_class" t-value="nan"/>
+                        <t t-set="block_no" t-value="0"/>
+                        <t t-foreach="doc.invoice_line_ids" t-as="inv">
+                            <t t-set="area_no" t-value="inv.product_id.area_number.name"/>
+                            <t t-set="area_class" t-value="inv.product_id.categ_id.name"/>
+<!--                            <t t-set="block_no" t-value="inv.product_id.block_number"/>-->
+                        </t>
+                        <table class="table table-condensed" colspan="19">
+                            <tr>
+                                <td class="no-border center" colspan="2" rowspan="4" style="max-width:">
+                                    <img class="img" height="3%" src="/brdc_account/static/img/logo_2.png"/>
+                                </td>
+                                <td class="no-border upcase strong center" colspan="15" style="padding-left:10px;">
+                                    <span>biocielo realty &amp; development corporation</span>
+                                </td>
+                                <td class="no-border center middle" colspan="2" rowspan="4">
+                                    <img class="img" width="100%" src="/brdc_account/static/img/logo_1.png"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="15" style="padding-left:10px;">
+                                    <span>3rd Floor Vensu Building, National Highway, General Santos City</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="15" style="padding-left:10px;">
+                                    <span>Tel No.(083) 554-3853; Mobile Phone No. 0922-821-5081</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center" colspan="15" style="padding-left:10px;">
+                                    <span>Email: safe_biocielo@yahoo.com</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top:1rem !important;padding-bottom:3rem !important" colspan="19">
+                                    <span><u>schedule of account per customer</u></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Area:</i></td>
+                                <td class="no-border center strong" colspan="2"><span t-esc="area_no"/></td>
+                                <td class="no-border strong right" colspan="1" style="color:red;"><i>PA No:</i></td>
+                                <td class="no-border" colspan="14" style="color:red;padding-let:10px !important;"><span t-field="doc.pa_ref"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Area Classification:</i></td>
+                                <td class="no-border center strong" colspan="2"><span t-esc="area_class"/></td>
+                                <td class="no-border strong right" colspan="1" style="max-width:55px;"><i>Date Invoiced:</i></td>
+                                <td class="no-border" colspan="14" style="padding-left:10px !important;"><span t-field="doc.date_invoice" t-field-options='{"format": "MMMM dd, yyyy"}'/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Terms (Months):</i></td>
+                                <td class="no-border center strong" colspan="2"><span t-field="doc.new_payment_term_id.name"/></td>
+                                <td class="no-border strong right" colspan="1" style="max-width:55px;"><i>Customer's Name:</i></td>
+                                <td class="no-border" colspan="14" style="padding-left:10px !important;"><span t-field="doc.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Lot/Block No:</i></td>
+                                <td class="no-border center strong" colspan="2"><span t-esc="block_no"/></td>
+                                <td class="no-border strong right" colspan="1" style="max-width:55px;"><i>Contact No:</i></td>
+                                <td class="no-border" colspan="14" style="padding-left:10px !important;"><span t-field="doc.partner_id.mobile"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Net Contract Price:</i></td>
+                                <td class="no-border right strong" colspan="2"><span t-esc="'{0:,.2f}'.format(doc.amount_total)"/></td>
+                                <td class="no-border strong right" colspan="1" style="max-width:55px;"><i>Address:</i></td>
+                                <td class="no-border" colspan="14" style="padding-left:10px !important;"><span t-field="doc.partner_id.street"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Down Payment:</i></td>
+                                <td class="no-border right strong" colspan="2"><span t-esc="'{0:,.2f}'.format(doc.s_dp)"/></td>
+                                <td class="no-border" colspan="15"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Down Payment Split:</i></td>
+                                <td class="no-border right strong" colspan="2"/>
+                                <td class="no-border" colspan="15"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Monthly Amortization:</i></td>
+                                <td class="no-border right strong" colspan="2"><span t-esc="'{0:,.2f}'.format(doc.monthly_payment)"/></td>
+                                <td class="no-border" colspan="15"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Date Invoiced:</i></td>
+                                <td class="no-border strong" colspan="2" style="max-width:55px;"><span t-field="doc.date_invoice" t-field-options='{"format": "EEEE, MMMM dd, yyyy"}'/></td>
+                                <td class="no-border" colspan="15"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="max-width:60px;"><i>Start Date of Payment:</i></td>
+                                <td class="no-border strong" colspan="2" style="max-width:55px;"><span t-field="doc.date_invoice" t-field-options='{"format": "EEEE, MMMM dd, yyyy"}'/></td>
+                                <td class="no-border" colspan="15"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="19" style="padding-bottom:1rem !important;"/>
+                            </tr>
+                            <tr>
+                                <td class="strong upcase center middle" colspan="1" rowspan="2" style="word-wrap: break-word;max-width: 60px;">or date <span style="color:red">(a)</span></td>
+                                <td class="strong upcase center middle" colspan="2" rowspan="2" style="word-wrap: break-word;max-width: 55px;">applied due date <span style="color:red">(b)</span></td>
+                                <td class="strong upcase center middle" colspan="4">icr-lot <span style="color:red">(c)</span></td>
+                                <td class="strong upcase center middle" colspan="4">icr-pcf <span style="color:red">(d)</span></td>
+                                <td class="strong upcase center middle" colspan="4">ugp-lot <span style="color:red">(e)</span></td>
+                                <td class="strong upcase center middle" colspan="4">deferred output vat <span style="color:red">(f)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 55px;">beginning <span style="color:red">(c.1)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 55px;">collections-dp <span style="color:red">(c.2)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 55px;">collections-ma <span style="color:red">(c.3)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 55px;">end <i>beginning less total collection</i> <span style="color:red">(c.4)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 55px;">beginning <span style="color:red">(d.1)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-dp <span style="color:red">(d.2)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-ma <span style="color:red">(d.3)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">end <i>beginning less total collections</i> <span style="color:red">(d.4)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">beginning <span style="color:red">(e.1)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-dp <span style="color:red">(e.2)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-ma <span style="color:red">(e.3)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">end <i>beginning less total realized gross profit</i> <span style="color:red">(e.4)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">beginning <span style="color:red">(f.1)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-dp <span style="color:red">(f.2)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">collections-ma <span style="color:red">(f.3)</span></td>
+                                <td class="strong upcase center middle" colspan="1" style="word-wrap: break-word;max-width: 50px;">end <i>beginning less total recognized output vat</i> <span style="color:red">(f.4)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 60px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="2" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right strong" colspan="1" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 55px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right strong" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right strong" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                                <td class="no-border left-right-border upcase right strong" colspan="1" style="word-wrap: break-word;max-width: 50px;"><span/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="19" style="padding-top:5rem !important;"><u>notes:</u></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(a)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">Listed here are dates indicated in official receipts.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(b)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">Stated her are due dates of when should payments must be applied.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(c)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">This is the installment Contract Receivable section.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(c.1)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the beginning balance of ICR-Lot.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(c.2)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">These are collected downpayment applied for ICR-Lot.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(c.3)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">These are collected monthly amortizations applied for ICR-Lot.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(c.4)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is derived from deducting the beginning balance of ICR-Lot (c.1) less total collections (c.2) &amp; (c.3)</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(d)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">This is the installment Contract Receivable-PCF section applied for the Perpetual Help Fund.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(d.1)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the running balance for beginning balance of ICR-PCF.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(d.2)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">These are collected downpayment applied for ICR-PCF.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(d.3)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">These are collected monthly amortizations applied for ICR-PCF.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(d.4)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is equal to beginning balance of ICR-PCF less total collections.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(e)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">This is the Unrealized Gross Profit section.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(e.1)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the running balance for beginning balance of UGP-Lot.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(e.2)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the realized gross profit from collected downpayment for lot. This is derived from multiplying the Collections-DP to the Gross Profit rate and to the fraction of 100/112.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(e.3)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the realized gross profit from collected monthly amortizations for lot. This is derived from multiplying Collections-MA to the Gross Profit rate and to the fraction of 100/112.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(e.4)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the running balance of UGP-Lot. This is derived br deducting the total RGP-Lot from the beginning balance of RGP-Lot.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="1" style="color:red;">(f)</td>
+                                <td class="no-border no-pads" colspan="18" style="padding-left:10px;">This is the Deferred Output VAT section.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(f.1)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the running balance of the beginning balance of Deferred Output VAT.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(f.2)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the recognized output VAT from downpayment. This is derived by multiplying the Collections-DP by a fraction of 12/112.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(f.3)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the recognized output VAT from monthly amortizations. This is derived by multiplying the Collection-MA by a fraction of 12/112.</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pads right" colspan="3" style="color:red;">(f.4)</td>
+                                <td class="no-border no-pads" colspan="16" style="padding-left:10px;">This is the running balance of Deferred Output VAT. This is derived by deducting the total recognized Output VAT from the beginning balance of Deferred Output VAT.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="installment_line_tree" model="ir.ui.view">
+            <field name="name">installment_line_tree</field>
+            <field name="model">invoice.installment.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_for_payment"/>
+                    <!--<field name="date_paid"/>-->
+                    <!--<field name="beginning_balance"/>-->
+                    <field name="amount_to_pay"/>
+                    <!--<field name="advance_payment"/>-->
+                    <!--<field name="payable_balance"/>-->
+                    <!--<field name="paid_amount"/>-->
+                    <!--<field name="ending_balance"/>-->
+                    <!--<field name="payment_transaction"/>-->
+                    <field name="is_paid" string="Collected"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="downpayment_line_tree" model="ir.ui.view">
+            <field name="name">downpayment_line_tree</field>
+            <field name="model">invoice.installment.line.dp</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_for_payment"/>
+                    <!--<field name="date_paid"/>-->
+                    <!--<field name="beginning_balance"/>-->
+                    <field name="amount_to_pay"/>
+                    <!--<field name="advance_payment"/>-->
+                    <!--<field name="payable_balance"/>-->
+                    <!--<field name="paid_amount"/>-->
+                    <!--<field name="ending_balance"/>-->
+                    <!--<field name="payment_transaction"/>-->
+                    <field name="is_paid" string="Collected"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="installment_line" model="ir.actions.act_window">
+            <field name="name">installment_line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">invoice.installment.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="downpayment_line" model="ir.actions.act_window">
+            <field name="name">downpayment_line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">invoice.installment.line.dp</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="sale_order_line_import" model="ir.actions.act_window">
+            <field name="name">sale_order_line_import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

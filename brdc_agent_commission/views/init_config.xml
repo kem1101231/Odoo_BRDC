@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <record id="agent_hierarchy_1" model="agent.hierarchy">
+            <field name="name">Sales Agent</field>
+            <field name="comm_percent">12</field>
+        </record>
+        <record id="agent_hierarchy_2" model="agent.hierarchy">
+            <field name="name">Unit Manager</field>
+            <field name="comm_percent">3</field>
+        </record>
+        <record id="agent_hierarchy_3" model="agent.hierarchy">
+            <field name="name">Agency Manager</field>
+            <field name="comm_percent">5</field>
+        </record>
+        <record id="agent_hierarchy_4" model="agent.hierarchy">
+            <field name="name">Collector</field>
+            <field name="comm_percent">0</field>
+        </record>
+    </data>
+</odoo>

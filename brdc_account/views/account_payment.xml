@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_payment_search_1" model="ir.ui.view">
+           <field name="name">account.payment.search</field>
+           <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="user_id" string="Responsible" domain="[()]"/>
+                </xpath>
+                <xpath expr="//filter[12]" position="after">
+                    <filter string="Day" domain="[ ]" context="{'group_by': 'payment_date:day'}" />
+                </xpath>
+
+
+           </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_invoice_payment" model="ir.ui.view">
+            <field name="name">account.payment.inherit_from_invoice</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='journal_id']" position="before">
+                    <field name="user_id" invisible="1"/>
+                    <!--<field name="or_series"-->
+                           <!--domain="[('or_series_id.responsible','=', user_id),('state','=', 'unused')]"-->
+                           <!--invisible="0"-->
+
+                    <!--/>-->
+                    <field name="or_reference" string="O.R. Reference" widget="char" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </xpath>
+
+                <xpath expr="//group/group[2]" position="inside">
+                    <!--<group>-->
+
+                    <field name="pa_reference"/>
+                        <field name="is_hide_1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="straight_monthly"
+                               attrs="{'invisible':[('is_hide_1','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+
+                        <field name="is_hide_2" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="deceased_name"
+                               attrs="{'invisible':[('is_hide_2','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+
+                        <field name="is_hide_3" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="others_paymentfee"
+                               attrs="{'invisible':[('is_hide_3','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="invoice_is_terminated" invisible="1"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="replace">
+                </xpath>
+                <xpath expr="//div[@name='amount_div']" position="replace">
+                </xpath>
+                <xpath expr="//label[@for='amount']" position="replace">
+                </xpath>
+
+                <xpath expr="//group" position="after">
+                  
+                    <notebook>
+                        <page string="Amount Information">
+                            <group colspan="2">
+                             <group>
+        <!--                                 <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px; margin-top:25px;" attrs="{'invisible':['|', ('prev_due','=', 0), ('invoice_is_terminated','=', True)]}"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':['|', ('prev_due','=', 0), ('invoice_is_terminated','=', True)]}"/> -->
+                                        <div colspan="2" style="padding:15px;" attrs="{'invisible':['|', ('prev_due','=', 0), ('invoice_is_terminated','=', True)]}">
+
+                                            <p style="color:#f44336;">Reconsider current due amount.</p>
+                                            <p style="font-size:10px;">The customer may able to pay the current due some other time prior to the Date of Due below.</p>
+                                            <p style="font-size:10px;">
+                                                <div name="current_due_date_div" class="o_row ">
+                                                    Date of Due: <field name="current_due_date" string="Due on" readonly="1"/> 
+                                                </div>
+                                            </p>
+                                            <p style="font-size:10px;">The customer is entitled to pay only his/her previous due but adivised to pay his/her current due before the indicated Date of Due.</p>
+                                            <p style="font-size:10px;">Suggesting customers to pay too advance of the payment schedule is allowed but highly discouraged.</p>   
+                  
+                                        </div>
+        <!--                                 <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':['|', ('prev_due','=', 0), ('invoice_is_terminated','=', True)]}"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':['|', ('prev_due','=', 0), ('invoice_is_terminated','=', True)]}"/> -->
+
+        <!-- 
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px; margin-top:25px;" attrs="{'invisible':[('invoice_is_terminated','=', False)]}"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':[('invoice_is_terminated','=', False)]}"/> -->
+                                        <div colspan="2" style="padding:15px;" attrs="{'invisible':[('invoice_is_terminated','=', False)]}">
+
+                                            <p style="color:#f44336;">This is a terminated account.</p>
+                                            <p style="font-size:10px;">This collection of payment is to settle the remaining balances of the account for it to be reactivated.</p>
+                                            <p style="font-size:10px;">Any payment conducted for this account will be recorded.</p>
+                                            <p style="font-size:10px;">Any over collection for this account for the given purpose of reactivating it is highly discouraged.</p> 
+                                            <p style="font-size:10px;">The customer is advised to pay not lesser than the Amount Due displayed.</p> 
+                                            <p style="font-size:10px;">Any payment lower than the indicated Amount Due will not be accepted thus prompting to cancel this payment transaction.</p>
+
+                  
+                                        </div>
+        <!--                                 <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':[('invoice_is_terminated','=', False)]}"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px;" attrs="{'invisible':[('invoice_is_terminated','=', False)]}"/> -->
+                                    </group>
+                                    
+                                    <group>
+                                        <!-- <separator string="Payment Amount" colspan="2" style="border-bottom: 1px solid #ddd; margin-bottom:10px; font-size:17px;"/> -->
+                                        <field  name="display_advance" invisible="1"/>
+                                        <field  name="display_advance_whole" invisible="1"/>
+                                        <field name="reactivation_fee_paid" invisible="1"/>
+                                        <!-- <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:5px; margin-left: 30px; margin-right: 30px; margin-top:25px;"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:15px; margin-left: 30px; margin-right: 30px;"/> -->
+                                        <field class="oe_right"  name="total_to_pay" invisible="1" />
+                                        <field class="oe_right"  name="prev_due" readonly="1" attrs="{'invisible':['|',('prev_due','=', 0),('invoice_is_terminated', '=', True)]}"/>
+                                        <field class="oe_right" name="terminate_due" readonly="1" attrs="{'invisible':[('invoice_is_terminated', '=', False)]}"/> 
+                                        <field class="oe_right" name="reactivation_fee" readonly="1" attrs="{'invisible':['|',('invoice_is_terminated', '=', False),('reactivation_fee_paid','=',True)]}"/> 
+                                        <field class="oe_right" name="current_due" readonly="1"/>
+                                        <!-- <field name="current_due_date" readonly="1" class="oe_inline"/> -->
+                                        <field class="oe_right" name="invoice_advances_amount" readonly="1" attrs="{'invisible':['|',('display_advance','=', False),('invoice_is_terminated', '=', True)]}"/><!--  -->
+                                        <field class="oe_right" name="invoice_advances_amount_whole" readonly="1" attrs="{'invisible':['|',('display_advance_whole','=', False),('invoice_is_terminated', '=', True)]}"/><!--  -->
+                                        
+                                        
+                    <!--                <label for="total_to_pay"/>
+                                        <div name="total_to_pay_div" class="o_row">s
+                                            <field name="total_to_pay" string="Amount Total" readonly="1"/> 
+                                        </div>
+                     -->
+
+                                       
+                                        <!-- <field name="payment_with_surcharge" attrs="{'invisible': [('surcharge_included', '=', False)]}"/> -->
+                                        <field name="surcharge" class="oe_right" attrs="{'invisible': [('surcharge_included', '=', False)]}"/>
+        <!--                            <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:10px;"/> -->
+                                        
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin:12px;"/>
+                                        <label for="amount_tender" style="margin-top:8px;"/>
+                                        <div name="amount_tender_div" style="margin-right:10px;" class="o_row oe_right">
+                                        <field name="amount_tender" readonly="1" style="font-size:15px; font-weight:bold"/> <!-- attrs="" -->
+                                        <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                                        </div>
+                                        
+                                        <!-- <field name="is_exact" widget="radio"/> -->
+                                        <!-- <separator string="" colspan="1" /> -->
+
+                                        <!-- <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin-bottom:15px;"/> -->
+        <!--                            <div class="oe_subtotal_footer_separator oe_inline o_td_label" name="amount_div">
+                                        <label for="amount"/>
+                                        </div> -->
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin:12px;"/>
+
+                                        <label for="amount" style="margin-top:8px;" invisible="1"/>
+                                        <div  name="amount_div" style="margin-bottom:10px;" class="o_row" invisible="1">
+                                        <field name="amount" invisible="1" style="font-size:18px;"/>
+                                        </div>
+
+                                        
+                                        <field name="is_exact" widget="radio" invisible="1"/>
+                                        <field name="surcharge_included" invisible="1"/>
+                                        <field name="surcharge_included_select"  widget="radio" string="Include Surcharge" attrs="{'invisible':[('surcharge','=', 0)]}"/>
+                                        <separator string="" colspan="2" style="border-top: 1px solid #ddd; margin:12px;"  attrs="{'invisible':[('surcharge','=', 0)]}"/>
+        <!--                            <label for="amount_received" style="padding-top:8px;"/>
+                                        <div name="amount_received_div" class="o_row"> -->
+
+                                        <label for="amount_received" style="margin-top:8px;"/>
+                                        <div name="amount_received_div" style="margin-bottom:10px;" class="o_row">
+                                        <field name="amount_received" style="font-size:18px; font-weight:bold; margin-bottom:10px;" place-holder="0.00"/>
+                                        </div>
+                                        <field name="change_release" widget="radio" /><!--  attrs="{'invisible':[('invoice_is_terminated','=', True)]}"
+ -->
+                                         <!-- attrs="" -->
+        <!--                            </div>
+                                        <label for="value_change" style="padding-top:8px;"/>
+                                        <div name="value_change_div" class="o_row" style="margin-top:10px;"> -->
+                                        <field class="oe_right" name="value_change" readonly="1" style="font-size:15px; font-weight:bold"/> <!-- attrs="" -->
+        <!--                            </div> -->
+                                    </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+
+<!--                 <xpath expr="//field[@name='payment_method_code']" position="after">
+
+                </xpath> -->
+<!--                 <xpath expr="//field[@name='amount']" position="attributes">
+                    <attribute name="attrs"></attribute>
+                    <attribute name="style">font-size:18px;</attribute>
+                </xpath> -->
+<!-- 
+                <xpath expr="//group/group[2]" position="after">
+                    <group>
+
+                    </group>
+
+                </xpath> -->
+
+                <!--<xpath expr="//field[@name='writeoff_account_id']" position="after">-->
+                    <!--<label name="Include Surcharge" for="surcharge_included"/>-->
+                    <!--<div>-->
+                        <!--<field name="surcharge_included"/>-->
+                        <!--<fields name="surcharge"/>-->
+                    <!--</div>-->
+                    <!--<br/>-->
+                    <!--&lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//field[@name='surcharge_included']" position="after">-->
+                    <!--<label name="Include Surcharge" for="surcharge_included"/>-->
+                    <!--<br/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <record id="account_payment_form_view_inherit" model="ir.ui.view">
+            <field name="name">account.payment.inherit_from_payment</field>
+            <field name="model">account.payment</field>
+             <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='payment_type']" position="before">
+                    <separator string="Payment References" colspan="2" style="border-bottom: 1px solid #ddd; margin-bottom:10px; font-size:17px;"/>
+                    <field name="user_id" invisible="1"/>
+                    <!--<field name="or_series"-->
+                           <!--domain="[('or_series_id.responsible','=', user_id),('state','=', 'unused')]"-->
+                           <!--invisible="0"-->
+                           <!--attrs="{'readonly':[('state','!=','draft')]}"-->
+                    <!--/>-->
+                    <field name="or_reference" string="O.R. Reference" widget="char" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <!--widget="selection"-->
+                </xpath>
+
+               <xpath expr="//field[@name='payment_date']" position="after">
+                   <field name="create_date" readonly="1"/>
+                    <field name="user_id"/>
+                </xpath>
+
+
+
+                <xpath expr="//field[@name='partner_type']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_date']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <!--end -->
+
+                <xpath expr="//header" position="inside">
+                    <button name="print_or" class="oe_highlight" states="posted" string="PRINT OFFICIAL RECEIPT" type="object" sequence="-1"/>
+                    <button name="print_tr" class="oe_highlight" states="posted" string="PRINT PROVISIONARY RECEIPT" type="object" sequence="-1"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']/button[@name='button_invoices']" position="attributes">
+                    <attribute name="string">Invoice</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='communication']" position="after">
+                    <!--<field name="pa_reference" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                    <!--<field name="pa_ref" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                    <field name="realize_entry_id" groups="account.group_account_user"/>
+                    <field name="is_hide_1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>/>
+                    <field name="straight_monthly"
+                           attrs="{'invisible':[('is_hide_1','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+
+                    <field name="is_hide_2" attrs="{'readonly': [('state', '!=', 'draft')]}"/>/>
+                    <field name="deceased_name"
+                           attrs="{'invisible':[('is_hide_2','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+
+                    <field name="is_hide_3" attrs="{'readonly': [('state', '!=', 'draft')]}"/>/>
+                    <field name="others_paymentfee"
+                           attrs="{'invisible':[('is_hide_3','=',False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="brdc_account_move" widget="many2many"
+                           attrs="{'invisible':[('state','=', 'draft')]}"/>
+                    <!-- <field name="collection_id"/> -->
+                </xpath>
+
+                <!--<xpath expr="/form/sheet/group/group/field[@name='communication']" position="after">-->
+                    <!--<field name="is_hide_1"/>-->
+                    <!--<field name="is_hide_2"/>-->
+                    <!--<field name="is_hide_3"/>-->
+
+                    <!--<field name="straight_monthly" attrs="{'invisible':[('is_hide_1','=',False)]}"/>-->
+                    <!--<field name="deceased_name" attrs="{'invisible':[('is_hide_2','=',False)]}"/>-->
+                    <!--<field name="others_paymentfee" attrs="{'invisible':[('is_hide_3','=',False)]}"/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+    </data>
+</odoo>

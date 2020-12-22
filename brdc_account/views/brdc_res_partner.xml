@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+    
+        <record id="res_partner_address_inherit" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="province_id"/>
+                    <field name="municipality_id"/>
+                    <field name="barangay_id"/>
+                </xpath>
+            
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="service_order_inherit" model="ir.ui.view">
+            <field name="name">Services</field>
+            <field name="model">service.order</field>
+            <field name="inherit_id" ref="service_sales_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Bundles">
+                        <group string="Bundle Included">
+                            <field name="service_bundle_id" invisible="1"/>
+                            <field name="service_bundle_line_ids" widget="many2many_checkboxes" nolabel="1"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="service_bundle_form_view" model="ir.ui.view">
+            <field name="name">Plan/Service Bundles</field>
+            <field name="model">service.bundle</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="parent_id" class="oe_edit_only"/>
+                            <h1>
+                                <field name="parent_id" placeholder="......" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}' />
+                            </h1>
+                        </div>
+                        <field name="child_ids" nolabel="1">
+                            <form>
+                                <div class="oe_title">
+                                    <label for="name" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name" placeholder="......"/>
+                                    </h1>
+                                </div>
+                                <group>
+                                    <field name="description"/>
+                                </group>
+                            </form>
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_bundle_action_view" model="ir.actions.act_window">
+            <field name="name">Plan/Service Bundles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.bundle</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

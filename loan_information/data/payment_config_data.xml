@@ -1,0 +1,665 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+
+<record id="payment_config_1" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">service</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_2" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">product</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_3" model="payment.config">
+    <field name="category">product</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">Lot</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_4" model="payment.config">
+    <field name="category">service</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 6:52</field>
+    <field name="name">Interment Service / EIPP</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_5" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">12 mos</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1.03"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_6" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">24 mos</field>
+    <field name="no_months" eval="24"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1.05"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_7" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">36 mos</field>
+    <field name="no_months" eval="36"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1.08"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_8" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">48 mos</field>
+    <field name="no_months" eval="48"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1.1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_9" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">3-months deferred</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.95"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_10" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">12 mons</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_4"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_11" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">24 mons</field>
+    <field name="no_months" eval="24"/>
+    <field name="parent_id" ref="payment_config_4"/>
+    <field name="less_perc" eval="1.1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_12" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">36 mons</field>
+    <field name="no_months" eval="36"/>
+    <field name="parent_id" ref="payment_config_4"/>
+    <field name="less_perc" eval="1.14"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_13" model="payment.config">
+    <field name="category">service</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 6:53</field>
+    <field name="name">MM bundle</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_14" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">4 mos split dp</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.95"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_15" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">60 mos</field>
+    <field name="no_months" eval="60"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1.2"/>
+    <field name="bpt_wod">TRUE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_16" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">Balance</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.8"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_17" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">downpayment</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.2"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_18" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">paid up DP</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.90"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_19" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">spotcash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="0.85"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_20" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">weekend EIPP</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc">1.078947368</field>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_21" model="payment.config">
+    <field name="category">service</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 6:53</field>
+    <field name="name">Crematory Service</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_22" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">spotcash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="0.8"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_23" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:59</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_4"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_24" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">Balance</field>
+    <field name="no_months" eval="6"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="0.7"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_25" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">downpayment</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="0.3"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_26" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">6 mos</field>
+    <field name="no_months" eval="6"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_27" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">12 mos</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_28" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">straight 12 months</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">TRUE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_29" model="payment.config">
+    <field name="category">product</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 6:53</field>
+    <field name="name">Columbary Vault</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_30" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">Balance</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="0.7"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_31" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">downpayment</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="0.3"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_32" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">6 mos</field>
+    <field name="no_months" eval="6"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_33" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">12 mos</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_34" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">straight 12 mos</field>
+    <field name="no_months" eval="12"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">TRUE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_35" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 2:17</field>
+    <field name="name">spotcash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="0.85"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_36" model="payment.config">
+    <field name="category">product</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">Community Vault</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_37" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 1:03</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_36"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_38" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:57</field>
+    <field name="name">3-months deferred</field>
+    <field name="no_months" eval="0"/>
+    <field name="parent_id" ref="payment_config_36"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_39" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:58</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:58</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_21"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_40" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:58</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 0:58</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_29"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_41" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 1:00</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 1:00</field>
+    <field name="name">120 mons</field>
+    <field name="no_months" eval="120"/>
+    <field name="parent_id" ref="payment_config_13"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_42" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">31/05/2018 11:37</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">31/05/2018 11:37</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_3"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+<record id="payment_config_43" model="payment.config">
+    <field name="category">service</field>
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">01/06/2018 0:57</field>
+    <field name="bpt">FALSE</field>
+    <field name="is_parent">TRUE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">01/06/2018 6:52</field>
+    <field name="name">Special Service</field>
+    <field name="no_months" eval="0"/>
+    <field name="less_perc" eval="0"/>
+    <field name="bpt_wod">FALSE</field>
+    <field name="payment_type">install</field>
+</record>
+
+<record id="payment_config_44" model="payment.config">
+    <field name="create_uid" ref="base.user_root"/>
+    <field name="create_date">31/05/2018 11:37</field>
+    <field name="bpt">TRUE</field>
+    <field name="is_parent">FALSE</field>
+    <field name="write_uid" ref="base.user_root"/>
+    <field name="write_date">31/05/2018 11:37</field>
+    <field name="name">cash</field>
+    <field name="no_months" eval="1"/>
+    <field name="parent_id" ref="payment_config_43"/>
+    <field name="less_perc" eval="1"/>
+    <field name="bpt_wod">TRUE</field>
+    <field name="payment_type">cash</field>
+</record>
+
+
+    </data>
+</odoo>

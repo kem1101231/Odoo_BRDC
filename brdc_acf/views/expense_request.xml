@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="request_expense_form" model="ir.ui.view">
+            <field name="name">Request Expense</field>
+            <field name="model">request.expense</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" placeholder="[EXP] *title*" required="1" attrs="{'readonly':[('state','!=','draft')]}"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="fund_left"/>
+                                <field name="product_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" options='{"no_open": 1, "no_create_edit": 1}'/>
+                            </group>
+                            <group>
+                                <field name="fund_replenish"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Confirm" type="object" name="action_confirm" class="oe_highlight" states="draft"/>
+                        <button string="Submit" type="object" name="action_submit" class="oe_highlight" states="confirm"/>
+                        <button string="Set to Draft" type="object" name="action_draft" class="oe_link" states="confirm"/>
+                        <button string="Close" type="object" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="request_expense_action_view" model="ir.actions.act_window">
+            <field name="name">Request Expense</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.expense</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</odoo>

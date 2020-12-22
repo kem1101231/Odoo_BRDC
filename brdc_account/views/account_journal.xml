@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_journal_inherit_form_view" model="ir.ui.view">
+            <field name="name">Journals</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//page[@name='journal_entries']/group/group[2]/" position="">-->
+                    <!--&lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='default_debit_account_id']" position="before">
+                    <field name="is_customers_deposit"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

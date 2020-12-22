@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+       <record id="customer_application_transient_form_view" model="ir.ui.view">
+           <field name="name">customerapplicationformview</field>
+           <field name="model">customer.application.transient</field>
+           <field name="arch" type="xml">
+               <form string="">
+                   <header>
+                       <field name="state" widget="statusbar" statusbar_visible="general"/>
+                   </header>
+                   <div class="oe_title">
+                       <label for="name" class="oe_edit_only"/>
+                       <h1>
+                           CUSTOMER APPLICATION
+                       </h1>
+                   </div>
+                   <group states="general">
+                       <field name="last_name" attrs="{'required': [('state','=','general')]}" placeholder="Dela Cruz"/>
+                       <field name="first_name" attrs="{'required': [('state','=','general')]}" placeholder="Juan"/>
+                       <field name="middle_name" placeholder="Dematigbak"/>
+                       <field name="suffix"/>
+                   </group>
+                   <group states="other">
+                       <field name="contact"/>
+                       <field name="birthdate"/>
+                       <field name="street"/>
+                   </group>
+                   <footer>
+                       <button name="action_next" type="object" string="Next" states="general" class="btn-primary"/>
+                       <button name="action_prev" type="object" string="Previous" states="other" class="btn-primary"/>
+                       <button name="register_customer" type="object" string="Register" states="other" class="btn-primary"/>
+                       <button string="Cancel" class="btn-default" type="object" name="action_cancel"/>
+                   </footer>
+               </form>
+           </field>
+       </record>
+
+        <record id="customer_application_transient_action_view" model="ir.actions.act_window">
+            <field name="name">Customer Application</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.application.transient</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="collection_efficiency_report_form_view" model="ir.ui.view">
+            <field name="name">Collection Efficiency Report</field>
+            <field name="model">collection.efficiency.report</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <!--<button name="generate_collection" string="Generate" class="oe_highlight" type="object"/>-->
+                        <!--<field name="state" widget="statusbar" statusbar_visible="" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>-->
+                        <field name="all_docs_group" invisible="1"/>
+                    </header>
+                        <group>
+                            <h1>
+                                <field name="collector_id" nolabel="1" options='{"no_open": 1, "no_create_edit": 1, "no_create": 1}' attrs="{'readonly':[('all_docs_group', '=', False)]}"/>
+                            </h1>
+                        </group>
+                        <group>
+                            <group><field name="user_id" invisible="1"/></group>
+                        </group>
+                        <group>
+                            <field name="collection_widget" widget="collection_widget" nolabel="1"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="collection_efficiency_report_action_view" model="ir.actions.act_window">
+            <field name="name">Collection Efficiency Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collection.efficiency.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

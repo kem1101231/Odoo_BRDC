@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="official_receipt_line"
+            model="account.payment"
+            report_type="qweb-html"
+            string="BRDC OFFICIAL RECEIPT"
+            name="brdc_account.official_receipt_view_line"
+            file="BRDC_OFFICIAL_RECEIPT"
+            paperformat="official_receipt_paperformat_custom"
+        />
+
+        <template id="official_receipt_view_line">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="d">
+                    <div class="page" style="padding-top: 72px;">
+                        <style type="text/css">
+                            #watermark{
+                            position:absolute;
+                            opacity:0.25;
+                            z-index:1000;
+                            width:100%;
+                            }
+                            #bg-text{
+                            color: lightgray;
+                            font-size: 500%;
+                            transfrom: rotate(360deg);
+                              -webkit-transform: rotate(360deg);
+                            text-align: center;
+                            }
+                        </style>
+
+
+                            <table style="font-size:10px; font-family:Courier; width:100%; height:100%;">
+                                <tr>
+                                    <td style="width:18%;"/>
+                                    <td style="width:44%;"><span t-field="d.partner_id.name"/></td>
+                                    <td style="width:19%;"/>
+                                    <td style="width:19%;"/>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>.</td>
+                                    <td></td>
+                                    <td><span t-field="d.payment_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="vertical-align:bottom;" height="55"><span t-esc="d.num2word(d.amount)"/> </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>.</td>
+                                    <td></td>
+                                </tr>
+                                <!--style="padding-top:3px; padding-left:100px;"-->
+                                <tr style="padding-bottom:10px; font-size:20px; font-family:Courier; width:50px">
+                                    <td style="font-size:70%;">
+                                        <span t-esc="d.account_invoice_id.pa_ref"/>
+                                    </td>
+                                    <td style="font-size:70%;">
+                                        <span t-esc="d.journal_id.name"/><br/>
+                                        <t t-if="d.is_hide_1 is not False">
+                                            <span t-esc="d.straight_monthly"/>
+                                        </t>
+                                        <t t-if="d.is_hide_2 is not False">
+                                            <span t-esc="d.deceased_name"/>
+                                        </t>
+                                        <t t-if="d.is_hide_3 is not False">
+                                            <span t-esc="d.others_paymentfee"/>
+                                        </t>
+                                    </td>
+                                    <td height="95"><span t-field="d.amount"/></td>
+                                    <td style="font-size:50%;">.
+                                        <!--<span t-esc="d.get_covered_months()"/>-->
+                                        <!--<tr t-foreach="w.get_covered_months()" t-as="gcm">-->
+                                            <!--<td><span t-field="gcm"/></td>-->
+                                        <!--</tr>-->
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>.</td>
+                                </tr>
+                                <t t-if="not d.check_number">
+                                    <tr>
+                                        <td style="text-align:right;"><span t-field="d.amount"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                               <t t-else="d.check_number is not False">
+                                   <tr>
+                                       <td>.</td>
+                                   </tr>
+                                    <tr>
+                                        <td style="text-align:right;">
+                                            <span t-field="d.amount"/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="text-align:right;"><span t-field="d.check_number"/></td>
+                                </tr>
+                                <tr>
+                                    <!--<td style="text-align:right;"><span t-field="d.check_number"/></td>-->
+                                    <td>.</td>
+                                    <td>.</td>
+                                    <td></td>
+                                    <td style="vertical-align:bottom; text-align:center; padding-bottom: 10px; padding-right: 10px;" height="75">
+                                        <span t-field="d.user_id.name"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                    </div>
+                </t>
+                </t>
+        </template>
+
+
+        <report
+            id="official_customer_deposit"
+            model="account.customer.deposit"
+            report_type="qweb-html"
+            string="BRDC OFFICIAL RECEIPT"
+            name="brdc_account.official_receipt_depo_view"
+            file="BRDC_OFFICIAL_RECEIPT"
+            paperformat="official_receipt_paperformat_custom"
+        />
+
+        <template id="official_receipt_depo_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="w">
+                        <div class="page" style="padding-top: 72px;">
+                            <style type="text/css">
+                                #watermark{
+                                position:absolute;
+                                opacity:0.25;
+                                z-index:1000;
+                                width:100%;
+                                }
+                                #bg-text{
+                                color: lightgray;
+                                font-size: 500%;
+                                transfrom: rotate(360deg);
+                                  -webkit-transform: rotate(360deg);
+                                text-align: center;
+                                }
+                            </style>
+
+                            <!--<t t-foreach="w.payment_id" t-as="d">-->
+                                <table style="font-size:10px; font-family:Courier; width:100%; height:100%;">
+                                    <tr>
+                                        <td style="width:18%;"/>
+                                        <td style="width:44%;"><span  t-esc="w.get_name()"/></td>
+                                        <td style="width:19%;"/>
+                                        <td style="width:19%;"/>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>.</td>
+                                        <td></td>
+                                        <td><span t-field="w.payment_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="vertical-align:bottom;" height="55"><span t-esc="w.num2word(w.amount)"/> </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>.</td>
+                                        <td></td>
+                                    </tr>
+                                    <!--style="padding-top:3px; padding-left:100px;"-->
+                                    <tr style="font-size:20px; font-family:Courier; width:50px">
+                                        <td style="font-size:70%;"><span t-esc="w.get_pa()"/> </td>
+                                        <td style="font-size:70%;"><span t-esc="w.journal_id.name"/></td>
+                                        <td height="95"><span t-field="w.amount"/></td>
+                                        <td style="font-size:50%;">.
+                                            <!--<span t-esc="w.get_covered_months()"/>-->
+                                            <!--<tr t-foreach="w.get_covered_months()" t-as="gcm">-->
+                                                <!--<td><span t-field="gcm"/></td>-->
+                                            <!--</tr>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right;"><span t-field="w.amount"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <!--<td style="text-align:right;"><span t-field="d.check_number"/></td>-->
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <!--<td style="vertical-align:bottom; text-align:center;" height="75"><span t-field="d.user_id.name"/></td>-->
+                                    </tr>
+
+                                </table>
+                            <!--</t>-->
+
+                        </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

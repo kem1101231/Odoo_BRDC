@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="agent_commission_fund_monitor_form" model="ir.ui.view">
+            <field name="name">Agent Commission Fund Monitor</field>
+            <field name="model">agent.commission.fund.monitor</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                        <button name="replenish_request" type="object" string="Request for Fund" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" nolabel="1"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group colspan="1">
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="agent_commission_fund"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Commissions Line" name="commission_line_tree">
+                                <field name="DistributeAgentCommissionLine_ids" readonly="1" nolabel="1">
+                                    <tree>
+                                        <field name="agent_id"/>
+                                        <field name="position"/>
+                                        <field name="total_commission"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_commission"/>
+                                    <field name="remaining_fund" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="agent_commission_fund_monitor_tree" model="ir.ui.view">
+            <field name="name">Agent Commission Tree</field>
+            <field name="model">agent.commission.fund.monitor</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="agent_commission_fund_monitor_action_view" model="ir.actions.act_window">
+            <field name="name">Agent Commission Fund</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">agent.commission.fund.monitor</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="agent_commission_monitor_menu_id" name="Agent Commission Fund Monitor" parent="brdc_inventory.report_control_categ" action="agent_commission_fund_monitor_action_view"/>
+
+    </data>
+</odoo>

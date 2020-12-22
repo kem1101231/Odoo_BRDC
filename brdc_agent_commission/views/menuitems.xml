@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <menuitem id="agent_commission_root" name="Commissions" parent="brdc_inventory.BRDC_inventory_root" sequence="4"/>
+
+        <menuitem id="agent_commission_categ" name="Agent Commissions" parent="agent_commission_root" action="brdc_account.account_agent_commission_action_view" sequence="1" groups="brdc_security.brdc_group_agent_comm"/>
+        <menuitem id="account_commission_categ" name="Commissions" parent="agent_commission_root" action="brdc_account.account_commission_action_view" sequence="2" groups="brdc_security.brdc_group_agent_comm"/>
+        <!--<menuitem id="agent_commission_categ" name="Agent Commissions" parent="agent_commission_root" action="agent_commission_action" sequence="1" groups="brdc_security.brdc_group_agent_comm"/>-->
+        <!--<menuitem id="distribute_agent_commission_categ" name="Distribute Agent Commission" parent="agent_commission_root" sequence="3" action="distribute_agent_commission_action" groups="brdc_security.brdc_group_distribute_commission"/>-->
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="agent_config_category" name="Agents" parent="brdc_inventory.partner_configuration_control_categ" sequence=""/>
+        <menuitem id="agent_hierarchy_categ" name="Agents" parent="agent_config_category" action="agent_hierarchy_action" groups="brdc_account.group_module_brdc_account_admin" sequence="5"/>
+
+        <!--<menuitem id="commission_distributed_handler_categ" action="commission_distributed_handler_action"-->
+                      <!--parent="agent_commission_root" name="Commissions Distributed" groups="brdc_security.brdc_group_distribute_commission" sequence="4"/>-->
+        <!--<menuitem id="register_commission_payment_categ" action="register_commission_payment_action"-->
+                          <!--parent="agent_commission_root" name="Pay Commission" groups="brdc_security.brdc_group_distribute_commission" sequence="5"/>-->
+
+    </data>
+</odoo>

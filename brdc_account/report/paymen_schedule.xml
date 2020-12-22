@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="payment_schedule_report_id"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            string="Payment Schedule"
+            name="brdc_account.payment_schedule_report_template_id"
+            file="Payment Schedule"
+        />
+
+        <template id="brdc_account.payment_schedule_report_template_id">
+            <t t-call="report.html_container">
+                <font t-foreach="docs" t-as="d" face="Arial, serif">
+                    <div class="page">
+                        <h1>Payment Schedule</h1>
+
+
+
+                            <h4>Reference No: <span t-field="d.number"/></h4>
+                            <p>Contract Price: <span t-field="d.amount_total"/> </p>
+                            <table style="table-layout: auto;width: 100%;text-align: center;font-size: 170%">
+                                <tr>
+                                    <td><h3>Downpayment</h3></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="table-layout: auto;width: 100%;font-size: 80%;">
+                                            <tr>
+                                                <td><b>Payment Schedule</b></td>
+                                                <td><b>Amount to Pay</b></td>
+                                            </tr>
+                                            <tr t-foreach="d.InvoiceInstallmentLineDP_ids" t-as="dinDP" style="border-bottom: 0.5px solid black;">
+                                                <td><span t-field="dinDP.date_for_payment"/></td>
+                                                <td style="text-align: left;">Php <span t-field="dinDP.amount_to_pay"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td><h3>Installment</h3></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="table-layout: auto;width: 100%;font-size: 80%;">
+                                            <tr>
+                                                <td><b>Payment Schedule</b></td>
+                                                <td><b>Amount to Pay</b></td>
+                                            </tr>
+                                            <tr t-foreach="d.InvoiceInstallmentLine_ids" t-as="din" style="border-bottom: 0.5px solid black;">
+                                                <td><span t-field="din.date_for_payment"/></td>
+                                                <td style="text-align: left;">Php <span t-field="din.amount_to_pay"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                    </div>
+                </font>
+            </t>
+        </template>
+    </data>
+</odoo>

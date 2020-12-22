@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_account_payments" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'default_payment_type': 'inbound', 'default_partner_type': 'customer'}</field>
+            <field name="context" eval="{'search_default_payment_date': 1}"/>
+            <field name="domain">[('partner_type', '=', 'customer')]</field>
+            <field name="view_id" ref="account.view_account_payment_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Click to register a payment
+                </p><p>
+                  Payments are used to register liquidity movements (send, collect or transfer money).
+                  You can then process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+         <!--&lt;!&ndash;Inherit Form View to Modify it &ndash;&gt;-->
+        <!--<record id="account_payment_form_1" model="ir.ui.view">-->
+            <!--<field name="name">account.payment.form</field>-->
+            <!--<field name="model">account.payment</field>-->
+            <!--<field name="inherit_id" ref="account.view_account_payment_form"/>-->
+            <!--<field name="arch" type="xml">-->
+
+                <!--<xpath expr="//field[@name='payment_type']" position="before">-->
+                    <!--<field name="user_id" invisible="1"/>-->
+                    <!--&lt;!&ndash;<field name="or_series"&ndash;&gt;-->
+                           <!--&lt;!&ndash;domain="[('or_series_id.responsible','=', user_id),('state','=', 'unused')]"&ndash;&gt;-->
+                           <!--&lt;!&ndash;invisible="0"&ndash;&gt;-->
+                           <!--&lt;!&ndash;attrs="{'readonly':[('state','!=','draft')]}"&ndash;&gt;-->
+                    <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--<field name="or_reference" string="O.R. Reference" widget="char" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                    <!--&lt;!&ndash;widget="selection"&ndash;&gt;-->
+                <!--</xpath>-->
+
+               <!--<xpath expr="//field[@name='payment_date']" position="after">-->
+                   <!--<field name="create_date" readonly="1"/>-->
+                    <!--<field name="user_id"/>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//field[@name='partner_type']" position="attributes">-->
+                    <!--<attribute name="readonly">0</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='payment_date']" position="attributes">-->
+                    <!--<attribute name="readonly">0</attribute>-->
+                <!--</xpath>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_account_payment_tree" model="ir.ui.view">
+            <field name="name">account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_date']" position="before">
+                    <!--<field name="or_series"/>-->
+                    <field name="or_reference" string="O.R. Reference" widget="char" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!--<menuitem id="Payment_menu_id" name="Payment" parent="loan_application.BRDC_menu_parent" action="action_account_payments" sequence="4"/>-->
+
+    </data>
+</odoo>

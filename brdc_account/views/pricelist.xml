@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pricelist_add_field" model="ir.ui.view">
+            <field name="name">Product List Additional</field>
+            <field name="model">product.pricelist</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='discount_policy']" position="before">
+                    <field name="payment_config_id" domain="[('is_parent','=',True)]"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="pricelist_item_add_info" model="ir.ui.view">
+            <field name="name">Product List Item Additional</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_end']" position="after">
+                    <separator colspan="2" string="" style="margin-bottom:10px;"/>
+                    <field name="attach_to_pay_conf"/>
+                    <field name="payment_parent_id" invisible="1"/>
+                    <field name="pay_conf_id" attrs="{'invisible':[('attach_to_pay_conf','=',False)]}" domain="[('is_parent','=',False),('parent_id','=', payment_parent_id)]" editable="False" options="{'no_create':True}"/> <!--   payment_parent_id.id-->
+                </xpath>
+                <xpath expr="//field[@name='fixed_price']" position="after">
+                    <separator colspan="2" string="Selling Price" style="margin-bottom:10px; font-size:13px;" attrs="{'invisible':[('attach_to_pay_conf','=',False),]}"/>
+                    <field name="selling_price" attrs="{'invisible':[('attach_to_pay_conf','=',False),]}"/>
+                    <div class="oe_edit_only" attrs="{'invisible':[('attach_to_pay_conf','=',False),]}" style="font-size:12px;">Please indicate the Selling price, leave this field blank if the product is only priced by term and doesn't have a selling price.</div>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="provisional_receipt_paperformat_custom" model="report.paperformat">
+            <field name="name">brdc provisional receipt</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+        id="provisional_receipt"
+        model="account.payment"
+        report_type="qweb-html"
+        string="BRDC PROVISIONAL RECEIPT"
+        name="brdc_account.provisional_receipt_view"
+        file="brdc_account.provisional_receipt_view"
+        paperformat="provisional_receipt_paperformat_custom"
+        />
+        <template id="provisional_receipt_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="padding-top: 30px;">
+                        <style type="text/css">
+                            #watermark{
+                            position:absolute;
+                            opacity:0.25;
+                            z-index:1000;
+                            width:100%;
+                            }
+                            #bg-text{
+                            color: lightgray;
+                            font-size: 500%;
+                            transfrom: rotate(360deg);
+                              -webkit-transform: rotate(360deg);
+                            text-align: center;
+                            }
+                            #table {
+                            display: table;
+                            table-layout: fixed;
+                            width: 75%;
+                            border-collapse: collapse;
+                            }
+                            #table-row {
+                            display: table-row;
+                            border-collapse: collapse;
+                            }
+                            #table-cell {
+                            display: table-cell;
+                            padding: 5px;
+                            border: 1px solid black;
+                            }
+                            #table-cell.colspan {
+                            display: none;
+                            /* collapse border */
+                            margin-top: -1px;
+                            margin-bottom: -1px;
+                            }
+                        </style>
+
+                        <div class="table" style="width: 75%;">
+                            <div class="table-row">
+                                <div class="table-cell.colspan" style="padding-left: 450px;">
+                                    <span t-field="doc.payment_date"/>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell.colspan" style="padding-top: 10px; padding-left: 140px;">
+                                    <span t-field="doc.partner_id.name"/>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell.colspan" style="padding-top: 5px; padding-left: 80px;">
+                                    <span t-field="doc.partner_id.street"/>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell" style="padding-top: 5px; padding-left: 90px;">
+                                    <span t-esc="doc.num2word(doc.amount)"/>
+                                </div>
+                                <div class="table-cell" style="padding-top: 5px; padding-left: 450px;">
+                                    <span t-esc="'{0:,.2f}'.format(doc.amount)"/>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell" style="padding-top: 5px; padding-left: 100px;">
+                                     <t t-if="doc.is_hide_1 is not False">
+                                         <span t-esc="doc.straight_monthly"/>
+                                     </t>
+                                    <t t-if="doc.is_hide_2 is not False">
+                                         <span t-esc="doc.deceased_name"/>
+                                     </t>
+                                    <t t-if="doc.is_hide_3 is not False">
+                                         <span t-esc="doc.others_paymentfee"/>
+                                     </t>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="table" style="width: 75%; padding-top: 75px;">
+                           <div class="table-row">
+                               <div class="table-cell" style="padding-top: 3px; padding-left: 450px;">
+                                    <span t-esc="'{0:,.2f}'.format(doc.amount)"/>
+                                </div>
+                           </div>
+                            <div class="table-row">
+                               <div class="table-cell" style="padding-top: 10px; padding-left: 70px;">
+                                    <span t-esc="doc.user_id.name"/>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

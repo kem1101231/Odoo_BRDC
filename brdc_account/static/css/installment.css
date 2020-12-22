@@ -1,0 +1,6 @@
+.oe_installment{
+color: green;
+}
+.oe_installment:hover{
+color: blue;
+}
